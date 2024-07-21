@@ -1,0 +1,24 @@
+.body {
+  background-color: $color-body-bckgrnd;
+}
+
+.button {
+  display: block;
+  width: fit-content;
+  min-width: 31.6rem;
+  padding: 1.5rem 0;
+  font-weight: 700;
+  font-size: 2.4em;
+  font-family: "Roboto", sans-serif;
+  color: $color-button-text;
+  text-transform: uppercase;
+  background-color: $color-button-bckgrnd;
+  border: 0.1rem solid $color-button-border;
+  border-radius: 2.5rem;
+  filter: drop-shadow(0 0.4rem 0.4rem $color-button-shadow);
+  user-select: none;
+
+  &:active {
+    background-color: $color-title-fifth;
+  }
+}

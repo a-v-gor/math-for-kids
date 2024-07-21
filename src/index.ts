@@ -1,4 +1,5 @@
 import './assets/scss/style.scss';
-import { startApp } from './assets/ts/startApp';
+import { App } from './assets/ts/App';
 
-new startApp();
+const app = new App();
+app.start();

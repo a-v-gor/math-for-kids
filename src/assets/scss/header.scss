@@ -1,0 +1,31 @@
+.header {
+  &__title {
+    font-weight: 400;
+    font-size: 4em;
+    font-family: "Ribeye", serif;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.title {
+  & > .title__letter:nth-child(0n+1) {
+    color: $color-button-bckgrnd;
+  }
+
+  & > .title__letter:nth-child(4n+2) {
+    color: $color-title-second;
+  }
+
+  & > .title__letter:nth-child(4n+3) {
+    color: $color-title-third;
+  }
+
+  & > .title__letter:nth-child(4n+4) {
+    color: $color-title-fourth;
+  }
+
+  & > .title__letter:nth-child(4n+5) {
+    color: $color-title-fifth;
+  }
+}
