@@ -1,34 +1,34 @@
 import returnElement from '../common/returnElement';
-// import NewGame from '../model/NewGame';
+import Game from '../model/Game';
 import Header from './Header';
 
 export default class StartPage {
   buttonNewGame: HTMLButtonElement;
   buttonLoadGame: HTMLButtonElement;
-  // newGame: NewGame;
+  game: Game;
 
   constructor() {
     this.buttonNewGame = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button'],
-      textContent: 'Новая игра',
+      textContent: 'Начать игру',
     });
     this.buttonLoadGame = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button'],
-      textContent: 'Загрузить игру',
+      textContent: 'Продолжить игру',
     });
-    // this.newGame = new NewGame();
+    this.game = new Game();
   }
 
   startListenButtons() {
-    // this.buttonNewGame.addEventListener('click', () => {this.hide(); this.newGame.start()});
-    this.buttonLoadGame.addEventListener('click', () => console.log('load'));
+    this.buttonNewGame.addEventListener('click', () => this.game.new());
+    this.buttonLoadGame.addEventListener('click', () => this.game.load());
   }
 
   stopListenButtons() {
-    this.buttonNewGame.removeEventListener('click', () => console.log('new'));
-    this.buttonLoadGame.removeEventListener('click', () => console.log('load'));
+    this.buttonNewGame.removeEventListener('click', () => this.game.new());
+    this.buttonLoadGame.removeEventListener('click', () => this.game.load());
   }
 
   show() {
