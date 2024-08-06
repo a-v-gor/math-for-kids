@@ -21,4 +21,35 @@
   &:active {
     background-color: $color-title-fifth;
   }
+
+  &:disabled {
+    background-color: $color-button-disabled;
+    border-color: $color-button-border-disabled;
+  }
+}
+
+.title {
+  font-weight: 400;
+  font-size: 4em;
+  font-family: "Ribeye", serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100vh;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2.4rem;
+}
+
+.main {
+  flex-grow: 0.7;
 }

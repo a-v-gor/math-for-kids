@@ -1,8 +1,8 @@
-import StartPage from './view/StartPage';
+import StartPage from './StartPage';
 
 export class App {
   start() {
     const startPage = new StartPage();
-    startPage.show();
+    startPage.start();
   }
 }

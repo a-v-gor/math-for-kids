@@ -1,4 +1,4 @@
-import returnElement from '../common/returnElement';
+import returnElement from './returnElement';
 
 export default class Header {
   headerElement: HTMLElement;
@@ -14,7 +14,7 @@ export default class Header {
     });
     const title = returnElement({
       tag: 'h1',
-      classes: ['header__title', 'title'],
+      classes: ['title', 'header__title'],
     });
     const titleString = 'Юный математик';
     titleString.split('').map((letter) => {
