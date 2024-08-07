@@ -1,6 +1,11 @@
+interface iExample {
+  example: string;
+  answer: number;
+}
+
 interface iData {
   operation: string;
-  examples: { example: string; answer: number }[];
+  examples: iExample[];
 }
 
 const data: iData = {
@@ -8,4 +13,4 @@ const data: iData = {
   examples: [],
 };
 
-export default data;
+export { iExample, data };
