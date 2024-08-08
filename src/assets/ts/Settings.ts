@@ -1,4 +1,5 @@
 import { data } from './data';
+import Examples from './Examples';
 import Game from './Game';
 import returnElement from './returnElement';
 
@@ -64,10 +65,12 @@ export default class Settings {
     body.append(wrapper);
   }
 
-  setOperationToData(event: Event) {
+  addData(event: Event) {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
-    const text = button.innerHTML.slice(0, 1);
-    data.operation = text;
+    const operationText = button.innerHTML.slice(0, 1);
+    const examples = new Examples(operationText).return();
+    data.examples.push(...examples);
+    data.operation = button.innerHTML;
   }
 
   loadData() {
@@ -77,15 +80,18 @@ export default class Settings {
 
   addClickListener() {
     this.buttonWrapper.addEventListener('click', (event: Event) => {
-      this.setOperationToData(event);
-      this.stop();
-      this.game.start();
+      const button: HTMLButtonElement = <HTMLButtonElement>event.target;
+      if (button.className === 'button') {
+        this.addData(event);
+        this.stop();
+        this.game.start();
+      }
     });
   }
 
   removeClickListener() {
     this.buttonWrapper.addEventListener('click', (event: Event) => {
-      this.setOperationToData(event);
+      this.addData(event);
       this.stop();
       this.game.start();
     });
