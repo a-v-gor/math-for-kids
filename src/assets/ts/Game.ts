@@ -68,17 +68,22 @@ export default class Game {
       tag: 'div',
       classes: ['keys__wrapper'],
     });
-    for (let i = 9; i >= 0; i -= 1) {
+    const keysTextsArr = [];
+    for (let i = 1; i < 10; i += 1) {
+      keysTextsArr.push(`${i}`);
+    }
+    keysTextsArr.push('✖', '0', '✔');
+    for (let i = 0; i < keysTextsArr.length; i += 1) {
       const keyButton = returnElement({
         tag: 'button',
         classes: ['button', 'keys__button'],
         attrib: [
           {
             name: 'name',
-            value: `${i}`,
+            value: keysTextsArr[i],
           },
         ],
-        textContent: `${i}`,
+        textContent: keysTextsArr[i],
       });
       keysWrapper.append(keyButton);
     }
