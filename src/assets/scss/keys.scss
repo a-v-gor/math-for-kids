@@ -1,0 +1,14 @@
+.keys {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: fit-content;
+    gap: 1.2rem;
+    margin: 0 auto;
+  }
+
+  &__button {
+    min-width: auto;
+    padding: 0.5em 1em;
+  }
+}

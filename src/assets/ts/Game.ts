@@ -12,6 +12,11 @@ export default class Game {
       tag: 'div',
       classes: ['header'],
     });
+    const title = returnElement({
+      tag: 'h1',
+      classes: ['title'],
+      textContent: data.operation,
+    });
     const main = returnElement({
       tag: 'div',
       classes: ['main'],
@@ -20,14 +25,73 @@ export default class Game {
       tag: 'div',
       classes: ['example__wrapper'],
     });
+    const example = returnElement({
+      tag: 'p',
+      classes: ['example__text'],
+      textContent: '00 + 00',
+    });
+    const form = returnElement({
+      tag: 'form',
+      classes: ['example__form'],
+    });
+    const inputField = returnElement({
+      tag: 'input',
+      classes: ['example__input'],
+      attrib: [
+        {
+          name: 'type',
+          value: 'number',
+        },
+        {
+          name: 'name',
+          value: 'answer',
+        },
+        {
+          name: 'inputmode',
+          value: 'numeric',
+        },
+        {
+          name: 'min',
+          value: '0',
+        },
+        {
+          name: 'max',
+          value: '100',
+        },
+        {
+          name: 'autofocus',
+          value: '',
+        },
+      ],
+    });
+    const keysWrapper = returnElement({
+      tag: 'div',
+      classes: ['keys__wrapper'],
+    });
+    for (let i = 9; i >= 0; i -= 1) {
+      const keyButton = returnElement({
+        tag: 'button',
+        classes: ['button', 'keys__button'],
+        attrib: [
+          {
+            name: 'name',
+            value: `${i}`,
+          },
+        ],
+        textContent: `${i}`,
+      });
+      keysWrapper.append(keyButton);
+    }
 
-    main.append(exampleWrapper);
+    header.append(title);
+    form.append(inputField);
+    exampleWrapper.append(example, form);
+    main.append(exampleWrapper, keysWrapper);
     wrapper.append(header, main);
     body.append(wrapper);
   }
 
   public start() {
     this.show();
-    console.log(data);
   }
 }

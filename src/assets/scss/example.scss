@@ -1,0 +1,25 @@
+.example {
+  &__text {
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 4em;
+    color: $color-title-fifth;
+    text-shadow: -0.01em 0 $color-border-example, 0 0.01em $color-border-example, 0.01em 0 $color-border-example, 0 -0.01em $color-border-example;
+  }
+
+  &__input {
+    display: block;
+    max-width: 10rem;
+    margin: 0 auto;
+    font-weight: 700;
+    font-size: 4.8em;
+    text-align: center;
+    color: $color-title-third;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+}
