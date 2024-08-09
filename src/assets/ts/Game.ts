@@ -2,10 +2,16 @@ import { data } from './data';
 import returnElement from './returnElement';
 
 export default class Game {
+  example: HTMLDivElement;
   keyswrapper: HTMLDivElement;
   answerField: HTMLDivElement;
 
   constructor() {
+    this.example = <HTMLDivElement>returnElement({
+      tag: 'div',
+      classes: ['example__text'],
+      textContent: '00 + 00 =',
+    });
     this.keyswrapper = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['keys__wrapper'],
@@ -37,11 +43,6 @@ export default class Game {
       tag: 'div',
       classes: ['example__wrapper'],
     });
-    const example = returnElement({
-      tag: 'div',
-      classes: ['example__text'],
-      textContent: '00 + 00 =',
-    });
     const keysTextsArr = [];
     for (let i = 1; i < 10; i += 1) {
       keysTextsArr.push(`${i}`);
@@ -70,37 +71,65 @@ export default class Game {
     }
 
     header.append(title);
-    exampleWrapper.append(example, this.answerField);
+    exampleWrapper.append(this.example, this.answerField);
     main.append(exampleWrapper, this.keyswrapper);
     body.append(header, main);
   }
 
-  private addNumToScreen(event: Event) {
-    const button = <HTMLButtonElement>event.target;
-    const value = button.name;
-    if (value === '×') {
-      this.answerField.innerText = '??';
-    } else if (value === '✓') {
-      console.log('answer is', this.answerField.innerText);
-    } else if (
-      (this.answerField.innerText.length > 1 &&
-        this.answerField.innerText !== '10') ||
-      this.answerField.innerText === '??'
-    ) {
-      this.answerField.innerText = value;
+  private checkAnswer() {
+    if (Number(this.answerField.innerText) === data.current.answer) {
+      console.log('correct!');
     } else {
-      this.answerField.innerText += value;
+      console.log('incorrect :(');
     }
   }
 
-  listenNumButtons() {
+  private checkPressedButton(event: Event) {
+    const button = <HTMLButtonElement>event.target;
+    const value = button.name;
+    switch (value) {
+      case '×':
+        this.answerField.innerText = '??';
+        break;
+      case '✓':
+        this.checkAnswer();
+        break;
+      default:
+        if (
+          (this.answerField.innerText.length > 1 &&
+            this.answerField.innerText !== '10') ||
+          this.answerField.innerText === '??'
+        ) {
+          this.answerField.innerText = value;
+        } else {
+          this.answerField.innerText += value;
+        }
+    }
+  }
+
+  private listenNumButtons() {
     this.keyswrapper.addEventListener('click', (event: Event) =>
-      this.addNumToScreen(event)
+      this.checkPressedButton(event)
     );
+  }
+
+  private startNextExample() {
+    if (data.examples.length > 0) {
+      const nextExample = data.examples.pop();
+      if (nextExample !== undefined) {
+        data.current = nextExample;
+        this.example.innerText = `${nextExample.example} =`;
+      } else {
+        console.log('example is undefined');
+      }
+    } else {
+      console.log('no examples in array');
+    }
   }
 
   public start() {
     this.show();
     this.listenNumButtons();
+    this.startNextExample();
   }
 }
