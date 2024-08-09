@@ -8,4 +8,13 @@
     border: 0.2rem double $color-button-bckgrnd;
     border-radius: 2rem;
   }
+
+  &__info {
+    width: 21rem;
+    height: 7rem;
+    padding: 0.3em;
+    font-size: 2em;
+    background-color: $color-info-bckgrnd;
+    border: 0.2rem solid $color-button-border-disabled;
+  }
 }

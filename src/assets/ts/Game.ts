@@ -3,8 +3,9 @@ import returnElement from './returnElement';
 
 export default class Game {
   example: HTMLDivElement;
-  keyswrapper: HTMLDivElement;
+  keysWrapper: HTMLDivElement;
   answerField: HTMLDivElement;
+  infoBlock: HTMLDivElement;
 
   constructor() {
     this.example = <HTMLDivElement>returnElement({
@@ -12,7 +13,7 @@ export default class Game {
       classes: ['example__text'],
       textContent: '00 + 00 =',
     });
-    this.keyswrapper = <HTMLDivElement>returnElement({
+    this.keysWrapper = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['keys__wrapper'],
     });
@@ -21,6 +22,11 @@ export default class Game {
       tag: 'div',
       classes: ['example__input'],
       textContent: '??',
+    });
+    this.infoBlock = <HTMLDivElement>returnElement({
+      tag: 'div',
+      classes: ['game__info'],
+      textContent: 'Введи число и нажми «✓»',
     });
   }
 
@@ -67,48 +73,55 @@ export default class Game {
         ],
         textContent: keysTextsArr[i],
       });
-      this.keyswrapper.append(keyButton);
+      this.keysWrapper.append(keyButton);
     }
 
     header.append(title);
     exampleWrapper.append(this.example, this.answerField);
-    main.append(exampleWrapper, this.keyswrapper);
+    main.append(exampleWrapper, this.keysWrapper, this.infoBlock);
     body.append(header, main);
   }
 
   private checkAnswer() {
     if (Number(this.answerField.innerText) === data.current.answer) {
-      console.log('correct!');
+      this.infoBlock.innerText = 'Верно!';
+      setTimeout(() => {
+        this.infoBlock.innerText = 'Введи число и нажми «✓»';
+        this.startNextExample();
+      }, 1100);
     } else {
-      console.log('incorrect :(');
+      this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
+      this.answerField.innerText = '??';
     }
   }
 
   private checkPressedButton(event: Event) {
     const button = <HTMLButtonElement>event.target;
-    const value = button.name;
-    switch (value) {
-      case '×':
-        this.answerField.innerText = '??';
-        break;
-      case '✓':
-        this.checkAnswer();
-        break;
-      default:
-        if (
-          (this.answerField.innerText.length > 1 &&
-            this.answerField.innerText !== '10') ||
-          this.answerField.innerText === '??'
-        ) {
-          this.answerField.innerText = value;
-        } else {
-          this.answerField.innerText += value;
-        }
+    if (button.classList.contains('button')) {
+      const value = button.name;
+      switch (value) {
+        case '×':
+          this.answerField.innerText = '??';
+          break;
+        case '✓':
+          this.checkAnswer();
+          break;
+        default:
+          if (
+            (this.answerField.innerText.length > 1 &&
+              this.answerField.innerText !== '10') ||
+            this.answerField.innerText === '??'
+          ) {
+            this.answerField.innerText = value;
+          } else {
+            this.answerField.innerText += value;
+          }
+      }
     }
   }
 
   private listenNumButtons() {
-    this.keyswrapper.addEventListener('click', (event: Event) =>
+    this.keysWrapper.addEventListener('click', (event: Event) =>
       this.checkPressedButton(event)
     );
   }
@@ -119,6 +132,7 @@ export default class Game {
       if (nextExample !== undefined) {
         data.current = nextExample;
         this.example.innerText = `${nextExample.example} =`;
+        this.answerField.innerText = '??';
       } else {
         console.log('example is undefined');
       }

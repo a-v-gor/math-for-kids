@@ -23,6 +23,10 @@
   filter: drop-shadow(0 0.4rem 0.4rem $color-button-shadow);
   user-select: none;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &:active {
     background-color: $color-title-fifth;
   }
