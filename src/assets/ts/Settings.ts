@@ -18,11 +18,6 @@ export default class Settings {
   show() {
     const body = document.body;
 
-    const wrapper = returnElement({
-      tag: 'div',
-      classes: ['wrapper'],
-    });
-
     const header = returnElement({
       tag: 'header',
       classes: ['header'],
@@ -61,8 +56,7 @@ export default class Settings {
 
     this.buttonWrapper.append(buttonSum, buttonSubstr, buttonMultiple);
     main.append(this.buttonWrapper);
-    wrapper.append(header, main);
-    body.append(wrapper);
+    body.append(header, main);
   }
 
   addData(event: Event) {

@@ -8,7 +8,17 @@
   }
 
   &__button {
-    min-width: auto;
-    padding: 0.5em 1em;
+    width: 6.5rem;
+    min-width: min-content;
+    padding: 0;
+  }
+
+  &__cancel {
+    background-color: $color-button-border;
+  }
+
+  &__submit {
+    background-color: $color-title-second;
+    border-color: $color-title-third;
   }
 }

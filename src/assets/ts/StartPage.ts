@@ -49,10 +49,6 @@ export default class StartPage {
   }
 
   show() {
-    const startWrapper = returnElement({
-      tag: 'div',
-      classes: ['wrapper', 'start__wrapper'],
-    });
     const buttonWrapper = returnElement({
       tag: 'div',
       classes: ['button-wrapper'],
@@ -65,8 +61,8 @@ export default class StartPage {
 
     buttonWrapper.append(this.buttonNewGame, this.buttonLoadGame);
     main.append(buttonWrapper);
-    startWrapper.append(header, main);
-    document.body.append(startWrapper);
+    document.body.append(header, main);
+    document.body.classList.add('start__body');
   }
 
   start() {
@@ -77,5 +73,6 @@ export default class StartPage {
   stop() {
     this.stopListenButtons();
     document.body.innerHTML = '';
+    document.body.classList.remove('start__body');
   }
 }

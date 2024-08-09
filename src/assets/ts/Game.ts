@@ -2,12 +2,24 @@ import { data } from './data';
 import returnElement from './returnElement';
 
 export default class Game {
+  keyswrapper: HTMLDivElement;
+  answerField: HTMLDivElement;
+
+  constructor() {
+    this.keyswrapper = <HTMLDivElement>returnElement({
+      tag: 'div',
+      classes: ['keys__wrapper'],
+    });
+
+    this.answerField = <HTMLDivElement>returnElement({
+      tag: 'div',
+      classes: ['example__input'],
+      textContent: '??',
+    });
+  }
+
   private show() {
     const body = document.body;
-    const wrapper = returnElement({
-      tag: 'div',
-      classes: ['wrapper'],
-    });
     const header = returnElement({
       tag: 'div',
       classes: ['header'],
@@ -19,64 +31,33 @@ export default class Game {
     });
     const main = returnElement({
       tag: 'div',
-      classes: ['main'],
+      classes: ['main', 'game__main'],
     });
     const exampleWrapper = returnElement({
       tag: 'div',
       classes: ['example__wrapper'],
     });
     const example = returnElement({
-      tag: 'p',
-      classes: ['example__text'],
-      textContent: '00 + 00',
-    });
-    const form = returnElement({
-      tag: 'form',
-      classes: ['example__form'],
-    });
-    const inputField = returnElement({
-      tag: 'input',
-      classes: ['example__input'],
-      attrib: [
-        {
-          name: 'type',
-          value: 'number',
-        },
-        {
-          name: 'name',
-          value: 'answer',
-        },
-        {
-          name: 'inputmode',
-          value: 'numeric',
-        },
-        {
-          name: 'min',
-          value: '0',
-        },
-        {
-          name: 'max',
-          value: '100',
-        },
-        {
-          name: 'autofocus',
-          value: '',
-        },
-      ],
-    });
-    const keysWrapper = returnElement({
       tag: 'div',
-      classes: ['keys__wrapper'],
+      classes: ['example__text'],
+      textContent: '00 + 00 =',
     });
     const keysTextsArr = [];
     for (let i = 1; i < 10; i += 1) {
       keysTextsArr.push(`${i}`);
     }
-    keysTextsArr.push('✖', '0', '✔');
+    keysTextsArr.push('×', '0', '✓');
     for (let i = 0; i < keysTextsArr.length; i += 1) {
+      const classesArr = ['button', 'keys__button'];
+      if (keysTextsArr[i] === '×') {
+        classesArr.push('keys__cancel');
+      }
+      if (keysTextsArr[i] === '✓') {
+        classesArr.push('keys__submit');
+      }
       const keyButton = returnElement({
         tag: 'button',
-        classes: ['button', 'keys__button'],
+        classes: classesArr,
         attrib: [
           {
             name: 'name',
@@ -85,18 +66,41 @@ export default class Game {
         ],
         textContent: keysTextsArr[i],
       });
-      keysWrapper.append(keyButton);
+      this.keyswrapper.append(keyButton);
     }
 
     header.append(title);
-    form.append(inputField);
-    exampleWrapper.append(example, form);
-    main.append(exampleWrapper, keysWrapper);
-    wrapper.append(header, main);
-    body.append(wrapper);
+    exampleWrapper.append(example, this.answerField);
+    main.append(exampleWrapper, this.keyswrapper);
+    body.append(header, main);
+  }
+
+  private addNumToScreen(event: Event) {
+    const button = <HTMLButtonElement>event.target;
+    const value = button.name;
+    if (value === '×') {
+      this.answerField.innerText = '??';
+    } else if (value === '✓') {
+      console.log('answer is', this.answerField.innerText);
+    } else if (
+      (this.answerField.innerText.length > 1 &&
+        this.answerField.innerText !== '10') ||
+      this.answerField.innerText === '??'
+    ) {
+      this.answerField.innerText = value;
+    } else {
+      this.answerField.innerText += value;
+    }
+  }
+
+  listenNumButtons() {
+    this.keyswrapper.addEventListener('click', (event: Event) =>
+      this.addNumToScreen(event)
+    );
   }
 
   public start() {
     this.show();
+    this.listenNumButtons();
   }
 }
