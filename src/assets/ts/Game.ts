@@ -95,29 +95,50 @@ export default class Game {
     }
   }
 
+  private useGame(eventValue: string) {
+    switch (eventValue) {
+      case '×':
+        this.answerField.innerText = '??';
+        break;
+      case '✓':
+        this.checkAnswer();
+        break;
+      default:
+        if (
+          (this.answerField.innerText.length > 1 &&
+            this.answerField.innerText !== '10') ||
+          this.answerField.innerText === '??'
+        ) {
+          this.answerField.innerText = eventValue;
+        } else {
+          this.answerField.innerText += eventValue;
+        }
+    }
+  }
+
   private checkPressedButton(event: Event) {
     const button = <HTMLButtonElement>event.target;
     if (button.classList.contains('button')) {
-      const value = button.name;
-      switch (value) {
-        case '×':
-          this.answerField.innerText = '??';
-          break;
-        case '✓':
-          this.checkAnswer();
-          break;
-        default:
-          if (
-            (this.answerField.innerText.length > 1 &&
-              this.answerField.innerText !== '10') ||
-            this.answerField.innerText === '??'
-          ) {
-            this.answerField.innerText = value;
-          } else {
-            this.answerField.innerText += value;
-          }
-      }
+      this.useGame(button.name);
     }
+  }
+
+  private checkKeyboardButtons(event: KeyboardEvent) {
+    const key = event.key;
+    console.log(key);
+    if (key.match(/\d/)) {
+      this.useGame(key);
+    } else if (key === 'Backspace' || key === 'Delete' || key === 'Escape') {
+      this.useGame('×');
+    } else if (key === 'Enter') {
+      this.useGame('✓');
+    }
+  }
+
+  private listenKeyboardButtons() {
+    document.addEventListener('keyup', (event: KeyboardEvent) =>
+      this.checkKeyboardButtons(event)
+    );
   }
 
   private listenNumButtons() {
@@ -144,6 +165,7 @@ export default class Game {
   public start() {
     this.show();
     this.listenNumButtons();
+    this.listenKeyboardButtons();
     this.startNextExample();
   }
 }
