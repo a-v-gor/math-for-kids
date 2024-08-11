@@ -4,15 +4,17 @@ interface iExample {
 }
 
 interface iData {
-  operation: string;
-  examples: iExample[];
   current: iExample;
+  examples: iExample[];
+  mistakes: iExample[];
+  operation: string;
 }
 
 const data: iData = {
-  operation: '',
-  examples: [],
   current: { example: '', answer: 0 },
+  examples: [],
+  mistakes: [],
+  operation: '',
 };
 
 export { iExample, data };

@@ -90,6 +90,9 @@ export default class Game {
         this.startNextExample();
       }, 1100);
     } else {
+      if (!data.mistakes.includes(data.current)) {
+        data.mistakes.push(data.current);
+      }
       this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
       this.answerField.innerText = '??';
     }
@@ -125,7 +128,6 @@ export default class Game {
 
   private checkKeyboardButtons(event: KeyboardEvent) {
     const key = event.key;
-    console.log(key);
     if (key.match(/\d/)) {
       this.useGame(key);
     } else if (key === 'Backspace' || key === 'Delete' || key === 'Escape') {
@@ -135,19 +137,38 @@ export default class Game {
     }
   }
 
-  private listenKeyboardButtons() {
+  private startListenKeyboardButtons() {
     document.addEventListener('keyup', (event: KeyboardEvent) =>
       this.checkKeyboardButtons(event)
     );
   }
 
-  private listenNumButtons() {
+  private stoptListenKeyboardButtons() {
+    document.removeEventListener('keyup', (event: KeyboardEvent) =>
+      this.checkKeyboardButtons(event)
+    );
+  }
+
+  private startListenNumButtons() {
     this.keysWrapper.addEventListener('click', (event: Event) =>
       this.checkPressedButton(event)
     );
   }
 
+  private stoptListenNumButtons() {
+    this.keysWrapper.removeEventListener('click', (event: Event) =>
+      this.checkPressedButton(event)
+    );
+  }
+
+  public stop() {
+    this.stoptListenKeyboardButtons();
+    this.stoptListenNumButtons();
+  }
+
   private startNextExample() {
+    console.log(data.mistakes);
+
     if (data.examples.length > 0) {
       const nextExample = data.examples.pop();
       if (nextExample !== undefined) {
@@ -159,13 +180,14 @@ export default class Game {
       }
     } else {
       console.log('no examples in array');
+      this.stop();
     }
   }
 
   public start() {
     this.show();
-    this.listenNumButtons();
-    this.listenKeyboardButtons();
+    this.startListenNumButtons();
+    this.startListenKeyboardButtons();
     this.startNextExample();
   }
 }
