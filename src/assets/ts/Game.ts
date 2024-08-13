@@ -6,6 +6,7 @@ export default class Game {
   keysWrapper: HTMLDivElement;
   answerField: HTMLDivElement;
   infoBlock: HTMLDivElement;
+  navHome: HTMLLIElement;
 
   constructor() {
     this.example = <HTMLDivElement>returnElement({
@@ -28,6 +29,10 @@ export default class Game {
       classes: ['game__info'],
       textContent: 'Введи число и нажми «✓»',
     });
+    this.navHome = <HTMLLIElement>returnElement({
+      tag: 'li',
+      classes: ['menu__item', 'menu__home'],
+    });
   }
 
   private show() {
@@ -35,6 +40,14 @@ export default class Game {
     const header = returnElement({
       tag: 'div',
       classes: ['header'],
+    });
+    const nav = returnElement({
+      tag: 'nav',
+      classes: ['menu'],
+    });
+    const navUl = returnElement({
+      tag: 'ul',
+      classes: ['menu__ul'],
     });
     const title = returnElement({
       tag: 'h1',
@@ -76,9 +89,11 @@ export default class Game {
       this.keysWrapper.append(keyButton);
     }
 
-    header.append(title);
+    navUl.append(this.navHome);
+    nav.append(navUl);
+    header.append(title, nav);
     exampleWrapper.append(this.example, this.answerField);
-    main.append(exampleWrapper, this.keysWrapper, this.infoBlock);
+    main.append(this.infoBlock, exampleWrapper, this.keysWrapper);
     body.append(header, main);
   }
 
@@ -161,9 +176,16 @@ export default class Game {
     );
   }
 
-  public stop() {
-    this.stoptListenKeyboardButtons();
-    this.stoptListenNumButtons();
+  private startListenMenu() {
+    this.navHome.addEventListener('click', () => {
+      this.stop();
+    });
+  }
+
+  private stopListenMenu() {
+    this.navHome.removeEventListener('click', () => {
+      this.stop();
+    });
   }
 
   private startNextExample() {
@@ -188,6 +210,14 @@ export default class Game {
     this.show();
     this.startListenNumButtons();
     this.startListenKeyboardButtons();
+    this.startListenMenu();
     this.startNextExample();
+  }
+
+  public stop() {
+    this.stoptListenKeyboardButtons();
+    this.stoptListenNumButtons();
+    this.stopListenMenu();
+    document.body.innerHTML = '';
   }
 }

@@ -1,4 +1,10 @@
 .header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1.8rem;
+  background-color: $color-header-bckgrnd;
+
   &__title {
     text-transform: uppercase;
 
