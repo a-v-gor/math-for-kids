@@ -1,20 +1,27 @@
-interface iExample {
-  example: string;
-  answer: number;
-}
+// import Game from "./Game";
+// import Settings from "./Settings";
+// import StartPage from "./StartPage";
 
-interface iData {
-  current: iExample;
-  examples: iExample[];
-  mistakes: iExample[];
-  operation: string;
-}
+// interface iExample {
+//   example: string;
+//   answer: number;
+// }
 
-const data: iData = {
-  current: { example: '', answer: 0 },
-  examples: [],
-  mistakes: [],
-  operation: '',
-};
+// interface iData {
+//   current: iExample;
+//   examples: iExample[];
+//   mistakes: iExample[];
+//   operation: string;
+//   game?: Game;
+//   startPage?: StartPage;
+//   settings?: Settings;
+// }
 
-export { iExample, data };
+// const data: iData = {
+//   current: { example: '', answer: 0 },
+//   examples: [],
+//   mistakes: [],
+//   operation: '',
+// };
+
+// export { iExample, data };

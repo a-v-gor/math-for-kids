@@ -1,10 +1,18 @@
+import gameData from '../model/gameData';
 import returnElement from './returnElement';
+import ViewPage from './ViewPage';
 
-export default class Header {
-  headerElement: HTMLElement;
+export default class StartPage extends ViewPage {
+  header: HTMLElement;
+  main: HTMLElement;
 
   constructor() {
-    this.headerElement = returnElement({
+    super();
+    const buttonWrapper = returnElement({
+      tag: 'div',
+      classes: ['button-wrapper'],
+    });
+    this.header = returnElement({
       tag: 'header',
       classes: ['header'],
     });
@@ -30,9 +38,22 @@ export default class Header {
       }
     });
     titleWrapper.append(title);
-    this.headerElement.append(titleWrapper);
+    this.header.append(titleWrapper);
+    this.main = returnElement({
+      tag: 'main',
+      classes: ['main'],
+    });
+
+    buttonWrapper.append(
+      gameData.startPageButtons.buttonNewGame,
+      gameData.startPageButtons.buttonLoadGame
+    );
+    this.main.append(buttonWrapper);
   }
-  return(): HTMLElement {
-    return this.headerElement;
+
+  show() {
+    this.clear();
+    this.body.classList.add('start__body');
+    this.body.append(this.header, this.main);
   }
 }
