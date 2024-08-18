@@ -1,9 +1,9 @@
-import StartPage from './view/StartPage';
+import ViewStartPage from './view/ViewStartPage';
 
 export class App {
   start() {
-    console.log('start app');
-    const startPage = new StartPage();
+    const startPage = new ViewStartPage();
     startPage.show();
+    startPage.savePageToState();
   }
 }

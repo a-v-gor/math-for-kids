@@ -2,19 +2,29 @@ import gameData from '../model/gameData';
 import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
-export default class StartPage extends ViewPage {
-  header: HTMLElement;
-  main: HTMLElement;
+const header = returnElement({
+  tag: 'header',
+  classes: ['header'],
+});
 
+const main = returnElement({
+  tag: 'main',
+  classes: ['main'],
+});
+
+const footer = returnElement({
+  tag: 'footer',
+  classes: ['footer'],
+});
+
+const pageName = 'startPage';
+
+export default class ViewStartPage extends ViewPage {
   constructor() {
-    super();
+    super(pageName, header, main, footer);
     const buttonWrapper = returnElement({
       tag: 'div',
       classes: ['button-wrapper'],
-    });
-    this.header = returnElement({
-      tag: 'header',
-      classes: ['header'],
     });
     const titleWrapper = returnElement({
       tag: 'div',
@@ -39,21 +49,12 @@ export default class StartPage extends ViewPage {
     });
     titleWrapper.append(title);
     this.header.append(titleWrapper);
-    this.main = returnElement({
-      tag: 'main',
-      classes: ['main'],
-    });
 
     buttonWrapper.append(
       gameData.startPageButtons.buttonNewGame,
       gameData.startPageButtons.buttonLoadGame
     );
     this.main.append(buttonWrapper);
-  }
-
-  show() {
-    this.clear();
     this.body.classList.add('start__body');
-    this.body.append(this.header, this.main);
   }
 }
