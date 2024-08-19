@@ -6,6 +6,10 @@
   overflow-y: hidden;
   font-family: "Roboto", sans-serif;
   background-color: $color-body-bckgrnd;
+  background-image: url("../img/dino.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: auto;
   transition: 0s;
 }
 

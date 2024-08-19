@@ -1,4 +1,5 @@
-// import appPages from "./appPages";
+import appPages from './appPages';
+import returnElement from './returnElement';
 
 export default abstract class ViewPage {
   body: HTMLBodyElement;
@@ -7,21 +8,33 @@ export default abstract class ViewPage {
   footer: HTMLElement;
   pageName: string;
 
-  constructor(
-    name: string,
-    header: HTMLHeadElement,
-    main: HTMLElement,
-    footer: HTMLElement
-  ) {
+  constructor(name: string) {
     this.body = <HTMLBodyElement>document.body;
-    this.header = header;
-    this.main = main;
-    this.footer = footer;
+    this.header = returnElement({
+      tag: 'header',
+      classes: ['header'],
+    });
+
+    this.main = returnElement({
+      tag: 'main',
+      classes: ['main'],
+    });
+
+    this.footer = returnElement({
+      tag: 'footer',
+      classes: ['footer'],
+    });
     this.pageName = name;
   }
   savePageToState = () => {
-    // appPages[this.pageName] = this;
-    console.log(this.pageName);
+    switch (this.pageName) {
+      case 'startPage':
+        appPages.startPage = this;
+        break;
+      case 'settingsPage':
+        appPages.settingsPage = this;
+        break;
+    }
   };
   show() {
     this.body.append(this.header, this.main, this.footer);

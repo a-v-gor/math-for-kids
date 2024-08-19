@@ -1,11 +1,13 @@
-import ViewStartPage from './ViewStartPage';
+import ViewPage from './ViewPage';
 
 interface iAppPages {
-  startpage: ViewStartPage | null;
+  startPage: ViewPage | null;
+  settingsPage: ViewPage | null;
 }
 
 const appPages: iAppPages = {
-  startpage: null,
+  startPage: null,
+  settingsPage: null,
 };
 
 export default appPages;

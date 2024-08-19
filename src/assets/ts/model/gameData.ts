@@ -1,19 +1,11 @@
-import returnElement from '../view/returnElement';
+import ControllerStartPage from '../controller/ControllerStartPage';
 
-const gameData = {
-  startPageButtons: {
-    buttonNewGame: <HTMLButtonElement>returnElement({
-      tag: 'button',
-      classes: ['button'],
-      textContent: 'Начать игру',
-    }),
-    buttonLoadGame: <HTMLButtonElement>returnElement({
-      tag: 'button',
-      classes: ['button'],
-      textContent: 'Продолжить игру',
-      attrib: [{ name: 'disabled', value: '' }],
-    }),
-  },
+interface iGameData {
+  controllerStartPage: ControllerStartPage | null;
+}
+
+const gameData: iGameData = {
+  controllerStartPage: null,
 };
 
 export default gameData;
