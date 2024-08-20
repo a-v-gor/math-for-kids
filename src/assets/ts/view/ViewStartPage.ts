@@ -1,10 +1,20 @@
-import gameData from '../model/gameData';
 import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
 export default class ViewStartPage extends ViewPage {
   constructor() {
     super('startPage');
+    this.buttonNewGame = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button'],
+      textContent: 'Начать игру',
+    });
+    this.buttonLoadGame = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button'],
+      textContent: 'Продолжить игру',
+      attrib: [{ name: 'disabled', value: '' }],
+    });
     const buttonWrapper = returnElement({
       tag: 'div',
       classes: ['button-wrapper'],
@@ -32,13 +42,7 @@ export default class ViewStartPage extends ViewPage {
     });
     titleWrapper.append(title);
     this.header.append(titleWrapper);
-
-    if (gameData.controllerStartPage !== null) {
-      buttonWrapper.append(
-        gameData.controllerStartPage?.buttonNewGame,
-        gameData.controllerStartPage?.buttonLoadGame
-      );
-    }
+    buttonWrapper.append(this.buttonNewGame, this.buttonLoadGame);
     this.main.append(buttonWrapper);
   }
 }

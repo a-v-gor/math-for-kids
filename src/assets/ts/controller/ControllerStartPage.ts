@@ -1,30 +1,22 @@
 import gameData from '../model/gameData';
 import appPages from '../view/appPages';
-import returnElement from '../view/returnElement';
 
 export default class ControllerStartPage {
   buttonNewGame: HTMLButtonElement;
   buttonLoadGame: HTMLButtonElement;
 
   constructor() {
-    this.buttonNewGame = <HTMLButtonElement>returnElement({
-      tag: 'button',
-      classes: ['button'],
-      textContent: 'Начать игру',
-    });
-    this.buttonLoadGame = <HTMLButtonElement>returnElement({
-      tag: 'button',
-      classes: ['button'],
-      textContent: 'Продолжить игру',
-      attrib: [{ name: 'disabled', value: '' }],
-    });
+    this.buttonNewGame = <HTMLButtonElement>appPages.startPage?.buttonNewGame;
+    this.buttonLoadGame = <HTMLButtonElement>appPages.startPage?.buttonLoadGame;
     gameData.controllerStartPage = this;
   }
   startNewGame() {
+    this.stopListenButtons();
     appPages.startPage?.hide();
     appPages.settingsPage?.show();
   }
   startLoadGame() {
+    this.stopListenButtons();
     console.log('load game');
   }
   startListenButtons() {

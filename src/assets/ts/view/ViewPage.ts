@@ -7,6 +7,11 @@ export default abstract class ViewPage {
   main: HTMLElement;
   footer: HTMLElement;
   pageName: string;
+  buttonNewGame?: HTMLButtonElement;
+  buttonLoadGame?: HTMLButtonElement;
+  buttonSetSum?: HTMLButtonElement;
+  buttonSetSubstr?: HTMLButtonElement;
+  buttonSetMultiple?: HTMLButtonElement;
 
   constructor(name: string) {
     this.body = <HTMLBodyElement>document.body;
