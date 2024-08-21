@@ -1,4 +1,4 @@
-import appPages from './appPages';
+import gameData from '../model/gameData';
 import returnElement from './returnElement';
 
 export default abstract class ViewPage {
@@ -12,6 +12,12 @@ export default abstract class ViewPage {
   buttonSetSum?: HTMLButtonElement;
   buttonSetSubstr?: HTMLButtonElement;
   buttonSetMultiple?: HTMLButtonElement;
+  title?: HTMLElement;
+  updateTitle?: (value: string) => void;
+  example?: HTMLDivElement;
+  answerField?: HTMLDivElement;
+  keysWrapper?: HTMLDivElement;
+  infoBlock?: HTMLDivElement;
 
   constructor(name: string) {
     this.body = <HTMLBodyElement>document.body;
@@ -34,10 +40,13 @@ export default abstract class ViewPage {
   savePageToState = () => {
     switch (this.pageName) {
       case 'startPage':
-        appPages.startPage = this;
+        gameData.viewStartPage = this;
         break;
       case 'settingsPage':
-        appPages.settingsPage = this;
+        gameData.viewSettingsPage = this;
+        break;
+      case 'gamePage':
+        gameData.viewGamePage = this;
         break;
     }
   };

@@ -1,19 +1,23 @@
 import gameData from '../model/gameData';
-import appPages from '../view/appPages';
 
 export default class ControllerStartPage {
   buttonNewGame: HTMLButtonElement;
   buttonLoadGame: HTMLButtonElement;
 
   constructor() {
-    this.buttonNewGame = <HTMLButtonElement>appPages.startPage?.buttonNewGame;
-    this.buttonLoadGame = <HTMLButtonElement>appPages.startPage?.buttonLoadGame;
+    this.buttonNewGame = <HTMLButtonElement>(
+      gameData.viewStartPage?.buttonNewGame
+    );
+    this.buttonLoadGame = <HTMLButtonElement>(
+      gameData.viewStartPage?.buttonLoadGame
+    );
     gameData.controllerStartPage = this;
   }
   startNewGame() {
     this.stopListenButtons();
-    appPages.startPage?.hide();
-    appPages.settingsPage?.show();
+    gameData.viewStartPage?.hide();
+    gameData.viewSettingsPage?.show();
+    gameData.controllerSettingsPage?.startListenButtons();
   }
   startLoadGame() {
     this.stopListenButtons();

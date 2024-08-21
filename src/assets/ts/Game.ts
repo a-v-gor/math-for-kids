@@ -99,49 +99,49 @@
 //     body.append(header, main);
 //   }
 
-//   private checkAnswer() {
-//     if (Number(this.answerField.innerText) === data.current.answer) {
-//       this.infoBlock.innerText = 'Верно!';
-//       setTimeout(() => {
-//         this.infoBlock.innerText = 'Введи число и нажми «✓»';
-//         this.startNextExample();
-//       }, 1100);
-//     } else {
-//       if (!data.mistakes.includes(data.current)) {
-//         data.mistakes.push(data.current);
-//       }
-//       this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
-//       this.answerField.innerText = '??';
-//     }
-//   }
+//   // private checkAnswer() {
+//   //   if (Number(this.answerField.innerText) === data.current.answer) {
+//   //     this.infoBlock.innerText = 'Верно!';
+//   //     setTimeout(() => {
+//   //       this.infoBlock.innerText = 'Введи число и нажми «✓»';
+//   //       this.startNextExample();
+//   //     }, 1100);
+//   //   } else {
+//   //     if (!data.mistakes.includes(data.current)) {
+//   //       data.mistakes.push(data.current);
+//   //     }
+//   //     this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
+//   //     this.answerField.innerText = '??';
+//   //   }
+//   // }
 
-//   private useGame(eventValue: string) {
-//     switch (eventValue) {
-//       case '×':
-//         this.answerField.innerText = '??';
-//         break;
-//       case '✓':
-//         this.checkAnswer();
-//         break;
-//       default:
-//         if (
-//           (this.answerField.innerText.length > 1 &&
-//             this.answerField.innerText !== '10') ||
-//           this.answerField.innerText === '??'
-//         ) {
-//           this.answerField.innerText = eventValue;
-//         } else {
-//           this.answerField.innerText += eventValue;
-//         }
-//     }
-//   }
+//   // private useGame(eventValue: string) {
+//   //   switch (eventValue) {
+//   //     case '×':
+//   //       this.answerField.innerText = '??';
+//   //       break;
+//   //     case '✓':
+//   //       this.checkAnswer();
+//   //       break;
+//   //     default:
+//   //       if (
+//   //         (this.answerField.innerText.length > 1 &&
+//   //           this.answerField.innerText !== '10') ||
+//   //         this.answerField.innerText === '??'
+//   //       ) {
+//   //         this.answerField.innerText = eventValue;
+//   //       } else {
+//   //         this.answerField.innerText += eventValue;
+//   //       }
+//   //   }
+//   // }
 
-//   private checkPressedButton(event: Event) {
-//     const button = <HTMLButtonElement>event.target;
-//     if (button.classList.contains('button')) {
-//       this.useGame(button.name);
-//     }
-//   }
+//   // private checkPressedButton(event: Event) {
+//   //   const button = <HTMLButtonElement>event.target;
+//   //   if (button.classList.contains('button')) {
+//   //     this.useGame(button.name);
+//   //   }
+//   // }
 
 //   private checkKeyboardButtons(event: KeyboardEvent) {
 //     const key = event.key;
@@ -166,11 +166,11 @@
 //     );
 //   }
 
-//   private startListenNumButtons() {
-//     this.keysWrapper.addEventListener('click', (event: Event) =>
-//       this.checkPressedButton(event)
-//     );
-//   }
+//   // private startListenNumButtons() {
+//   //   this.keysWrapper.addEventListener('click', (event: Event) =>
+//   //     this.checkPressedButton(event)
+//   //   );
+//   // }
 
 //   private stopListenNumButtons() {
 //     this.keysWrapper.removeEventListener('click', (event: Event) =>
@@ -198,30 +198,30 @@
 //     });
 //   }
 
-//   private startNextExample() {
-//     console.log(data.mistakes);
+//   // private startNextExample() {
+//   //   console.log(data.mistakes);
 
-//     if (data.examples.length > 0) {
-//       const nextExample = data.examples.pop();
-//       if (nextExample !== undefined) {
-//         data.current = nextExample;
-//         this.example.innerText = `${nextExample.example} =`;
-//         this.answerField.innerText = '??';
-//       } else {
-//         console.log('example is undefined');
-//       }
-//     } else {
-//       console.log('no examples in array');
-//       this.stop();
-//     }
-//   }
+//   //   if (data.examples.length > 0) {
+//   //     const nextExample = data.examples.pop();
+//   //     if (nextExample !== undefined) {
+//   //       data.current = nextExample;
+//   //       this.example.innerText = `${nextExample.example} =`;
+//   //       this.answerField.innerText = '??';
+//   //     } else {
+//   //       console.log('example is undefined');
+//   //     }
+//   //   } else {
+//   //     console.log('no examples in array');
+//   //     this.stop();
+//   //   }
+//   // }
 
 //   public start() {
-//     this.show();
-//     this.startListenNumButtons();
+//     // this.show();
+//     // this.startListenNumButtons();
 //     this.startListenKeyboardButtons();
 //     this.startListenMenu();
-//     this.startNextExample();
+//     // this.startNextExample();
 //   }
 
 //   public stop() {
@@ -231,9 +231,9 @@
 //     this.stopListenMenu();
 //   }
 
-//   public new() {
-//     data.startPage = new StartPage();
-//     data.settings = new Settings();
-//     data.startPage.start();
-//   }
+//   // public new() {
+//   //   data.startPage = new StartPage();
+//   //   data.settings = new Settings();
+//   //   data.startPage.start();
+//   // }
 // }
