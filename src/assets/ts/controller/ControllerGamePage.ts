@@ -7,7 +7,7 @@ export default class ControllerGamePage {
   viewGamePage: ViewGamePage;
   answerField: HTMLDivElement;
   infoBlock: InfoBlock;
-  currentExample: iExample;
+  currentExample: iExample | null;
   navHome: HTMLLIElement;
   keysWrapper: HTMLDivElement;
 
@@ -15,7 +15,7 @@ export default class ControllerGamePage {
     this.viewGamePage = <ViewGamePage>gameData.viewGamePage;
     this.answerField = <HTMLDivElement>this.viewGamePage.answerField;
     this.infoBlock = new InfoBlock();
-    this.currentExample = <iExample>gameData.currentExample;
+    this.currentExample = null;
     this.navHome = <HTMLLIElement>gameData.viewGamePage?.navHome;
     this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
   }
@@ -30,21 +30,31 @@ export default class ControllerGamePage {
     } else {
       console.log('no examples in array');
     }
+    console.log(this.currentExample);
+  }
+
+  private addExampleToMistakes(example: iExample) {
+    if (!gameData.mistakes.includes(example)) {
+      gameData.mistakes.push(example);
+    }
   }
 
   private checkAnswer() {
-    if (Number(this.answerField.innerText) === this.currentExample.answer) {
-      this.infoBlock.showRightAnswer();
-      setTimeout(() => {
-        this.infoBlock.showInstruction();
-        this.startNextExample();
-      }, 1100);
-    } else {
-      this.infoBlock.showWrongAnswer();
-      setTimeout(() => {
-        this.infoBlock.showInstruction();
-        this.answerField.innerText = '??';
-      }, 1100);
+    if (this.currentExample !== null) {
+      if (Number(this.answerField.innerText) === this.currentExample.answer) {
+        this.infoBlock.showRightAnswer();
+        setTimeout(() => {
+          this.infoBlock.showInstruction();
+          this.startNextExample();
+        }, 1100);
+      } else {
+        this.addExampleToMistakes(this.currentExample);
+        this.infoBlock.showWrongAnswer();
+        setTimeout(() => {
+          this.infoBlock.showInstruction();
+          this.answerField.innerText = '??';
+        }, 1100);
+      }
     }
   }
 
@@ -106,14 +116,29 @@ export default class ControllerGamePage {
 
   private startListenMenu() {
     this.navHome.addEventListener('click', () => {
+      this.saveGameData();
       this.stop();
     });
+  }
+
+  private saveGameData = () => {
+    const objToSave = JSON.stringify({
+      examples: [...gameData.examples, this.currentExample],
+      mistakes: gameData.mistakes,
+      operation: gameData.operation,
+    });
+    localStorage.setItem('gameData', objToSave);
+  };
+
+  private startListenCloseWindow() {
+    window.addEventListener('beforeunload', this.saveGameData);
   }
 
   startListenEvents() {
     this.startListenNumButtons();
     this.startListenKeyboardButtons();
     this.startListenMenu();
+    this.startListenCloseWindow();
   }
 
   start() {

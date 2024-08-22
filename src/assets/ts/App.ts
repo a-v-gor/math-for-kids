@@ -2,9 +2,16 @@ import ControllerGamePage from './controller/ControllerGamePage';
 import ControllerSettingsPage from './controller/ControllerSettingsPage';
 import ControllerStartPage from './controller/ControllerStartPage';
 import gameData from './model/gameData';
+import iExample from './model/iExample';
 import ViewGamePage from './view/ViewGamePage';
 import ViewSettingsPage from './view/ViewSettingsPage';
 import ViewStartPage from './view/ViewStartPage';
+
+interface iObjFromLS {
+  examples: iExample[];
+  mistakes: iExample[];
+  operation: string;
+}
 
 export class App {
   private addPagesViews() {
@@ -25,6 +32,20 @@ export class App {
     gameData.controllerGamePage = controllerGamePage;
   }
 
+  private actualizeData = () => {
+    const stringData: string | null = localStorage.getItem('gameData');
+    if (stringData !== null) {
+      const parsedObject: iObjFromLS = {
+        examples: [],
+        mistakes: [],
+        operation: '',
+      };
+      gameData.examples = parsedObject.examples;
+      gameData.mistakes = parsedObject.mistakes;
+      gameData.operation = parsedObject.operation;
+    }
+  };
+
   new() {
     this.addPagesViews();
     this.addControllers();
@@ -35,6 +56,7 @@ export class App {
   }
 
   start() {
+    this.actualizeData();
     gameData.viewStartPage?.show();
   }
 }

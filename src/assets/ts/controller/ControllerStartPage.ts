@@ -21,8 +21,6 @@ export default class ControllerStartPage {
     console.log('load game');
   }
   startListenButtons() {
-    console.log('start');
-
     this.buttonNewGame.addEventListener('click', () => {
       this.startNewGame();
     });

@@ -11,8 +11,8 @@ interface iGameData {
   controllerGamePage: ControllerGamePage | null;
   controllerSettingsPage: ControllerSettingsPage | null;
   controllerStartPage: ControllerStartPage | null;
-  currentExample: iExample | null;
   examples: iExample[];
+  mistakes: iExample[];
   operation: string;
   viewGamePage: ViewGamePage | null;
   viewSettingsPage: ViewSettingsPage | null;
@@ -24,8 +24,8 @@ const gameData: iGameData = {
   controllerGamePage: null,
   controllerSettingsPage: null,
   controllerStartPage: null,
-  currentExample: null,
   examples: [],
+  mistakes: [],
   operation: '',
   viewGamePage: null,
   viewSettingsPage: null,

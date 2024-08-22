@@ -53,6 +53,11 @@ export default abstract class ViewPage {
   };
   show() {
     this.body.append(this.header, this.main, this.footer);
+    console.log(gameData);
+
+    // if (this.pageName === 'startPage' && gameData.operation.length > 0 && this.buttonLoadGame !== undefined) {
+    //   this.buttonLoadGame.disabled = true;
+    // }
   }
   hide() {
     this.body.innerHTML = '';

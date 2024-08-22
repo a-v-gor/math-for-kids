@@ -13,7 +13,6 @@ export default class ViewStartPage extends ViewPage {
       tag: 'button',
       classes: ['button'],
       textContent: 'Продолжить игру',
-      attrib: [{ name: 'disabled', value: '' }],
     });
     const buttonWrapper = returnElement({
       tag: 'div',
@@ -40,6 +39,7 @@ export default class ViewStartPage extends ViewPage {
         title.append(letter);
       }
     });
+
     titleWrapper.append(title);
     this.header.append(titleWrapper);
     buttonWrapper.append(this.buttonNewGame, this.buttonLoadGame);
