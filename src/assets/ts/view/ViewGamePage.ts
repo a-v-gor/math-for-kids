@@ -17,7 +17,7 @@ export default class ViewGamePage extends ViewPage {
       tag: 'ul',
       classes: ['menu__ul'],
     });
-    const navHome = <HTMLLIElement>returnElement({
+    this.navHome = <HTMLLIElement>returnElement({
       tag: 'li',
       classes: ['menu__item', 'menu__home'],
     });
@@ -85,7 +85,7 @@ export default class ViewGamePage extends ViewPage {
       }
     };
 
-    navUl.append(navHome);
+    navUl.append(this.navHome);
     nav.append(navUl);
     this.header.append(this.title, nav);
     exampleWrapper.append(this.example, this.answerField);

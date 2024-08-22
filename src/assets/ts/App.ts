@@ -25,10 +25,16 @@ export class App {
     gameData.controllerGamePage = controllerGamePage;
   }
 
-  start() {
+  new() {
     this.addPagesViews();
     this.addControllers();
-    gameData.viewStartPage?.show();
     gameData.controllerStartPage?.startListenButtons();
+    gameData.controllerSettingsPage?.startListenButtons();
+    gameData.controllerGamePage?.startListenEvents();
+    this.start();
+  }
+
+  start() {
+    gameData.viewStartPage?.show();
   }
 }

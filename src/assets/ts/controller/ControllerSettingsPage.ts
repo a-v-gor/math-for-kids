@@ -24,15 +24,10 @@ export default class ControllerSettingsPage {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     if (button.className === 'button') {
       this.addExamplesData(event);
-      this.stopListenButtons();
       gameData.viewSettingsPage?.hide();
       gameData.viewGamePage?.show();
       gameData.controllerGamePage?.start();
     }
-  };
-
-  stopListenButtons = () => {
-    this.buttonWrapper.removeEventListener('click', this.startGame);
   };
 
   startListenButtons = () => {

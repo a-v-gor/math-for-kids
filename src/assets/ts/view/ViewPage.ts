@@ -13,11 +13,12 @@ export default abstract class ViewPage {
   buttonSetSubstr?: HTMLButtonElement;
   buttonSetMultiple?: HTMLButtonElement;
   title?: HTMLElement;
-  updateTitle?: (value: string) => void;
+  infoBlock?: HTMLDivElement;
   example?: HTMLDivElement;
   answerField?: HTMLDivElement;
   keysWrapper?: HTMLDivElement;
-  infoBlock?: HTMLDivElement;
+  updateTitle?: (value: string) => void;
+  navHome?: HTMLLIElement;
 
   constructor(name: string) {
     this.body = <HTMLBodyElement>document.body;
