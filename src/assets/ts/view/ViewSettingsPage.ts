@@ -1,10 +1,10 @@
-import gameData from '../model/gameData';
+import GameData from '../model/GameData';
 import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
-  constructor() {
-    super('settingsPage');
+  constructor(gameData: GameData) {
+    super('settingsPage', gameData);
     const title = returnElement({
       tag: 'h1',
       classes: ['title'],
@@ -35,7 +35,7 @@ export default class ViewSettingsPage extends ViewPage {
     });
 
     this.header.append(title);
-    gameData.buttonWrapperSettingsPage = <HTMLDivElement>buttonWrapper;
+    gameData.setButtonWrapperSettingsPage(<HTMLDivElement>buttonWrapper);
 
     buttonWrapper.append(
       this.buttonSetSum,

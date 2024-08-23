@@ -1,10 +1,10 @@
-import gameData from '../model/gameData';
+import GameData from '../model/GameData';
 
 export default class InfoBlock {
   infoBlock: HTMLDivElement;
 
-  constructor() {
-    this.infoBlock = <HTMLDivElement>gameData.viewGamePage?.infoBlock;
+  constructor(gameData: GameData) {
+    this.infoBlock = <HTMLDivElement>gameData.getViewGamePage()?.infoBlock;
   }
 
   showRightAnswer() {

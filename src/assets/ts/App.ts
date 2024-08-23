@@ -1,7 +1,7 @@
 import ControllerGamePage from './controller/ControllerGamePage';
 import ControllerSettingsPage from './controller/ControllerSettingsPage';
 import ControllerStartPage from './controller/ControllerStartPage';
-import gameData from './model/gameData';
+import GameData from './model/GameData';
 import iExample from './model/iExample';
 import ViewGamePage from './view/ViewGamePage';
 import ViewSettingsPage from './view/ViewSettingsPage';
@@ -14,49 +14,58 @@ interface iObjFromLS {
 }
 
 export class App {
+  gameData: GameData;
+
+  constructor() {
+    this.gameData = new GameData();
+  }
+
   private addPagesViews() {
-    const viewStartPage = new ViewStartPage();
-    const viewSettingsPage = new ViewSettingsPage();
-    const viewGamePage = new ViewGamePage();
-    viewStartPage.savePageToState();
-    viewSettingsPage.savePageToState();
-    viewGamePage.savePageToState();
+    const viewStartPage = new ViewStartPage(this.gameData);
+    const viewSettingsPage = new ViewSettingsPage(this.gameData);
+    const viewGamePage = new ViewGamePage(this.gameData);
+    this.gameData.setViewStartPage(viewStartPage);
+    this.gameData.setViewSettingsPage(viewSettingsPage);
+    this.gameData.setViewGamePage(viewGamePage);
   }
 
   private addControllers() {
-    const controllerStartPage = new ControllerStartPage();
-    gameData.controllerStartPage = controllerStartPage;
-    const controllerSettingsPage = new ControllerSettingsPage();
-    gameData.controllerSettingsPage = controllerSettingsPage;
-    const controllerGamePage = new ControllerGamePage();
-    gameData.controllerGamePage = controllerGamePage;
+    const controllerStartPage = new ControllerStartPage(this.gameData);
+    this.gameData.setControllerStartPage(controllerStartPage);
+    const controllerSettingsPage = new ControllerSettingsPage(this.gameData);
+    this.gameData.setControllerSettingsPage(controllerSettingsPage);
+    const controllerGamePage = new ControllerGamePage(this.gameData);
+    this.gameData.setControllerGamePage(controllerGamePage);
   }
 
   private actualizeData = () => {
     const stringData: string | null = localStorage.getItem('gameData');
+    let parsedObject: iObjFromLS = {
+      examples: [],
+      mistakes: [],
+      operation: '',
+    };
     if (stringData !== null) {
-      const parsedObject: iObjFromLS = {
-        examples: [],
-        mistakes: [],
-        operation: '',
-      };
-      gameData.examples = parsedObject.examples;
-      gameData.mistakes = parsedObject.mistakes;
-      gameData.operation = parsedObject.operation;
+      parsedObject = <iObjFromLS>JSON.parse(stringData);
+      console.log(parsedObject);
+      console.log(stringData);
+      this.gameData.setExamples(parsedObject.examples);
+      this.gameData.setMistakes(parsedObject.mistakes);
+      this.gameData.setOperation(parsedObject.operation);
     }
   };
 
   new() {
+    this.actualizeData();
     this.addPagesViews();
     this.addControllers();
-    gameData.controllerStartPage?.startListenButtons();
-    gameData.controllerSettingsPage?.startListenButtons();
-    gameData.controllerGamePage?.startListenEvents();
+    this.gameData.getControllerStartPage()?.startListenButtons();
+    this.gameData.getControllerSettingsPage()?.startListenButtons();
+    this.gameData.getControllerGamePage()?.startListenEvents();
     this.start();
   }
 
   start() {
-    this.actualizeData();
-    gameData.viewStartPage?.show();
+    this.gameData.getViewStartPage()?.show();
   }
 }

@@ -1,7 +1,8 @@
-import gameData from '../model/gameData';
+import GameData from '../model/GameData';
 import returnElement from './returnElement';
 
 export default abstract class ViewPage {
+  gameData: GameData;
   body: HTMLBodyElement;
   header: HTMLElement;
   main: HTMLElement;
@@ -20,7 +21,7 @@ export default abstract class ViewPage {
   updateTitle?: (value: string) => void;
   navHome?: HTMLLIElement;
 
-  constructor(name: string) {
+  constructor(name: string, data: GameData) {
     this.body = <HTMLBodyElement>document.body;
     this.header = returnElement({
       tag: 'header',
@@ -37,28 +38,15 @@ export default abstract class ViewPage {
       classes: ['footer'],
     });
     this.pageName = name;
+    this.gameData = data;
   }
-  savePageToState = () => {
-    switch (this.pageName) {
-      case 'startPage':
-        gameData.viewStartPage = this;
-        break;
-      case 'settingsPage':
-        gameData.viewSettingsPage = this;
-        break;
-      case 'gamePage':
-        gameData.viewGamePage = this;
-        break;
+  show = () => {
+    this.body.append(this.header, this.main, this.footer);
+    if (this.pageName === 'startPage' && this.gameData.getExamples.length > 0) {
+      const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
+      buttonLoadGame.disabled = false;
     }
   };
-  show() {
-    this.body.append(this.header, this.main, this.footer);
-    console.log(gameData);
-
-    // if (this.pageName === 'startPage' && gameData.operation.length > 0 && this.buttonLoadGame !== undefined) {
-    //   this.buttonLoadGame.disabled = true;
-    // }
-  }
   hide() {
     this.body.innerHTML = '';
   }

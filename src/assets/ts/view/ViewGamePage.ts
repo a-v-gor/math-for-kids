@@ -1,9 +1,10 @@
+import GameData from '../model/GameData';
 import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
 export default class ViewGamePage extends ViewPage {
-  constructor() {
-    super('gamePage');
+  constructor(gameData: GameData) {
+    super('gamePage', gameData);
 
     this.header = returnElement({
       tag: 'div',

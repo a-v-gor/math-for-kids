@@ -1,9 +1,10 @@
+import GameData from '../model/GameData';
 import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
 export default class ViewStartPage extends ViewPage {
-  constructor() {
-    super('startPage');
+  constructor(gameData: GameData) {
+    super('startPage', gameData);
     this.buttonNewGame = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button'],
@@ -13,6 +14,7 @@ export default class ViewStartPage extends ViewPage {
       tag: 'button',
       classes: ['button'],
       textContent: 'Продолжить игру',
+      attrib: [{ name: 'disabled', value: '' }],
     });
     const buttonWrapper = returnElement({
       tag: 'div',

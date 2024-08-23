@@ -1,9 +1,10 @@
-import gameData from '../model/gameData';
+import GameData from '../model/GameData';
 import iExample from '../model/iExample';
 import InfoBlock from '../view/InfoBlock';
 import ViewGamePage from '../view/ViewGamePage';
 
 export default class ControllerGamePage {
+  gameData: GameData;
   viewGamePage: ViewGamePage;
   answerField: HTMLDivElement;
   infoBlock: InfoBlock;
@@ -11,18 +12,21 @@ export default class ControllerGamePage {
   navHome: HTMLLIElement;
   keysWrapper: HTMLDivElement;
 
-  constructor() {
-    this.viewGamePage = <ViewGamePage>gameData.viewGamePage;
+  constructor(gameData: GameData) {
+    this.gameData = gameData;
+    this.viewGamePage = <ViewGamePage>gameData.getViewGamePage();
     this.answerField = <HTMLDivElement>this.viewGamePage.answerField;
-    this.infoBlock = new InfoBlock();
+    this.infoBlock = new InfoBlock(gameData);
     this.currentExample = null;
-    this.navHome = <HTMLLIElement>gameData.viewGamePage?.navHome;
+    this.navHome = <HTMLLIElement>gameData.getViewGamePage()?.navHome;
     this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
   }
 
-  private startNextExample() {
-    if (gameData.examples.length > 0) {
-      const nextExample: iExample = <iExample>gameData.examples.pop();
+  private startNextExample = () => {
+    if (this.gameData.getExamples().length > 0) {
+      const arrExamples = this.gameData.getExamples();
+      const nextExample = <iExample>arrExamples.pop();
+      this.gameData.setExamples(arrExamples);
       const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
@@ -30,12 +34,13 @@ export default class ControllerGamePage {
     } else {
       console.log('no examples in array');
     }
-    console.log(this.currentExample);
-  }
+  };
 
   private addExampleToMistakes(example: iExample) {
-    if (!gameData.mistakes.includes(example)) {
-      gameData.mistakes.push(example);
+    const arrMistakes = this.gameData.getMistakes();
+    if (!arrMistakes.includes(example)) {
+      arrMistakes.push(example);
+      this.gameData.setMistakes(arrMistakes);
     }
   }
 
@@ -110,8 +115,8 @@ export default class ControllerGamePage {
   }
 
   private stop() {
-    gameData.viewGamePage?.hide();
-    gameData.viewStartPage?.show();
+    this.gameData.getViewGamePage()?.hide();
+    this.gameData.getViewStartPage()?.show();
   }
 
   private startListenMenu() {
@@ -122,12 +127,17 @@ export default class ControllerGamePage {
   }
 
   private saveGameData = () => {
-    const objToSave = JSON.stringify({
-      examples: [...gameData.examples, this.currentExample],
-      mistakes: gameData.mistakes,
-      operation: gameData.operation,
-    });
-    localStorage.setItem('gameData', objToSave);
+    const arrExamples = this.gameData.getExamples();
+    if (this.currentExample !== null) {
+      arrExamples.push(this.currentExample);
+    }
+    const objToSave = {
+      examples: arrExamples,
+      mistakes: this.gameData.getMistakes,
+      operation: this.gameData.getOperation(),
+    };
+    const strToSave = JSON.stringify(objToSave);
+    localStorage.setItem('gameData', strToSave);
   };
 
   private startListenCloseWindow() {

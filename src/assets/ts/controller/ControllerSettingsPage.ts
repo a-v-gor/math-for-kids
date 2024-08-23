@@ -1,22 +1,27 @@
 import Examples from '../model/Examples';
-import gameData from '../model/gameData';
+import GameData from '../model/GameData';
 
 export default class ControllerSettingsPage {
+  gameData: GameData;
   buttonWrapper: HTMLDivElement;
 
-  constructor() {
-    this.buttonWrapper = <HTMLDivElement>gameData.buttonWrapperSettingsPage;
-    gameData.controllerSettingsPage = this;
+  constructor(gameData: GameData) {
+    this.gameData = gameData;
+    this.buttonWrapper = <HTMLDivElement>(
+      gameData.getButtonWrapperSettingsPage()
+    );
+    gameData.setControllerSettingsPage(this);
   }
 
   addExamplesData(event: Event) {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     const operationText = button.innerHTML.slice(0, 1);
     const examples = new Examples(operationText).return();
-    gameData.examples.push(...examples);
-    gameData.operation = button.innerHTML;
-    if (gameData.viewGamePage?.updateTitle !== undefined) {
-      gameData.viewGamePage?.updateTitle(button.innerHTML);
+    this.gameData.setExamples(examples);
+    this.gameData.setOperation(button.innerHTML);
+    const updateTitle = this.gameData.getViewGamePage()?.updateTitle;
+    if (updateTitle !== undefined) {
+      updateTitle(button.innerHTML);
     }
   }
 
@@ -24,9 +29,8 @@ export default class ControllerSettingsPage {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     if (button.className === 'button') {
       this.addExamplesData(event);
-      gameData.viewSettingsPage?.hide();
-      gameData.viewGamePage?.show();
-      gameData.controllerGamePage?.start();
+      this.gameData.getViewSettingsPage()?.hide();
+      this.gameData.getViewGamePage()?.show();
     }
   };
 
