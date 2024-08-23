@@ -39,7 +39,10 @@ export class App {
   }
 
   private actualizeData = () => {
+    localStorage.removeItem('gameData');
     const stringData: string | null = localStorage.getItem('gameData');
+    console.log(stringData);
+
     let parsedObject: iObjFromLS = {
       examples: [],
       mistakes: [],
@@ -47,8 +50,6 @@ export class App {
     };
     if (stringData !== null) {
       parsedObject = <iObjFromLS>JSON.parse(stringData);
-      console.log(parsedObject);
-      console.log(stringData);
       this.gameData.setExamples(parsedObject.examples);
       this.gameData.setMistakes(parsedObject.mistakes);
       this.gameData.setOperation(parsedObject.operation);

@@ -30,6 +30,7 @@ export default class ControllerSettingsPage {
     if (button.className === 'button') {
       this.addExamplesData(event);
       this.gameData.getViewSettingsPage()?.hide();
+      this.gameData.getControllerGamePage()?.startNextExample();
       this.gameData.getViewGamePage()?.show();
     }
   };

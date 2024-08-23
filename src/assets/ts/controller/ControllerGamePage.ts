@@ -22,7 +22,7 @@ export default class ControllerGamePage {
     this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
   }
 
-  private startNextExample = () => {
+  startNextExample = () => {
     if (this.gameData.getExamples().length > 0) {
       const arrExamples = this.gameData.getExamples();
       const nextExample = <iExample>arrExamples.pop();
@@ -36,15 +36,18 @@ export default class ControllerGamePage {
     }
   };
 
-  private addExampleToMistakes(example: iExample) {
-    const arrMistakes = this.gameData.getMistakes();
+  private addExampleToMistakes = (example: iExample) => {
+    const arrMistakes =
+      this.gameData.getMistakes() === undefined
+        ? []
+        : this.gameData.getMistakes();
     if (!arrMistakes.includes(example)) {
       arrMistakes.push(example);
       this.gameData.setMistakes(arrMistakes);
     }
-  }
+  };
 
-  private checkAnswer() {
+  private checkAnswer = () => {
     if (this.currentExample !== null) {
       if (Number(this.answerField.innerText) === this.currentExample.answer) {
         this.infoBlock.showRightAnswer();
@@ -61,7 +64,7 @@ export default class ControllerGamePage {
         }, 1100);
       }
     }
-  }
+  };
 
   private controlPressedKey(keyValue: string) {
     switch (keyValue) {
@@ -149,9 +152,5 @@ export default class ControllerGamePage {
     this.startListenKeyboardButtons();
     this.startListenMenu();
     this.startListenCloseWindow();
-  }
-
-  start() {
-    this.startNextExample();
   }
 }

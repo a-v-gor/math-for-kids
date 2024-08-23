@@ -80,7 +80,7 @@ export default class ViewGamePage extends ViewPage {
       this.keysWrapper.append(keyButton);
     }
 
-    this.updateTitle = function (value: string) {
+    this.updateTitle = (value: string) => {
       if (this.title !== undefined) {
         this.title.textContent = value;
       }
