@@ -101,8 +101,10 @@ export default class ControllerGamePage {
   };
 
   private checkKeyboardButtons(event: KeyboardEvent) {
+    console.log(event);
+
     const key = event.key;
-    if (key.match(/\d/)) {
+    if (!key.match(/\D/g)) {
       this.controlPressedKey(key);
     } else if (key === 'Backspace' || key === 'Delete' || key === 'Escape') {
       this.controlPressedKey('×');
