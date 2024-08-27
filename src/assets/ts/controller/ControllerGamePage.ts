@@ -11,6 +11,7 @@ export default class ControllerGamePage {
   currentExample: iExample | null;
   navHome: HTMLLIElement;
   keysWrapper: HTMLDivElement;
+  arrExamples: iExample[] | null;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -20,13 +21,16 @@ export default class ControllerGamePage {
     this.currentExample = null;
     this.navHome = <HTMLLIElement>gameData.getViewGamePage()?.navHome;
     this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
+    this.arrExamples = null;
   }
 
   startNextExample = () => {
-    if (this.gameData.getExamples().length > 0) {
-      const arrExamples = this.gameData.getExamples();
-      const nextExample = <iExample>arrExamples.pop();
-      this.gameData.setExamples(arrExamples);
+    if (this.arrExamples === null) {
+      this.arrExamples = this.gameData.getExamples();
+    }
+
+    if (this.arrExamples !== null && this.arrExamples.length > 0) {
+      const nextExample = <iExample>this.arrExamples.pop();
       const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
@@ -50,6 +54,9 @@ export default class ControllerGamePage {
   private checkAnswer = () => {
     if (this.currentExample !== null) {
       if (Number(this.answerField.innerText) === this.currentExample.answer) {
+        if (this.arrExamples !== null) {
+          this.gameData.setExamples(this.arrExamples);
+        }
         this.infoBlock.showRightAnswer();
         setTimeout(() => {
           this.infoBlock.showInstruction();
@@ -101,8 +108,6 @@ export default class ControllerGamePage {
   };
 
   private checkKeyboardButtons(event: KeyboardEvent) {
-    console.log(event);
-
     const key = event.key;
     if (!key.match(/\D/g)) {
       this.controlPressedKey(key);
