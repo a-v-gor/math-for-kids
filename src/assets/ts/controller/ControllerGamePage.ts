@@ -1,5 +1,6 @@
 import GameData from '../model/GameData';
 import iExample from '../model/iExample';
+import StorageGameData from '../model/storageGameData';
 import InfoBlock from '../view/InfoBlock';
 import ViewGamePage from '../view/ViewGamePage';
 
@@ -12,6 +13,7 @@ export default class ControllerGamePage {
   navHome: HTMLLIElement;
   keysWrapper: HTMLDivElement;
   arrExamples: iExample[] | null;
+  storagGameData: StorageGameData;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -22,6 +24,7 @@ export default class ControllerGamePage {
     this.navHome = <HTMLLIElement>gameData.getViewGamePage()?.navHome;
     this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
     this.arrExamples = null;
+    this.storagGameData = new StorageGameData(gameData);
   }
 
   startNextExample = () => {
@@ -131,27 +134,13 @@ export default class ControllerGamePage {
 
   private startListenMenu() {
     this.navHome.addEventListener('click', () => {
-      this.saveGameData();
+      this.storagGameData.saveToLS();
       this.stop();
     });
   }
 
-  private saveGameData = () => {
-    const arrExamples = this.gameData.getExamples();
-    if (this.currentExample !== null) {
-      arrExamples.push(this.currentExample);
-    }
-    const objToSave = {
-      examples: arrExamples,
-      mistakes: this.gameData.getMistakes,
-      operation: this.gameData.getOperation(),
-    };
-    const strToSave = JSON.stringify(objToSave);
-    localStorage.setItem('gameData', strToSave);
-  };
-
   private startListenCloseWindow() {
-    window.addEventListener('beforeunload', this.saveGameData);
+    window.addEventListener('beforeunload', this.storagGameData.saveToLS);
   }
 
   startListenEvents() {

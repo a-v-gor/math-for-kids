@@ -39,7 +39,7 @@ export class App {
   }
 
   private actualizeData = () => {
-    localStorage.removeItem('gameData');
+    // localStorage.removeItem('gameData');
     const stringData: string | null = localStorage.getItem('gameData');
 
     let parsedObject: iObjFromLS = {
