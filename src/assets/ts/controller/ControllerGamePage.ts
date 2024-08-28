@@ -25,9 +25,7 @@ export default class ControllerGamePage {
   }
 
   startNextExample = () => {
-    if (this.arrExamples === null) {
-      this.arrExamples = this.gameData.getExamples();
-    }
+    this.arrExamples = this.gameData.getExamples();
 
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
       const nextExample = <iExample>this.arrExamples.pop();
