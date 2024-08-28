@@ -16,8 +16,8 @@ interface iObjFromLS {
 export class App {
   gameData: GameData;
 
-  constructor() {
-    this.gameData = new GameData();
+  constructor(data: GameData) {
+    this.gameData = data;
   }
 
   private addPagesViews() {
@@ -40,7 +40,9 @@ export class App {
 
   private actualizeData = () => {
     // localStorage.removeItem('gameData');
-    const stringData: string | null = localStorage.getItem('gameData');
+    const stringData: string | null =
+      this.gameData.storageGameData.loadFromLS();
+    // const stringData: string | null = localStorage.getItem('gameData');
 
     let parsedObject: iObjFromLS = {
       examples: [],
@@ -62,10 +64,6 @@ export class App {
     this.gameData.getControllerStartPage()?.startListenButtons();
     this.gameData.getControllerSettingsPage()?.startListenButtons();
     this.gameData.getControllerGamePage()?.startListenEvents();
-    this.start();
-  }
-
-  start() {
     this.gameData.getViewStartPage()?.show();
   }
 }

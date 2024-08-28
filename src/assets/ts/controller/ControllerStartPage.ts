@@ -20,7 +20,9 @@ export default class ControllerStartPage {
     this.gameData.getViewSettingsPage()?.show();
   }
   startLoadGame() {
-    console.log('load game');
+    this.gameData.getViewStartPage()?.hide();
+    this.gameData.getControllerGamePage()?.startNextExample();
+    this.gameData.getViewGamePage()?.show();
   }
   startListenButtons() {
     this.buttonNewGame.addEventListener('click', () => {

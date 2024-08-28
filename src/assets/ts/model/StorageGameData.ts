@@ -1,19 +1,19 @@
 import GameData from './GameData';
+import iObjForLS from './iObjForLS';
 
 export default class StorageGameData {
-  gameData: GameData;
-
-  constructor(data: GameData) {
-    this.gameData = data;
+  saveToLS(gameData: GameData) {
+    const dataObj: iObjForLS = {
+      examples: gameData.getExamples(),
+      mistakes: gameData.getMistakes(),
+      operation: gameData.getOperation(),
+    };
+    const strToSave = JSON.stringify(dataObj);
+    localStorage.setItem('gameData', strToSave);
   }
 
-  saveToLS = () => {
-    const objToSave = {
-      examples: this.gameData.getControllerGamePage()?.arrExamples,
-      mistakes: this.gameData.getMistakes(),
-      operation: this.gameData.getOperation(),
-    };
-    const strToSave = JSON.stringify(objToSave);
-    localStorage.setItem('gameData', strToSave);
+  loadFromLS = () => {
+    const strFromLS = localStorage.getItem('gameData');
+    return strFromLS;
   };
 }

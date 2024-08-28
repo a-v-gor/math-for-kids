@@ -5,6 +5,7 @@ import ViewGamePage from '../view/ViewGamePage';
 import ViewSettingsPage from '../view/ViewSettingsPage';
 import ViewStartPage from '../view/ViewStartPage';
 import iExample from './iExample';
+import StorageGameData from './StorageGameData';
 
 export default class GameData {
   private buttonWrapperSettingsPage: HTMLDivElement | null;
@@ -17,6 +18,7 @@ export default class GameData {
   private viewGamePage: ViewGamePage | null;
   private viewSettingsPage: ViewSettingsPage | null;
   private viewStartPage: ViewStartPage | null;
+  public storageGameData: StorageGameData;
 
   constructor() {
     (this.buttonWrapperSettingsPage = null),
@@ -29,6 +31,7 @@ export default class GameData {
       (this.viewGamePage = null),
       (this.viewSettingsPage = null),
       (this.viewStartPage = null);
+    this.storageGameData = new StorageGameData();
   }
 
   setViewStartPage = (viewStartPage: ViewStartPage) => {

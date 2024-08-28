@@ -19,10 +19,6 @@ export default class ControllerSettingsPage {
     const examples = new Examples(operationText).return();
     this.gameData.setExamples(examples);
     this.gameData.setOperation(button.innerHTML);
-    const updateTitle = this.gameData.getViewGamePage()?.updateTitle;
-    if (updateTitle !== undefined) {
-      updateTitle(button.innerHTML);
-    }
   }
 
   startGame = (event: Event) => {

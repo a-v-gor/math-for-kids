@@ -42,9 +42,20 @@ export default abstract class ViewPage {
   }
   show = () => {
     this.body.append(this.header, this.main, this.footer);
-    if (this.pageName === 'startPage' && this.gameData.getExamples.length > 0) {
-      const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
-      buttonLoadGame.disabled = false;
+
+    if (this.pageName === 'startPage') {
+      console.log(this.gameData);
+      if (this.gameData.getExamples().length === 0) {
+        const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
+        buttonLoadGame.disabled = true;
+      }
+    }
+
+    if (this.pageName === 'gamePage') {
+      const updateTitle = this.gameData.getViewGamePage()?.updateTitle;
+      if (updateTitle !== undefined) {
+        updateTitle(this.gameData.getOperation());
+      }
     }
   };
   hide() {

@@ -14,7 +14,6 @@ export default class ViewStartPage extends ViewPage {
       tag: 'button',
       classes: ['button'],
       textContent: 'Продолжить игру',
-      attrib: [{ name: 'disabled', value: '' }],
     });
     const buttonWrapper = returnElement({
       tag: 'div',
