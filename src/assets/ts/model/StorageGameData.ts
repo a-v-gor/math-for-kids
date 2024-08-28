@@ -1,10 +1,11 @@
 import GameData from './GameData';
+import iExample from './iExample';
 import iObjForLS from './iObjForLS';
 
 export default class StorageGameData {
-  saveToLS(gameData: GameData) {
+  saveToLS(gameData: GameData, example: iExample) {
     const dataObj: iObjForLS = {
-      examples: gameData.getExamples(),
+      examples: [...gameData.getExamples(), example],
       mistakes: gameData.getMistakes(),
       operation: gameData.getOperation(),
     };

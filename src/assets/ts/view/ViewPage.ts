@@ -45,9 +45,14 @@ export default abstract class ViewPage {
 
     if (this.pageName === 'startPage') {
       console.log(this.gameData);
-      if (this.gameData.getExamples().length === 0) {
-        const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
+      const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
+      if (
+        this.gameData.getExamples() === null ||
+        this.gameData.getExamples().length === 0
+      ) {
         buttonLoadGame.disabled = true;
+      } else {
+        buttonLoadGame.disabled = false;
       }
     }
 

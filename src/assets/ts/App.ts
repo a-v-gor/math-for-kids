@@ -2,16 +2,10 @@ import ControllerGamePage from './controller/ControllerGamePage';
 import ControllerSettingsPage from './controller/ControllerSettingsPage';
 import ControllerStartPage from './controller/ControllerStartPage';
 import GameData from './model/GameData';
-import iExample from './model/iExample';
+import iObjForLS from './model/iObjForLS';
 import ViewGamePage from './view/ViewGamePage';
 import ViewSettingsPage from './view/ViewSettingsPage';
 import ViewStartPage from './view/ViewStartPage';
-
-interface iObjFromLS {
-  examples: iExample[];
-  mistakes: iExample[];
-  operation: string;
-}
 
 export class App {
   gameData: GameData;
@@ -39,18 +33,16 @@ export class App {
   }
 
   private actualizeData = () => {
-    // localStorage.removeItem('gameData');
     const stringData: string | null =
       this.gameData.storageGameData.loadFromLS();
-    // const stringData: string | null = localStorage.getItem('gameData');
 
-    let parsedObject: iObjFromLS = {
+    let parsedObject: iObjForLS = {
       examples: [],
       mistakes: [],
       operation: '',
     };
     if (stringData !== null) {
-      parsedObject = <iObjFromLS>JSON.parse(stringData);
+      parsedObject = <iObjForLS>JSON.parse(stringData);
       this.gameData.setExamples(parsedObject.examples);
       this.gameData.setMistakes(parsedObject.mistakes);
       this.gameData.setOperation(parsedObject.operation);

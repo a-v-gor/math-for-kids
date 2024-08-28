@@ -129,14 +129,20 @@ export default class ControllerGamePage {
 
   private startListenMenu() {
     this.navHome.addEventListener('click', () => {
-      this.gameData.storageGameData.saveToLS(this.gameData);
+      this.gameData.storageGameData.saveToLS(
+        this.gameData,
+        <iExample>this.currentExample
+      );
       this.stop();
     });
   }
 
   private startListenCloseWindow() {
     window.addEventListener('beforeunload', () => {
-      this.gameData.storageGameData.saveToLS(this.gameData);
+      this.gameData.storageGameData.saveToLS(
+        this.gameData,
+        <iExample>this.currentExample
+      );
     });
   }
 
