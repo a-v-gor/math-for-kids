@@ -41,10 +41,10 @@ export default abstract class ViewPage {
     this.gameData = data;
   }
   show = () => {
+    console.log(this.gameData.getExamples());
     this.body.append(this.header, this.main, this.footer);
 
     if (this.pageName === 'startPage') {
-      console.log(this.gameData);
       const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
       if (
         this.gameData.getExamples() === null ||
