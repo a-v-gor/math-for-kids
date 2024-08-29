@@ -9,7 +9,7 @@ export default class StorageGameData {
       mistakes: gameData.getMistakes(),
       operation: gameData.getOperation(),
     };
-    if (example !== null) {
+    if (example !== null && !gameData.getExamples().includes(example)) {
       dataObj.examples.push(example);
     }
     const strToSave = JSON.stringify(dataObj);
