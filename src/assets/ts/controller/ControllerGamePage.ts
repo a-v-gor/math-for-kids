@@ -27,11 +27,8 @@ export default class ControllerGamePage {
   startNextExample = () => {
     this.arrExamples = this.gameData.getExamples();
     const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
-
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
       const nextExample = <iExample>this.arrExamples.pop();
-      console.log(nextExample);
-
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
       this.answerField.innerText = '??';
@@ -59,7 +56,7 @@ export default class ControllerGamePage {
   };
 
   private checkAnswer = () => {
-    if (this.currentExample !== null) {
+    if (this.currentExample !== null && this.answerField.textContent !== '??') {
       if (Number(this.answerField.innerText) === this.currentExample.answer) {
         if (this.arrExamples !== null) {
           this.gameData.setExamples(this.arrExamples);
@@ -104,6 +101,7 @@ export default class ControllerGamePage {
   private checkPressedButton = (event: Event) => {
     const button = <HTMLButtonElement>event.target;
     if (button.classList.contains('button')) {
+      button.blur();
       this.controlPressedKey(button.name);
     }
   };
