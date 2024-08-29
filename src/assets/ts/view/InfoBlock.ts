@@ -18,4 +18,8 @@ export default class InfoBlock {
   showInstruction() {
     this.infoBlock.innerText = 'Введи число и нажми «✓».';
   }
+
+  showEndGame() {
+    this.infoBlock.innerText = 'Все примеры решены.';
+  }
 }

@@ -26,15 +26,24 @@ export default class ControllerGamePage {
 
   startNextExample = () => {
     this.arrExamples = this.gameData.getExamples();
+    const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
 
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
       const nextExample = <iExample>this.arrExamples.pop();
-      const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
+      console.log(nextExample);
+
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
       this.answerField.innerText = '??';
     } else {
-      console.log('no examples in array');
+      this.currentExample = null;
+      this.gameData.setExamples([]);
+      this.infoBlock.showEndGame();
+      example.innerText = `Молодец`;
+      this.answerField.innerText = '!!!';
+      setTimeout(() => {
+        this.stop();
+      }, 7000);
     }
   };
 
