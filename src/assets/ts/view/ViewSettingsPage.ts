@@ -1,8 +1,11 @@
 import GameData from '../model/GameData';
 import returnElement from './returnElement';
+import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
+  navHome?: HTMLLIElement | undefined;
+
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
     const title = returnElement({
@@ -34,7 +37,10 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: '× Умножение',
     });
 
-    this.header.append(title);
+    const navigation = new ViewNavigation();
+    this.navHome = <HTMLLIElement>navigation.returnHomeButton();
+
+    this.header.append(title, navigation.returnElement());
     gameData.setButtonWrapperSettingsPage(<HTMLDivElement>buttonWrapper);
 
     buttonWrapper.append(

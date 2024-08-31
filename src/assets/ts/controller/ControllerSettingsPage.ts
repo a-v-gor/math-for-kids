@@ -4,12 +4,14 @@ import GameData from '../model/GameData';
 export default class ControllerSettingsPage {
   gameData: GameData;
   buttonWrapper: HTMLDivElement;
+  navHome: HTMLLIElement;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
     this.buttonWrapper = <HTMLDivElement>(
       gameData.getButtonWrapperSettingsPage()
     );
+    this.navHome = <HTMLLIElement>gameData.getViewSettingsPage()?.navHome;
     gameData.setControllerSettingsPage(this);
   }
 
@@ -33,5 +35,9 @@ export default class ControllerSettingsPage {
 
   startListenButtons = () => {
     this.buttonWrapper.addEventListener('click', this.startGame);
+    this.navHome.addEventListener('click', () => {
+      this.gameData.getViewSettingsPage()?.hide();
+      this.gameData.getViewStartPage()?.show();
+    });
   };
 }
