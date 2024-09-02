@@ -28,6 +28,7 @@ export default class ControllerGamePage {
     this.arrExamples = this.gameData.getExamples();
     const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
+      this.infoBlock.showInstruction();
       const nextExample = <iExample>this.arrExamples.pop();
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
@@ -40,7 +41,7 @@ export default class ControllerGamePage {
       this.answerField.innerText = '!!!';
       setTimeout(() => {
         this.stop();
-      }, 7000);
+      }, 5000);
     }
   };
 

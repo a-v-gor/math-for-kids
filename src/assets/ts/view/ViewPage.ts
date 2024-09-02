@@ -13,6 +13,7 @@ export default abstract class ViewPage {
   buttonSetSum?: HTMLButtonElement;
   buttonSetSubstr?: HTMLButtonElement;
   buttonSetMultiple?: HTMLButtonElement;
+  buttonSetFix?: HTMLButtonElement;
   title?: HTMLElement;
   infoBlock?: HTMLDivElement;
   example?: HTMLDivElement;
@@ -52,6 +53,15 @@ export default abstract class ViewPage {
         buttonLoadGame.disabled = true;
       } else {
         buttonLoadGame.disabled = false;
+      }
+    }
+
+    if (this.pageName === 'settingsPage') {
+      const fixButton = <HTMLButtonElement>this.buttonSetFix;
+      if (this.gameData.getMistakes().length === 0) {
+        fixButton.disabled = true;
+      } else {
+        fixButton.disabled = false;
       }
     }
 

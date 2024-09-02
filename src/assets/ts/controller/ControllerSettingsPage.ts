@@ -18,7 +18,13 @@ export default class ControllerSettingsPage {
   addExamplesData(event: Event) {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     const operationText = button.innerHTML.slice(0, 1);
-    const examples = new Examples(operationText).return();
+    let examples = [];
+    if (operationText === '!') {
+      examples = this.gameData.getMistakes();
+      this.gameData.setMistakes([]);
+    } else {
+      examples = new Examples(operationText).return();
+    }
     this.gameData.setExamples(examples);
     this.gameData.setOperation(button.innerHTML);
   }

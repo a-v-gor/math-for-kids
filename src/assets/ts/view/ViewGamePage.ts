@@ -26,7 +26,6 @@ export default class ViewGamePage extends ViewPage {
     this.infoBlock = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['game__info'],
-      textContent: 'Введи число и нажми «✓»',
     });
     const exampleWrapper = returnElement({
       tag: 'div',
@@ -35,12 +34,10 @@ export default class ViewGamePage extends ViewPage {
     this.example = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['example__text'],
-      textContent: '00 + 00 =',
     });
     this.answerField = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['example__input'],
-      textContent: '??',
     });
     const keysTextsArr = [];
     for (let i = 1; i < 10; i += 1) {

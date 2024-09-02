@@ -37,6 +37,12 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: '× Умножение',
     });
 
+    this.buttonSetFix = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button'],
+      textContent: '! Ошибки',
+    });
+
     const navigation = new ViewNavigation();
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
 
@@ -46,7 +52,8 @@ export default class ViewSettingsPage extends ViewPage {
     buttonWrapper.append(
       this.buttonSetSum,
       this.buttonSetSubstr,
-      this.buttonSetMultiple
+      this.buttonSetMultiple,
+      this.buttonSetFix
     );
     this.main.append(buttonWrapper);
   }
