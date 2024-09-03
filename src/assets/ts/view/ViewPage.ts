@@ -21,6 +21,9 @@ export default abstract class ViewPage {
   keysWrapper?: HTMLDivElement;
   updateTitle?: (value: string) => void;
   navHome?: HTMLLIElement;
+  settingsBlock?: HTMLElement;
+  descriptionOperation?: HTMLElement;
+  descriptionNumExamples?: HTMLElement;
 
   constructor(name: string, data: GameData) {
     this.body = <HTMLBodyElement>document.body;

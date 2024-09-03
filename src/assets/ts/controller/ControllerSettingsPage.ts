@@ -15,9 +15,8 @@ export default class ControllerSettingsPage {
     gameData.setControllerSettingsPage(this);
   }
 
-  addExamplesData(event: Event) {
-    const button: HTMLButtonElement = <HTMLButtonElement>event.target;
-    const operationText = button.innerHTML.slice(0, 1);
+  addExamplesData = () => {
+    const operationText = this.gameData.getOperation().slice(0, 1);
     let examples = [];
     if (operationText === '!') {
       examples = this.gameData.getMistakes();
@@ -26,21 +25,46 @@ export default class ControllerSettingsPage {
       examples = new Examples(operationText).return();
     }
     this.gameData.setExamples(examples);
-    this.gameData.setOperation(button.innerHTML);
-  }
+  };
 
-  startGame = (event: Event) => {
+  makeSettingsBlockActive = () => {
+    const settingsBlock = this.gameData.getViewSettingsPage()?.settingsBlock;
+    settingsBlock?.classList.remove('settings_unactive');
+  };
+
+  makeSettingsBlockUnactive = () => {
+    const settingsBlock = this.gameData.getViewSettingsPage()?.settingsBlock;
+    settingsBlock?.classList.add('settings_unactive');
+  };
+
+  setExamples = (event: Event) => {
+    const button: HTMLButtonElement = <HTMLButtonElement>event.target;
+    this.gameData.setOperation(button.innerHTML);
+    const descriptionOperation = <HTMLElement>(
+      this.gameData.getViewSettingsPage()?.descriptionOperation
+    );
+    descriptionOperation.textContent = button.innerHTML;
+    this.makeSettingsBlockActive();
+    this.addExamplesData();
+    const numExamples = this.gameData.getExamples().length;
+    const descriptionNumExamples = <HTMLElement>(
+      this.gameData.getViewSettingsPage()?.descriptionNumExamples
+    );
+    descriptionNumExamples.textContent = String(numExamples);
+  };
+
+  setGame = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     if (button.className === 'button') {
-      this.addExamplesData(event);
-      this.gameData.getViewSettingsPage()?.hide();
-      this.gameData.getControllerGamePage()?.startNextExample();
-      this.gameData.getViewGamePage()?.show();
+      this.setExamples(event);
+      // this.gameData.getViewSettingsPage()?.hide();
+      // this.gameData.getControllerGamePage()?.startNextExample();
+      // this.gameData.getViewGamePage()?.show();
     }
   };
 
   startListenButtons = () => {
-    this.buttonWrapper.addEventListener('click', this.startGame);
+    this.buttonWrapper.addEventListener('click', this.setGame);
     this.navHome.addEventListener('click', () => {
       this.gameData.getViewSettingsPage()?.hide();
       this.gameData.getViewStartPage()?.show();
