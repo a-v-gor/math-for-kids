@@ -1,5 +1,6 @@
 import GameData from '../model/GameData';
 import returnElement from './returnElement';
+import ViewFooter from './ViewFooter';
 
 export default abstract class ViewPage {
   gameData: GameData;
@@ -24,10 +25,9 @@ export default abstract class ViewPage {
       classes: ['main'],
     });
 
-    this.footer = returnElement({
-      tag: 'footer',
-      classes: ['footer'],
-    });
+    const viewFooter = new ViewFooter();
+
+    this.footer = viewFooter.return();
     this.pageName = name;
     this.gameData = data;
   }
