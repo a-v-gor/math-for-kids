@@ -9,19 +9,8 @@ export default abstract class ViewPage {
   footer: HTMLElement;
   pageName: string;
   buttonLoadGame?: HTMLButtonElement;
-  buttonSetSum?: HTMLButtonElement;
-  buttonSetSubstr?: HTMLButtonElement;
-  buttonSetMultiple?: HTMLButtonElement;
   buttonSetFix?: HTMLButtonElement;
-  title?: HTMLElement;
-  infoBlock?: HTMLDivElement;
-  example?: HTMLDivElement;
-  answerField?: HTMLDivElement;
-  keysWrapper?: HTMLDivElement;
   updateTitle?: (value: string) => void;
-  settingsBlock?: HTMLElement;
-  descriptionOperation?: HTMLElement;
-  descriptionNumExamples?: HTMLElement;
 
   constructor(name: string, data: GameData) {
     this.body = <HTMLBodyElement>document.body;

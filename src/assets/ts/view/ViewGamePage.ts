@@ -4,7 +4,12 @@ import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewGamePage extends ViewPage {
-  navHome?: HTMLLIElement | undefined;
+  navHome: HTMLLIElement;
+  keysWrapper: HTMLDivElement;
+  answerField: HTMLDivElement;
+  example: HTMLDivElement;
+  infoBlock: HTMLDivElement;
+  title: HTMLElement;
 
   constructor(gameData: GameData) {
     super('gamePage', gameData);

@@ -11,6 +11,12 @@ export default class ViewSettingsPage extends ViewPage {
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
+  buttonSetMultiple: HTMLButtonElement;
+  buttonSetSubstr: HTMLButtonElement;
+  buttonSetSum: HTMLButtonElement;
+  descriptionNumExamples: HTMLDivElement;
+  descriptionOperation: HTMLDivElement;
+  settingsBlock: HTMLDivElement;
 
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
@@ -49,7 +55,7 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: '! Ошибки',
     });
 
-    this.settingsBlock = returnElement({
+    this.settingsBlock = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['settings', 'settings_unactive'],
     });
@@ -75,7 +81,7 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: 'Действие: ',
     });
 
-    this.descriptionOperation = returnElement({
+    this.descriptionOperation = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['descript-list__descr'],
     });
@@ -120,7 +126,7 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: '+',
     });
 
-    this.descriptionNumExamples = returnElement({
+    this.descriptionNumExamples = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['descript-list__descr'],
     });
