@@ -5,6 +5,13 @@ export default class ControllerSettingsPage {
   gameData: GameData;
   buttonWrapper: HTMLDivElement;
   navHome: HTMLLIElement;
+  setNumExpressionsButtons: HTMLDivElement;
+  descriptionNumExamples: HTMLDivElement;
+  removeManyExamplesButton: HTMLButtonElement;
+  removeOneExampleButton: HTMLButtonElement;
+  addManyExamplesButton: HTMLButtonElement;
+  addOneExampleButton: HTMLButtonElement;
+  settingsApplyButton: HTMLButtonElement;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -12,6 +19,27 @@ export default class ControllerSettingsPage {
       gameData.getButtonWrapperSettingsPage()
     );
     this.navHome = <HTMLLIElement>gameData.getViewSettingsPage()?.navHome;
+    this.descriptionNumExamples = <HTMLDivElement>(
+      this.gameData.getViewSettingsPage()?.descriptionNumExamples
+    );
+    this.setNumExpressionsButtons = <HTMLDivElement>(
+      gameData.getViewSettingsPage()?.setNumExpressionsButtons
+    );
+    this.removeManyExamplesButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.removeManyExamplesButton
+    );
+    this.removeOneExampleButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.removeOneExampleButton
+    );
+    this.addManyExamplesButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.addManyExamplesButton
+    );
+    this.addOneExampleButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.addOneExampleButton
+    );
+    this.settingsApplyButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.settingsApplyButton
+    );
     gameData.setControllerSettingsPage(this);
   }
 
@@ -37,6 +65,10 @@ export default class ControllerSettingsPage {
     settingsBlock?.classList.add('settings_unactive');
   };
 
+  getNumExamples = () => {
+    return this.gameData.getExamples().length;
+  };
+
   setExamples = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     this.gameData.setOperation(button.innerHTML);
@@ -46,25 +78,83 @@ export default class ControllerSettingsPage {
     descriptionOperation.textContent = button.innerHTML;
     this.makeSettingsBlockActive();
     this.addExamplesData();
-    const numExamples = this.gameData.getExamples().length;
-    const descriptionNumExamples = <HTMLElement>(
-      this.gameData.getViewSettingsPage()?.descriptionNumExamples
-    );
-    descriptionNumExamples.textContent = String(numExamples);
+    const numExamples = this.getNumExamples();
+    this.descriptionNumExamples.textContent = String(numExamples);
+  };
+
+  checkActiveSetNumButtons = () => {
+    const numExamples = this.getNumExamples();
+    if (Number(this.descriptionNumExamples.textContent) == numExamples) {
+      this.addOneExampleButton.disabled = true;
+    } else {
+      this.addOneExampleButton.disabled = false;
+    }
+    if (Number(this.descriptionNumExamples.textContent) + 10 > numExamples) {
+      this.addManyExamplesButton.disabled = true;
+    } else {
+      this.addManyExamplesButton.disabled = false;
+    }
+    if (Number(this.descriptionNumExamples.textContent) - 10 <= 0) {
+      this.removeManyExamplesButton.disabled = true;
+    } else {
+      this.removeManyExamplesButton.disabled = false;
+    }
+    if (Number(this.descriptionNumExamples.textContent) - 1 <= 0) {
+      this.removeOneExampleButton.disabled = true;
+    } else {
+      this.removeOneExampleButton.disabled = false;
+    }
   };
 
   setGame = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     if (button.className === 'button') {
       this.setExamples(event);
-      // this.gameData.getViewSettingsPage()?.hide();
-      // this.gameData.getControllerGamePage()?.startNextExample();
-      // this.gameData.getViewGamePage()?.show();
+      this.checkActiveSetNumButtons();
     }
+  };
+
+  changeNumExamples = (event: MouseEvent) => {
+    const button: HTMLButtonElement = <HTMLButtonElement>event.target;
+    if (button.classList.contains('button')) {
+      if (button === this.removeOneExampleButton) {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) - 1
+        );
+      } else if (button === this.removeManyExamplesButton) {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) - 10
+        );
+      } else if (button === this.addOneExampleButton) {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) + 1
+        );
+      } else {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) + 10
+        );
+      }
+      this.checkActiveSetNumButtons();
+    }
+  };
+
+  applySettings = () => {
+    this.gameData.setNumExamples(
+      Number(this.descriptionNumExamples.textContent)
+    );
+    this.makeSettingsBlockUnactive();
+    this.gameData.getViewSettingsPage()?.hide();
+    this.gameData.getControllerGamePage()?.startNextExample();
+    this.gameData.getViewGamePage()?.show();
   };
 
   startListenButtons = () => {
     this.buttonWrapper.addEventListener('click', this.setGame);
+    this.setNumExpressionsButtons.addEventListener(
+      'click',
+      this.changeNumExamples
+    );
+    this.settingsApplyButton.addEventListener('click', this.applySettings);
     this.navHome.addEventListener('click', () => {
       this.gameData.getViewSettingsPage()?.hide();
       this.gameData.getViewStartPage()?.show();

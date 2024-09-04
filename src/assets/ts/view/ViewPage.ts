@@ -8,7 +8,6 @@ export default abstract class ViewPage {
   main: HTMLElement;
   footer: HTMLElement;
   pageName: string;
-  buttonNewGame?: HTMLButtonElement;
   buttonLoadGame?: HTMLButtonElement;
   buttonSetSum?: HTMLButtonElement;
   buttonSetSubstr?: HTMLButtonElement;
@@ -20,7 +19,6 @@ export default abstract class ViewPage {
   answerField?: HTMLDivElement;
   keysWrapper?: HTMLDivElement;
   updateTitle?: (value: string) => void;
-  navHome?: HTMLLIElement;
   settingsBlock?: HTMLElement;
   descriptionOperation?: HTMLElement;
   descriptionNumExamples?: HTMLElement;

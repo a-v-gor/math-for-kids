@@ -88,6 +88,10 @@ export default class GameData {
     this.examples = examples;
   };
 
+  setNumExamples = (num: number) => {
+    this.examples.length = num;
+  };
+
   getExamples = () => {
     return this.examples;
   };

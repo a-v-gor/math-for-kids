@@ -3,6 +3,8 @@ import returnElement from './returnElement';
 import ViewPage from './ViewPage';
 
 export default class ViewStartPage extends ViewPage {
+  buttonNewGame: HTMLButtonElement;
+
   constructor(gameData: GameData) {
     super('startPage', gameData);
     this.buttonNewGame = <HTMLButtonElement>returnElement({

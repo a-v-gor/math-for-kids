@@ -4,7 +4,13 @@ import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
-  navHome?: HTMLLIElement | undefined;
+  navHome: HTMLLIElement | undefined;
+  setNumExpressionsButtons: HTMLElement | undefined;
+  removeManyExamplesButton: HTMLButtonElement;
+  removeOneExampleButton: HTMLButtonElement;
+  addManyExamplesButton: HTMLButtonElement;
+  addOneExampleButton: HTMLButtonElement;
+  settingsApplyButton: HTMLButtonElement;
 
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
@@ -85,30 +91,30 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: 'Количество примеров:',
     });
 
-    const numExpressionsWrapper = returnElement({
+    this.setNumExpressionsButtons = returnElement({
       tag: 'div',
       classes: ['descript-list__buttons-wrap'],
     });
 
-    const removeManyNumExamplesButton = returnElement({
+    this.removeManyExamplesButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
       textContent: '--',
     });
 
-    const removeOneNumExamplesButton = returnElement({
+    this.removeOneExampleButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
       textContent: '-',
     });
 
-    const addManyNumExamplesButton = returnElement({
+    this.addManyExamplesButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
       textContent: '++',
     });
 
-    const addOneNumExamplesButton = returnElement({
+    this.addOneExampleButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
       textContent: '+',
@@ -119,22 +125,22 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['descript-list__descr'],
     });
 
-    const settingsApplyButton = returnElement({
+    this.settingsApplyButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'settings__apply-button'],
       textContent: 'Применить',
     });
 
-    numExpressionsWrapper.append(
-      removeManyNumExamplesButton,
-      removeOneNumExamplesButton,
+    this.setNumExpressionsButtons.append(
+      this.removeManyExamplesButton,
+      this.removeOneExampleButton,
       this.descriptionNumExamples,
-      addOneNumExamplesButton,
-      addManyNumExamplesButton
+      this.addOneExampleButton,
+      this.addManyExamplesButton
     );
     descriptionNumExamplesWrapper.append(
       terminNumExamples,
-      numExpressionsWrapper
+      this.setNumExpressionsButtons
     );
     descriptionOperationWrapper.append(
       terminOperation,
@@ -144,7 +150,7 @@ export default class ViewSettingsPage extends ViewPage {
       descriptionOperationWrapper,
       descriptionNumExamplesWrapper
     );
-    settingsWrapper.append(settingsDescriptions, settingsApplyButton);
+    settingsWrapper.append(settingsDescriptions, this.settingsApplyButton);
     this.settingsBlock.append(settingsWrapper);
 
     const navigation = new ViewNavigation();
