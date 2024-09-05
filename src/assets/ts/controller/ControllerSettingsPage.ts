@@ -7,8 +7,10 @@ export default class ControllerSettingsPage {
   navHome: HTMLLIElement;
   setNumExpressionsButtons: HTMLDivElement;
   descriptionNumExamples: HTMLDivElement;
+  removeMostExamplesButton: HTMLButtonElement;
   removeManyExamplesButton: HTMLButtonElement;
   removeOneExampleButton: HTMLButtonElement;
+  addMostExamplesButton: HTMLButtonElement;
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
@@ -27,11 +29,17 @@ export default class ControllerSettingsPage {
     this.setNumExpressionsButtons = <HTMLDivElement>(
       gameData.getViewSettingsPage()?.setNumExpressionsButtons
     );
+    this.removeMostExamplesButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.removeMostExamplesButton
+    );
     this.removeManyExamplesButton = <HTMLButtonElement>(
       gameData.getViewSettingsPage()?.removeManyExamplesButton
     );
     this.removeOneExampleButton = <HTMLButtonElement>(
       gameData.getViewSettingsPage()?.removeOneExampleButton
+    );
+    this.addMostExamplesButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.addMostExamplesButton
     );
     this.addManyExamplesButton = <HTMLButtonElement>(
       gameData.getViewSettingsPage()?.addManyExamplesButton
@@ -102,6 +110,16 @@ export default class ControllerSettingsPage {
     } else {
       this.addManyExamplesButton.disabled = false;
     }
+    if (Number(this.descriptionNumExamples.textContent) + 50 > numExamples) {
+      this.addMostExamplesButton.disabled = true;
+    } else {
+      this.addMostExamplesButton.disabled = false;
+    }
+    if (Number(this.descriptionNumExamples.textContent) - 50 <= 0) {
+      this.removeMostExamplesButton.disabled = true;
+    } else {
+      this.removeMostExamplesButton.disabled = false;
+    }
     if (Number(this.descriptionNumExamples.textContent) - 10 <= 0) {
       this.removeManyExamplesButton.disabled = true;
     } else {
@@ -116,7 +134,7 @@ export default class ControllerSettingsPage {
 
   setGame = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
-    if (button.className === 'button') {
+    if (button.classList.contains('button')) {
       this.setExamples(event);
       this.checkActiveSetNumButtons();
     }
@@ -133,13 +151,21 @@ export default class ControllerSettingsPage {
         this.descriptionNumExamples.textContent = String(
           Number(this.descriptionNumExamples.textContent) - 10
         );
+      } else if (button === this.removeMostExamplesButton) {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) - 50
+        );
       } else if (button === this.addOneExampleButton) {
         this.descriptionNumExamples.textContent = String(
           Number(this.descriptionNumExamples.textContent) + 1
         );
-      } else {
+      } else if (button === this.addManyExamplesButton) {
         this.descriptionNumExamples.textContent = String(
           Number(this.descriptionNumExamples.textContent) + 10
+        );
+      } else {
+        this.descriptionNumExamples.textContent = String(
+          Number(this.descriptionNumExamples.textContent) + 50
         );
       }
       this.checkActiveSetNumButtons();

@@ -43,6 +43,10 @@
   }
 }
 
+.button-mistakes {
+  background-color: $color-button-border;
+}
+
 .title {
   font-weight: 400;
   font-size: 4em;
@@ -67,7 +71,7 @@
 
 .main {
   display: flex;
-  flex-grow: 0.7;
+  flex-grow: 0.85;
   flex-direction: column;
   row-gap: 2vh;
   padding-bottom: 3rem;

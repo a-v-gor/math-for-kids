@@ -6,8 +6,10 @@ import ViewPage from './ViewPage';
 export default class ViewSettingsPage extends ViewPage {
   navHome: HTMLLIElement | undefined;
   setNumExpressionsButtons: HTMLElement | undefined;
+  removeMostExamplesButton: HTMLButtonElement;
   removeManyExamplesButton: HTMLButtonElement;
   removeOneExampleButton: HTMLButtonElement;
+  addMostExamplesButton: HTMLButtonElement;
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
@@ -52,7 +54,7 @@ export default class ViewSettingsPage extends ViewPage {
 
     this.buttonSetFix = <HTMLButtonElement>returnElement({
       tag: 'button',
-      classes: ['button'],
+      classes: ['button', 'button-mistakes'],
       textContent: '! Ошибки',
     });
 
@@ -103,6 +105,12 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['descript-list__buttons-wrap'],
     });
 
+    this.removeMostExamplesButton = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button', 'descript-list__button'],
+      textContent: '---',
+    });
+
     this.removeManyExamplesButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
@@ -115,16 +123,22 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: '-',
     });
 
+    this.addOneExampleButton = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button', 'descript-list__button'],
+      textContent: '+',
+    });
+
     this.addManyExamplesButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
       textContent: '++',
     });
 
-    this.addOneExampleButton = <HTMLButtonElement>returnElement({
+    this.addMostExamplesButton = <HTMLButtonElement>returnElement({
       tag: 'button',
       classes: ['button', 'descript-list__button'],
-      textContent: '+',
+      textContent: '+++',
     });
 
     this.descriptionNumExamples = <HTMLDivElement>returnElement({
@@ -143,11 +157,13 @@ export default class ViewSettingsPage extends ViewPage {
     });
 
     this.setNumExpressionsButtons.append(
+      this.descriptionNumExamples,
+      this.removeMostExamplesButton,
       this.removeManyExamplesButton,
       this.removeOneExampleButton,
-      this.descriptionNumExamples,
       this.addOneExampleButton,
-      this.addManyExamplesButton
+      this.addManyExamplesButton,
+      this.addMostExamplesButton
     );
     descriptionNumExamplesWrapper.append(
       terminNumExamples,

@@ -3,6 +3,7 @@ import returnElement from './returnElement';
 export default class ViewNavigation {
   nav: HTMLElement;
   navHome: HTMLElement;
+  navInstruction: HTMLElement;
 
   constructor() {
     this.nav = returnElement({
@@ -17,8 +18,12 @@ export default class ViewNavigation {
       tag: 'li',
       classes: ['menu__item', 'menu__home'],
     });
+    this.navInstruction = <HTMLLIElement>returnElement({
+      tag: 'li',
+      classes: ['menu__item', 'menu__instruction'],
+    });
 
-    navUl.append(this.navHome);
+    navUl.append(this.navHome, this.navInstruction);
     this.nav.append(navUl);
   }
 
