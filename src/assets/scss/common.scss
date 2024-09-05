@@ -1,7 +1,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   height: 100vh;
   overflow-y: hidden;
   font-family: "Roboto", sans-serif;
@@ -69,5 +69,6 @@
   display: flex;
   flex-grow: 0.7;
   flex-direction: column;
-  row-gap: 3rem;
+  row-gap: 2vh;
+  padding-bottom: 3rem;
 }

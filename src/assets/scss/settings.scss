@@ -1,5 +1,6 @@
 .settings {
   position: fixed;
+  z-index: 2;
   padding: 3rem;
   inset: 0;
   background-color: $color-body-bckgrnd;
@@ -15,6 +16,25 @@
     row-gap: 6rem;
     width: fit-content;
     margin: 0 auto;
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 3rem;
+    right: 6vw;
+    width: 5rem;
+    min-width: unset;
+    height: 5rem;
+    background-color: unset;
+    background-image: url("../img/close-button.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: unset;
+
+    &:active {
+      background-color: unset;
+    }
   }
 }
 
@@ -37,6 +57,7 @@
 
   &__descr {
     min-width: 2.4em;
+    font-weight: 700;
     font-size: 1.2em;
     text-align: center;
     color: $color-title-second;

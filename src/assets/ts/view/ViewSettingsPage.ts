@@ -11,6 +11,7 @@ export default class ViewSettingsPage extends ViewPage {
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
+  settingsCloseButton: HTMLDivElement;
   buttonSetMultiple: HTMLButtonElement;
   buttonSetSubstr: HTMLButtonElement;
   buttonSetSum: HTMLButtonElement;
@@ -136,6 +137,10 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['button', 'settings__apply-button'],
       textContent: 'Применить',
     });
+    this.settingsCloseButton = <HTMLDivElement>returnElement({
+      tag: 'div',
+      classes: ['button', 'settings__close-button'],
+    });
 
     this.setNumExpressionsButtons.append(
       this.removeManyExamplesButton,
@@ -156,7 +161,11 @@ export default class ViewSettingsPage extends ViewPage {
       descriptionOperationWrapper,
       descriptionNumExamplesWrapper
     );
-    settingsWrapper.append(settingsDescriptions, this.settingsApplyButton);
+    settingsWrapper.append(
+      settingsDescriptions,
+      this.settingsApplyButton,
+      this.settingsCloseButton
+    );
     this.settingsBlock.append(settingsWrapper);
 
     const navigation = new ViewNavigation();

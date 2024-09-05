@@ -31,7 +31,7 @@ export default class ViewFooter {
     });
     const year = returnElement({
       tag: 'div',
-      classes: ['footer__block'],
+      classes: ['footer__block', 'footer__year'],
       textContent: '2024',
     });
     const design = returnElement({

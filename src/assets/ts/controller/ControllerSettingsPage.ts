@@ -12,6 +12,8 @@ export default class ControllerSettingsPage {
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
+  settingsCloseButton: HTMLDivElement;
+  settingsBlock: HTMLDivElement;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -40,6 +42,12 @@ export default class ControllerSettingsPage {
     this.settingsApplyButton = <HTMLButtonElement>(
       gameData.getViewSettingsPage()?.settingsApplyButton
     );
+    this.settingsCloseButton = <HTMLDivElement>(
+      gameData.getViewSettingsPage()?.settingsCloseButton
+    );
+    this.settingsBlock = <HTMLDivElement>(
+      this.gameData.getViewSettingsPage()?.settingsBlock
+    );
     gameData.setControllerSettingsPage(this);
   }
 
@@ -56,13 +64,13 @@ export default class ControllerSettingsPage {
   };
 
   makeSettingsBlockActive = () => {
-    const settingsBlock = this.gameData.getViewSettingsPage()?.settingsBlock;
-    settingsBlock?.classList.remove('settings_unactive');
+    this.settingsBlock.classList.remove('settings_unactive');
   };
 
   makeSettingsBlockUnactive = () => {
-    const settingsBlock = this.gameData.getViewSettingsPage()?.settingsBlock;
-    settingsBlock?.classList.add('settings_unactive');
+    if (!this.settingsBlock.classList.contains('settings_unactive')) {
+      this.settingsBlock.classList.add('settings_unactive');
+    }
   };
 
   getNumExamples = () => {
@@ -155,6 +163,10 @@ export default class ControllerSettingsPage {
       this.changeNumExamples
     );
     this.settingsApplyButton.addEventListener('click', this.applySettings);
+    this.settingsCloseButton.addEventListener(
+      'click',
+      this.makeSettingsBlockUnactive
+    );
     this.navHome.addEventListener('click', () => {
       this.gameData.getViewSettingsPage()?.hide();
       this.gameData.getViewStartPage()?.show();

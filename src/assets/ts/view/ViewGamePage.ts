@@ -15,7 +15,7 @@ export default class ViewGamePage extends ViewPage {
     super('gamePage', gameData);
 
     this.header = returnElement({
-      tag: 'div',
+      tag: 'header',
       classes: ['header'],
     });
     const navigation = new ViewNavigation();
@@ -25,8 +25,12 @@ export default class ViewGamePage extends ViewPage {
       classes: ['title'],
     });
     this.main = returnElement({
+      tag: 'main',
+      classes: ['main'],
+    });
+    const gameWrapper = returnElement({
       tag: 'div',
-      classes: ['main', 'game__main'],
+      classes: ['game__wrapper'],
     });
     this.infoBlock = <HTMLDivElement>returnElement({
       tag: 'div',
@@ -83,6 +87,7 @@ export default class ViewGamePage extends ViewPage {
 
     this.header.append(this.title, navigation.returnElement());
     exampleWrapper.append(this.example, this.answerField);
-    this.main.append(this.infoBlock, exampleWrapper, this.keysWrapper);
+    gameWrapper.append(this.infoBlock, exampleWrapper, this.keysWrapper);
+    this.main.append(gameWrapper);
   }
 }

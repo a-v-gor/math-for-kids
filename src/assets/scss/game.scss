@@ -1,12 +1,14 @@
 .game {
-  &__main {
-    flex-grow: 0;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
     max-width: 30rem;
     margin: 0 auto;
-    padding: 3rem;
+    padding: 1.4rem;
     background-color: $color-example-main;
     border: 0.2rem double $color-button-bckgrnd;
     border-radius: 2rem;
+    row-gap: 2vh;
   }
 
   &__info {
