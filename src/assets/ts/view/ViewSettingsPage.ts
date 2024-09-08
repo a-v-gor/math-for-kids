@@ -1,5 +1,6 @@
 import GameData from '../model/GameData';
 import returnElement from './returnElement';
+import ViewHelp from './ViewHelp';
 import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
@@ -20,6 +21,7 @@ export default class ViewSettingsPage extends ViewPage {
   descriptionNumExamples: HTMLDivElement;
   descriptionOperation: HTMLDivElement;
   settingsBlock: HTMLDivElement;
+  viewHelp: ViewHelp;
 
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
@@ -160,6 +162,11 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['button', 'settings__close-button'],
     });
 
+    this.viewHelp = new ViewHelp([
+      `Для выбора математической операции (сложение, вычитание, умножение) нажмите соответствующую кнопку.`,
+      'Если активна кнопка «!&nbsp;Ошибки», по нажатию на нее можно приступить к работе над ошибками, допущенными ранее.',
+    ]);
+
     this.setNumExpressionsButtons.append(
       this.descriptionNumExamples,
       this.removeMostExamplesButton,
@@ -198,6 +205,10 @@ export default class ViewSettingsPage extends ViewPage {
       this.buttonSetMultiple,
       this.buttonSetFix
     );
-    this.main.append(buttonWrapper, this.settingsBlock);
+    this.main.append(
+      this.viewHelp.returnBlock(),
+      buttonWrapper,
+      this.settingsBlock
+    );
   }
 }

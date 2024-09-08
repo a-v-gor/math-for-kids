@@ -81,10 +81,6 @@ export default class ControllerSettingsPage {
     }
   };
 
-  getNumExamples = () => {
-    return this.gameData.getExamples().length;
-  };
-
   setExamples = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     this.gameData.setOperation(button.innerHTML);
@@ -94,12 +90,11 @@ export default class ControllerSettingsPage {
     descriptionOperation.textContent = button.innerHTML;
     this.makeSettingsBlockActive();
     this.addExamplesData();
-    const numExamples = this.getNumExamples();
-    this.descriptionNumExamples.textContent = String(numExamples);
+    this.descriptionNumExamples.textContent = '20';
   };
 
   checkActiveSetNumButtons = () => {
-    const numExamples = this.getNumExamples();
+    const numExamples = this.gameData.getExamples().length;
     if (Number(this.descriptionNumExamples.textContent) == numExamples) {
       this.addOneExampleButton.disabled = true;
     } else {
