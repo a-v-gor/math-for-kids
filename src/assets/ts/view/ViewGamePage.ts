@@ -14,10 +14,6 @@ export default class ViewGamePage extends ViewPage {
   constructor(gameData: GameData) {
     super('gamePage', gameData);
 
-    this.header = returnElement({
-      tag: 'header',
-      classes: ['header'],
-    });
     const navigation = new ViewNavigation();
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
     this.title = returnElement({

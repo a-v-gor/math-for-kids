@@ -16,19 +16,19 @@ export class App {
 
   private addPagesViews() {
     const viewStartPage = new ViewStartPage(this.gameData);
-    const viewSettingsPage = new ViewSettingsPage(this.gameData);
-    const viewGamePage = new ViewGamePage(this.gameData);
     this.gameData.setViewStartPage(viewStartPage);
+    const viewSettingsPage = new ViewSettingsPage(this.gameData);
     this.gameData.setViewSettingsPage(viewSettingsPage);
+    const viewGamePage = new ViewGamePage(this.gameData);
     this.gameData.setViewGamePage(viewGamePage);
   }
 
   private addControllers() {
     const controllerStartPage = new ControllerStartPage(this.gameData);
-    this.gameData.setControllerStartPage(controllerStartPage);
     const controllerSettingsPage = new ControllerSettingsPage(this.gameData);
-    this.gameData.setControllerSettingsPage(controllerSettingsPage);
     const controllerGamePage = new ControllerGamePage(this.gameData);
+    this.gameData.setControllerStartPage(controllerStartPage);
+    this.gameData.setControllerSettingsPage(controllerSettingsPage);
     this.gameData.setControllerGamePage(controllerGamePage);
   }
 

@@ -29,6 +29,10 @@ export default class ViewSettingsPage extends ViewPage {
       textContent: 'Новая игра',
     });
 
+    const navigation = new ViewNavigation();
+
+    this.navHome = <HTMLLIElement>navigation.returnHomeButton();
+
     const buttonWrapper = returnElement({
       tag: 'div',
       classes: ['button-wrapper'],
@@ -184,10 +188,8 @@ export default class ViewSettingsPage extends ViewPage {
     );
     this.settingsBlock.append(settingsWrapper);
 
-    const navigation = new ViewNavigation();
-    this.navHome = <HTMLLIElement>navigation.returnHomeButton();
-
     this.header.append(title, navigation.returnElement());
+
     gameData.setButtonWrapperSettingsPage(<HTMLDivElement>buttonWrapper);
 
     buttonWrapper.append(

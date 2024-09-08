@@ -16,17 +16,17 @@ export default class ControllerGamePage {
   constructor(gameData: GameData) {
     this.gameData = gameData;
     this.viewGamePage = <ViewGamePage>gameData.getViewGamePage();
-    this.answerField = <HTMLDivElement>this.viewGamePage.answerField;
+    this.answerField = this.viewGamePage.answerField;
     this.infoBlock = new InfoBlock(gameData);
     this.currentExample = null;
-    this.navHome = <HTMLLIElement>gameData.getViewGamePage()?.navHome;
-    this.keysWrapper = <HTMLDivElement>this.viewGamePage.keysWrapper;
+    this.navHome = this.viewGamePage.navHome;
+    this.keysWrapper = this.viewGamePage.keysWrapper;
     this.arrExamples = null;
   }
 
   startNextExample = () => {
     this.arrExamples = this.gameData.getExamples();
-    const example: HTMLDivElement = <HTMLDivElement>this.viewGamePage.example;
+    const example: HTMLDivElement = this.viewGamePage.example;
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
       this.infoBlock.showInstruction();
       const nextExample = <iExample>this.arrExamples.pop();
@@ -131,7 +131,7 @@ export default class ControllerGamePage {
   }
 
   private stop() {
-    this.gameData.getViewGamePage()?.hide();
+    this.viewGamePage.hide();
     this.gameData.getViewStartPage()?.show();
   }
 
