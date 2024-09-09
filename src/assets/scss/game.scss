@@ -2,7 +2,7 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 30rem;
+    align-items: center;
     margin: 0 auto;
     padding: 1.4rem;
     background-color: $color-example-main;
@@ -19,5 +19,9 @@
     background-color: $color-info-bckgrnd;
     border: 0.2rem solid $color-button-border-disabled;
     border-radius: 1rem;
+  }
+
+  &__example-wrapper {
+    width: 24rem;
   }
 }

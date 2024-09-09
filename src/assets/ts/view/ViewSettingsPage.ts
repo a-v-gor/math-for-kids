@@ -6,6 +6,8 @@ import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
   navHome: HTMLLIElement | undefined;
+  navHelp: HTMLLIElement | undefined;
+  helpCloseButton: HTMLButtonElement;
   setNumExpressionsButtons: HTMLElement | undefined;
   removeMostExamplesButton: HTMLButtonElement;
   removeManyExamplesButton: HTMLButtonElement;
@@ -14,7 +16,7 @@ export default class ViewSettingsPage extends ViewPage {
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
-  settingsCloseButton: HTMLDivElement;
+  infoCloseButton: HTMLButtonElement;
   buttonSetMultiple: HTMLButtonElement;
   buttonSetSubstr: HTMLButtonElement;
   buttonSetSum: HTMLButtonElement;
@@ -34,6 +36,7 @@ export default class ViewSettingsPage extends ViewPage {
     const navigation = new ViewNavigation();
 
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
+    this.navHelp = <HTMLLIElement>navigation.returnHelpButton();
 
     const buttonWrapper = returnElement({
       tag: 'div',
@@ -66,7 +69,7 @@ export default class ViewSettingsPage extends ViewPage {
 
     this.settingsBlock = <HTMLDivElement>returnElement({
       tag: 'div',
-      classes: ['settings', 'settings_unactive'],
+      classes: ['settings', 'information', 'information_unactive'],
     });
 
     const settingsWrapper = returnElement({
@@ -157,15 +160,20 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['button', 'settings__apply-button'],
       textContent: 'Применить',
     });
-    this.settingsCloseButton = <HTMLDivElement>returnElement({
-      tag: 'div',
+    this.infoCloseButton = <HTMLButtonElement>returnElement({
+      tag: 'button',
       classes: ['button', 'settings__close-button'],
     });
 
     this.viewHelp = new ViewHelp([
       `Для выбора математической операции (сложение, вычитание, умножение) нажмите соответствующую кнопку.`,
-      'Если активна кнопка «!&nbsp;Ошибки», по нажатию на нее можно приступить к работе над ошибками, допущенными ранее.',
+      'Если активна кнопка «! Ошибки», по нажатию на нее можно приступить к работе над ошибками, допущенными ранее.',
+      'В следующем окне выберите количество примеров для решения (по умолчанию 20). Кнопки «---», «--» и «-» уменьшают число на 50, 10 и 1 соответственно. Кнопки прибавления действуют аналогично в сторону увеличения числа.',
+      'Нажатием на кнопку «Применить» начните игру.',
     ]);
+    this.helpCloseButton = this.viewHelp.returnCloseButton();
+
+    const viewHelpBlock = this.viewHelp.returnBlock();
 
     this.setNumExpressionsButtons.append(
       this.descriptionNumExamples,
@@ -191,7 +199,7 @@ export default class ViewSettingsPage extends ViewPage {
     settingsWrapper.append(
       settingsDescriptions,
       this.settingsApplyButton,
-      this.settingsCloseButton
+      this.infoCloseButton
     );
     this.settingsBlock.append(settingsWrapper);
 
@@ -205,10 +213,6 @@ export default class ViewSettingsPage extends ViewPage {
       this.buttonSetMultiple,
       this.buttonSetFix
     );
-    this.main.append(
-      this.viewHelp.returnBlock(),
-      buttonWrapper,
-      this.settingsBlock
-    );
+    this.main.append(viewHelpBlock, buttonWrapper, this.settingsBlock);
   }
 }

@@ -1,0 +1,12 @@
+.information {
+  position: fixed;
+  z-index: 2;
+  padding: 2vh 0 0;
+  overflow-y: auto;
+  inset: 0;
+  background-color: $color-body-bckgrnd;
+
+  &_unactive {
+    inset: -100vh 0 100vh;
+  }
+}

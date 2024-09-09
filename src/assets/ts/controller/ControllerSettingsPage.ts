@@ -5,6 +5,8 @@ export default class ControllerSettingsPage {
   gameData: GameData;
   buttonWrapper: HTMLDivElement;
   navHome: HTMLLIElement;
+  navHelp: HTMLLIElement;
+  helpCloseButton: HTMLButtonElement;
   setNumExpressionsButtons: HTMLDivElement;
   descriptionNumExamples: HTMLDivElement;
   removeMostExamplesButton: HTMLButtonElement;
@@ -14,7 +16,7 @@ export default class ControllerSettingsPage {
   addManyExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
   settingsApplyButton: HTMLButtonElement;
-  settingsCloseButton: HTMLDivElement;
+  settingsCloseButton: HTMLButtonElement;
   settingsBlock: HTMLDivElement;
 
   constructor(gameData: GameData) {
@@ -23,6 +25,7 @@ export default class ControllerSettingsPage {
       gameData.getButtonWrapperSettingsPage()
     );
     this.navHome = <HTMLLIElement>gameData.getViewSettingsPage()?.navHome;
+    this.navHelp = <HTMLLIElement>gameData.getViewSettingsPage()?.navHelp;
     this.descriptionNumExamples = <HTMLDivElement>(
       this.gameData.getViewSettingsPage()?.descriptionNumExamples
     );
@@ -50,8 +53,11 @@ export default class ControllerSettingsPage {
     this.settingsApplyButton = <HTMLButtonElement>(
       gameData.getViewSettingsPage()?.settingsApplyButton
     );
-    this.settingsCloseButton = <HTMLDivElement>(
-      gameData.getViewSettingsPage()?.settingsCloseButton
+    this.settingsCloseButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.infoCloseButton
+    );
+    this.helpCloseButton = <HTMLButtonElement>(
+      gameData.getViewSettingsPage()?.helpCloseButton
     );
     this.settingsBlock = <HTMLDivElement>(
       this.gameData.getViewSettingsPage()?.settingsBlock
@@ -72,12 +78,12 @@ export default class ControllerSettingsPage {
   };
 
   makeSettingsBlockActive = () => {
-    this.settingsBlock.classList.remove('settings_unactive');
+    this.settingsBlock.classList.remove('information_unactive');
   };
 
   makeSettingsBlockUnactive = () => {
-    if (!this.settingsBlock.classList.contains('settings_unactive')) {
-      this.settingsBlock.classList.add('settings_unactive');
+    if (!this.settingsBlock.classList.contains('information_unactive')) {
+      this.settingsBlock.classList.add('information_unactive');
     }
   };
 
@@ -90,7 +96,9 @@ export default class ControllerSettingsPage {
     descriptionOperation.textContent = button.innerHTML;
     this.makeSettingsBlockActive();
     this.addExamplesData();
-    this.descriptionNumExamples.textContent = '20';
+    const numExamples = this.gameData.getExamples().length;
+    this.descriptionNumExamples.textContent =
+      numExamples >= 20 ? '20' : String(numExamples);
   };
 
   checkActiveSetNumButtons = () => {
@@ -188,9 +196,15 @@ export default class ControllerSettingsPage {
       'click',
       this.makeSettingsBlockUnactive
     );
+    this.helpCloseButton.addEventListener('click', () =>
+      this.gameData.getViewSettingsPage()?.viewHelp.hide()
+    );
     this.navHome.addEventListener('click', () => {
       this.gameData.getViewSettingsPage()?.hide();
       this.gameData.getViewStartPage()?.show();
+    });
+    this.navHelp.addEventListener('click', () => {
+      this.gameData.getViewSettingsPage()?.viewHelp.show();
     });
   };
 }

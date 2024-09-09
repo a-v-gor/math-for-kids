@@ -26,7 +26,7 @@ export default class ViewGamePage extends ViewPage {
     });
     const gameWrapper = returnElement({
       tag: 'div',
-      classes: ['game__wrapper'],
+      classes: ['wrapper', 'game__wrapper'],
     });
     this.infoBlock = <HTMLDivElement>returnElement({
       tag: 'div',
@@ -34,7 +34,7 @@ export default class ViewGamePage extends ViewPage {
     });
     const exampleWrapper = returnElement({
       tag: 'div',
-      classes: ['example__wrapper'],
+      classes: ['game__example-wrapper', 'example__wrapper'],
     });
     this.example = <HTMLDivElement>returnElement({
       tag: 'div',

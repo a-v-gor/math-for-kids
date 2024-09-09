@@ -19,7 +19,7 @@ export default class ViewStartPage extends ViewPage {
     });
     const buttonWrapper = returnElement({
       tag: 'div',
-      classes: ['button-wrapper'],
+      classes: ['wrapper', 'button-wrapper'],
     });
     const titleWrapper = returnElement({
       tag: 'div',

@@ -11,6 +11,7 @@
   background-color: $color-footer-bckgrnd;
 
   &__wrapper {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
