@@ -5,6 +5,7 @@ import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
+  buttonWrapper: HTMLDivElement;
   navHome: HTMLLIElement | undefined;
   navHelp: HTMLLIElement | undefined;
   helpCloseButton: HTMLButtonElement;
@@ -38,7 +39,7 @@ export default class ViewSettingsPage extends ViewPage {
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
     this.navHelp = <HTMLLIElement>navigation.returnHelpButton();
 
-    const buttonWrapper = returnElement({
+    this.buttonWrapper = <HTMLDivElement>returnElement({
       tag: 'div',
       classes: ['button-wrapper'],
     });
@@ -205,14 +206,12 @@ export default class ViewSettingsPage extends ViewPage {
 
     this.header.append(title, navigation.returnElement());
 
-    gameData.setButtonWrapperSettingsPage(<HTMLDivElement>buttonWrapper);
-
-    buttonWrapper.append(
+    this.buttonWrapper.append(
       this.buttonSetSum,
       this.buttonSetSubstr,
       this.buttonSetMultiple,
       this.buttonSetFix
     );
-    this.main.append(viewHelpBlock, buttonWrapper, this.settingsBlock);
+    this.main.append(viewHelpBlock, this.buttonWrapper, this.settingsBlock);
   }
 }

@@ -10,6 +10,8 @@ export default class ControllerGamePage {
   infoBlock: InfoBlock;
   currentExample: iExample | null;
   navHome: HTMLLIElement;
+  navHelp: HTMLLIElement;
+  helpCloseButton: HTMLButtonElement;
   keysWrapper: HTMLDivElement;
   arrExamples: iExample[] | null;
 
@@ -20,8 +22,10 @@ export default class ControllerGamePage {
     this.infoBlock = new InfoBlock(gameData);
     this.currentExample = null;
     this.navHome = this.viewGamePage.navHome;
+    this.navHelp = <HTMLLIElement>this.viewGamePage.navHelp;
     this.keysWrapper = this.viewGamePage.keysWrapper;
     this.arrExamples = null;
+    this.helpCloseButton = this.viewGamePage.helpCloseButton;
   }
 
   startNextExample = () => {
@@ -130,12 +134,12 @@ export default class ControllerGamePage {
     });
   }
 
-  private stop() {
+  private stop = () => {
     this.viewGamePage.hide();
     this.gameData.getViewStartPage()?.show();
-  }
+  };
 
-  private startListenMenu() {
+  private startListenMenu = () => {
     this.navHome.addEventListener('click', () => {
       this.gameData.storageGameData.saveToLS(
         this.gameData,
@@ -143,7 +147,13 @@ export default class ControllerGamePage {
       );
       this.stop();
     });
-  }
+    this.navHelp.addEventListener('click', () => {
+      this.viewGamePage.viewHelp.show();
+    });
+    this.helpCloseButton.addEventListener('click', () =>
+      this.viewGamePage.viewHelp.hide()
+    );
+  };
 
   private startListenCloseWindow() {
     window.addEventListener('beforeunload', () => {

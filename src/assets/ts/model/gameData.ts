@@ -8,7 +8,6 @@ import iExample from './iExample';
 import StorageGameData from './StorageGameData';
 
 export default class GameData {
-  private buttonWrapperSettingsPage: HTMLDivElement | null;
   private controllerGamePage: ControllerGamePage | null;
   private controllerSettingsPage: ControllerSettingsPage | null;
   private controllerStartPage: ControllerStartPage | null;
@@ -21,8 +20,7 @@ export default class GameData {
   public storageGameData: StorageGameData;
 
   constructor() {
-    (this.buttonWrapperSettingsPage = null),
-      (this.controllerGamePage = null),
+    (this.controllerGamePage = null),
       (this.controllerSettingsPage = null),
       (this.controllerStartPage = null),
       (this.examples = []),
@@ -110,13 +108,5 @@ export default class GameData {
 
   getOperation = () => {
     return this.operation;
-  };
-
-  setButtonWrapperSettingsPage = (buttonWrapper: HTMLDivElement) => {
-    this.buttonWrapperSettingsPage = buttonWrapper;
-  };
-
-  getButtonWrapperSettingsPage = () => {
-    return this.buttonWrapperSettingsPage;
   };
 }

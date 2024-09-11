@@ -1,21 +1,25 @@
 import GameData from '../model/GameData';
 import returnElement from './returnElement';
+import ViewHelp from './ViewHelp';
 import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewGamePage extends ViewPage {
   navHome: HTMLLIElement;
+  navHelp: HTMLLIElement | undefined;
+  helpCloseButton: HTMLButtonElement;
   keysWrapper: HTMLDivElement;
   answerField: HTMLDivElement;
   example: HTMLDivElement;
   infoBlock: HTMLDivElement;
   title: HTMLElement;
+  viewHelp: ViewHelp;
 
   constructor(gameData: GameData) {
     super('gamePage', gameData);
-
     const navigation = new ViewNavigation();
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
+    this.navHelp = <HTMLLIElement>navigation.returnHelpButton();
     this.title = returnElement({
       tag: 'h1',
       classes: ['title'],
@@ -81,9 +85,17 @@ export default class ViewGamePage extends ViewPage {
       }
     };
 
+    this.viewHelp = new ViewHelp([
+      'Максимально возможное число для ввода — «100». После ввода числа следует подтвердить свой ответ (нажатием на кнопку «✓» или «Enter» на клавиатуре).',
+      'При ошибке можно стереть введенное значение (нажатием на кнопку «×» или «Delete», «Backspace» на клавиатуре).',
+    ]);
+    this.helpCloseButton = this.viewHelp.returnCloseButton();
+
+    const viewHelpBlock = this.viewHelp.returnBlock();
+
     this.header.append(this.title, navigation.returnElement());
     exampleWrapper.append(this.example, this.answerField);
     gameWrapper.append(this.infoBlock, exampleWrapper, this.keysWrapper);
-    this.main.append(gameWrapper);
+    this.main.append(viewHelpBlock, gameWrapper);
   }
 }

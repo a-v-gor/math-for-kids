@@ -1,5 +1,6 @@
 import Examples from '../model/Examples';
 import GameData from '../model/GameData';
+import ViewSettingsPage from '../view/ViewSettingsPage';
 
 export default class ControllerSettingsPage {
   gameData: GameData;
@@ -18,50 +19,30 @@ export default class ControllerSettingsPage {
   settingsApplyButton: HTMLButtonElement;
   settingsCloseButton: HTMLButtonElement;
   settingsBlock: HTMLDivElement;
+  viewSettingsPage: ViewSettingsPage;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
-    this.buttonWrapper = <HTMLDivElement>(
-      gameData.getButtonWrapperSettingsPage()
-    );
-    this.navHome = <HTMLLIElement>gameData.getViewSettingsPage()?.navHome;
-    this.navHelp = <HTMLLIElement>gameData.getViewSettingsPage()?.navHelp;
-    this.descriptionNumExamples = <HTMLDivElement>(
-      this.gameData.getViewSettingsPage()?.descriptionNumExamples
-    );
+    this.viewSettingsPage = <ViewSettingsPage>gameData.getViewSettingsPage();
+    this.buttonWrapper = this.viewSettingsPage.buttonWrapper;
+    this.navHome = <HTMLLIElement>this.viewSettingsPage.navHome;
+    this.navHelp = <HTMLLIElement>this.viewSettingsPage.navHelp;
+    this.descriptionNumExamples = this.viewSettingsPage.descriptionNumExamples;
     this.setNumExpressionsButtons = <HTMLDivElement>(
-      gameData.getViewSettingsPage()?.setNumExpressionsButtons
+      this.viewSettingsPage.setNumExpressionsButtons
     );
-    this.removeMostExamplesButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.removeMostExamplesButton
-    );
-    this.removeManyExamplesButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.removeManyExamplesButton
-    );
-    this.removeOneExampleButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.removeOneExampleButton
-    );
-    this.addMostExamplesButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.addMostExamplesButton
-    );
-    this.addManyExamplesButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.addManyExamplesButton
-    );
-    this.addOneExampleButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.addOneExampleButton
-    );
-    this.settingsApplyButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.settingsApplyButton
-    );
-    this.settingsCloseButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.infoCloseButton
-    );
-    this.helpCloseButton = <HTMLButtonElement>(
-      gameData.getViewSettingsPage()?.helpCloseButton
-    );
-    this.settingsBlock = <HTMLDivElement>(
-      this.gameData.getViewSettingsPage()?.settingsBlock
-    );
+    this.removeMostExamplesButton =
+      this.viewSettingsPage.removeMostExamplesButton;
+    this.removeManyExamplesButton =
+      this.viewSettingsPage.removeManyExamplesButton;
+    this.removeOneExampleButton = this.viewSettingsPage.removeOneExampleButton;
+    this.addMostExamplesButton = this.viewSettingsPage.addMostExamplesButton;
+    this.addManyExamplesButton = this.viewSettingsPage.addManyExamplesButton;
+    this.addOneExampleButton = this.viewSettingsPage.addOneExampleButton;
+    this.settingsApplyButton = this.viewSettingsPage.settingsApplyButton;
+    this.settingsCloseButton = this.viewSettingsPage.infoCloseButton;
+    this.helpCloseButton = this.viewSettingsPage.helpCloseButton;
+    this.settingsBlock = this.viewSettingsPage.settingsBlock;
     gameData.setControllerSettingsPage(this);
   }
 
@@ -91,7 +72,7 @@ export default class ControllerSettingsPage {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
     this.gameData.setOperation(button.innerHTML);
     const descriptionOperation = <HTMLElement>(
-      this.gameData.getViewSettingsPage()?.descriptionOperation
+      this.viewSettingsPage.descriptionOperation
     );
     descriptionOperation.textContent = button.innerHTML;
     this.makeSettingsBlockActive();
@@ -180,7 +161,7 @@ export default class ControllerSettingsPage {
       Number(this.descriptionNumExamples.textContent)
     );
     this.makeSettingsBlockUnactive();
-    this.gameData.getViewSettingsPage()?.hide();
+    this.viewSettingsPage.hide();
     this.gameData.getControllerGamePage()?.startNextExample();
     this.gameData.getViewGamePage()?.show();
   };
@@ -197,14 +178,14 @@ export default class ControllerSettingsPage {
       this.makeSettingsBlockUnactive
     );
     this.helpCloseButton.addEventListener('click', () =>
-      this.gameData.getViewSettingsPage()?.viewHelp.hide()
+      this.viewSettingsPage.viewHelp.hide()
     );
     this.navHome.addEventListener('click', () => {
-      this.gameData.getViewSettingsPage()?.hide();
+      this.viewSettingsPage.hide();
       this.gameData.getViewStartPage()?.show();
     });
     this.navHelp.addEventListener('click', () => {
-      this.gameData.getViewSettingsPage()?.viewHelp.show();
+      this.viewSettingsPage.viewHelp.show();
     });
   };
 }
