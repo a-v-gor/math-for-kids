@@ -5,6 +5,14 @@
   padding: 0.6rem;
   background-color: $color-header-bckgrnd;
 
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    row-gap: 0.5rem;
+  }
+
   &__title {
     text-transform: uppercase;
 

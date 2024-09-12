@@ -14,19 +14,34 @@ export default class ViewGamePage extends ViewPage {
   infoBlock: HTMLDivElement;
   title: HTMLElement;
   viewHelp: ViewHelp;
+  scoreValue: HTMLParagraphElement;
 
   constructor(gameData: GameData) {
     super('gamePage', gameData);
+    const headerWrapper = returnElement({
+      tag: 'div',
+      classes: ['wrapper', 'header__wrapper', 'game__header-wrapper'],
+    });
     const navigation = new ViewNavigation();
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
     this.navHelp = <HTMLLIElement>navigation.returnHelpButton();
+    const scoreWrapper = returnElement({
+      tag: 'div',
+      classes: ['score__wrapper'],
+    });
+    const scoreTitle = returnElement({
+      tag: 'h2',
+      classes: ['score__title'],
+      textContent: 'Счет:',
+    });
+    this.scoreValue = <HTMLParagraphElement>returnElement({
+      tag: 'p',
+      classes: ['score__value'],
+      textContent: '0',
+    });
     this.title = returnElement({
       tag: 'h1',
       classes: ['title'],
-    });
-    this.main = returnElement({
-      tag: 'main',
-      classes: ['main'],
     });
     const gameWrapper = returnElement({
       tag: 'div',
@@ -92,10 +107,22 @@ export default class ViewGamePage extends ViewPage {
     this.helpCloseButton = this.viewHelp.returnCloseButton();
 
     const viewHelpBlock = this.viewHelp.returnBlock();
-
-    this.header.append(this.title, navigation.returnElement());
+    scoreWrapper.append(scoreTitle, this.scoreValue);
+    headerWrapper.append(this.title, navigation.returnElement(), scoreWrapper);
+    this.header.append(headerWrapper);
     exampleWrapper.append(this.example, this.answerField);
     gameWrapper.append(this.infoBlock, exampleWrapper, this.keysWrapper);
     this.main.append(viewHelpBlock, gameWrapper);
   }
+
+  increaseScore = (num: number) => {
+    const currentNumText = <string>this.scoreValue.textContent;
+    const currentNum = Number(currentNumText);
+    const newNumText = String(currentNum + num);
+    this.scoreValue.textContent = newNumText;
+  };
+
+  resetScore = () => {
+    this.scoreValue.textContent = '0';
+  };
 }

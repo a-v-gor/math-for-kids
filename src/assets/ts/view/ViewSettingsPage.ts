@@ -28,10 +28,16 @@ export default class ViewSettingsPage extends ViewPage {
 
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
+
     const title = returnElement({
       tag: 'h1',
       classes: ['title'],
       textContent: 'Новая игра',
+    });
+
+    const headerWrapper = returnElement({
+      tag: 'div',
+      classes: ['wrapper', 'header__wrapper'],
     });
 
     const navigation = new ViewNavigation();
@@ -204,7 +210,8 @@ export default class ViewSettingsPage extends ViewPage {
     );
     this.settingsBlock.append(settingsWrapper);
 
-    this.header.append(title, navigation.returnElement());
+    headerWrapper.append(title, navigation.returnElement());
+    this.header.append(headerWrapper);
 
     this.buttonWrapper.append(
       this.buttonSetSum,

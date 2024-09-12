@@ -67,6 +67,7 @@ export default class ControllerGamePage {
           this.gameData.setExamples(this.arrExamples);
         }
         this.infoBlock.showRightAnswer();
+        this.viewGamePage.increaseScore(this.currentExample.score);
         setTimeout(() => {
           this.infoBlock.showInstruction();
           this.startNextExample();
