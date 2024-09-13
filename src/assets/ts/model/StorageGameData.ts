@@ -8,6 +8,7 @@ export default class StorageGameData {
       examples: gameData.getExamples(),
       mistakes: gameData.getMistakes(),
       operation: gameData.getOperation(),
+      score: gameData.getScore(),
     };
     if (example !== null && !gameData.getExamples().includes(example)) {
       dataObj.examples.push(example);

@@ -162,6 +162,7 @@ export default class ControllerSettingsPage {
     );
     this.makeSettingsBlockUnactive();
     this.viewSettingsPage.hide();
+    this.gameData.setScore(0);
     this.gameData.getControllerGamePage()?.startNextExample();
     this.gameData.getViewGamePage()?.show();
   };

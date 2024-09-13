@@ -33,6 +33,7 @@ export default class ControllerGamePage {
     const example: HTMLDivElement = this.viewGamePage.example;
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
       this.infoBlock.showInstruction();
+      this.viewGamePage.updateScore();
       const nextExample = <iExample>this.arrExamples.pop();
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
@@ -60,6 +61,12 @@ export default class ControllerGamePage {
     }
   };
 
+  private increaseScore = (num: number) => {
+    const currentScore = this.gameData.getScore();
+    const newScore = currentScore + num;
+    this.gameData.setScore(newScore);
+  };
+
   private checkAnswer = () => {
     if (this.currentExample !== null && this.answerField.textContent !== '??') {
       if (Number(this.answerField.innerText) === this.currentExample.answer) {
@@ -67,7 +74,8 @@ export default class ControllerGamePage {
           this.gameData.setExamples(this.arrExamples);
         }
         this.infoBlock.showRightAnswer();
-        this.viewGamePage.increaseScore(this.currentExample.score);
+        this.increaseScore(this.currentExample.score);
+        this.viewGamePage.updateScore();
         setTimeout(() => {
           this.infoBlock.showInstruction();
           this.startNextExample();

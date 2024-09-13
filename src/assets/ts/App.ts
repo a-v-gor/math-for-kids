@@ -40,12 +40,14 @@ export class App {
       examples: [],
       mistakes: [],
       operation: '',
+      score: 0,
     };
     if (stringData !== null) {
       parsedObject = <iObjForLS>JSON.parse(stringData);
       this.gameData.setExamples(parsedObject.examples);
       this.gameData.setMistakes(parsedObject.mistakes);
       this.gameData.setOperation(parsedObject.operation);
+      this.gameData.setScore(parsedObject.score);
     }
   };
 

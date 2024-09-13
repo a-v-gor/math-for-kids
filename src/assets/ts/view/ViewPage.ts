@@ -60,7 +60,7 @@ export default abstract class ViewPage {
       if (updateTitle !== undefined) {
         updateTitle(this.gameData.getOperation());
       }
-      this.gameData.getViewGamePage()?.resetScore();
+      this.gameData.getViewGamePage()?.updateScore();
     }
   };
   hide() {

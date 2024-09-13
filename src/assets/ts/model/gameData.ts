@@ -18,6 +18,7 @@ export default class GameData {
   private viewSettingsPage: ViewSettingsPage | null;
   private viewStartPage: ViewStartPage | null;
   public storageGameData: StorageGameData;
+  private score: number;
 
   constructor() {
     (this.controllerGamePage = null),
@@ -30,6 +31,7 @@ export default class GameData {
       (this.viewSettingsPage = null),
       (this.viewStartPage = null);
     this.storageGameData = new StorageGameData();
+    this.score = 0;
   }
 
   setViewStartPage = (viewStartPage: ViewStartPage) => {
@@ -108,5 +110,13 @@ export default class GameData {
 
   getOperation = () => {
     return this.operation;
+  };
+
+  setScore = (num: number) => {
+    this.score = num;
+  };
+
+  getScore = () => {
+    return this.score;
   };
 }

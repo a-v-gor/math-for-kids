@@ -115,14 +115,7 @@ export default class ViewGamePage extends ViewPage {
     this.main.append(viewHelpBlock, gameWrapper);
   }
 
-  increaseScore = (num: number) => {
-    const currentNumText = <string>this.scoreValue.textContent;
-    const currentNum = Number(currentNumText);
-    const newNumText = String(currentNum + num);
-    this.scoreValue.textContent = newNumText;
-  };
-
-  resetScore = () => {
-    this.scoreValue.textContent = '0';
+  updateScore = () => {
+    this.scoreValue.textContent = String(this.gameData.getScore());
   };
 }
