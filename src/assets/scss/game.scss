@@ -24,4 +24,9 @@
   &__example-wrapper {
     width: 24rem;
   }
+
+  &__statistics {
+    font-weight: 700;
+    color: $color-title-second;
+  }
 }

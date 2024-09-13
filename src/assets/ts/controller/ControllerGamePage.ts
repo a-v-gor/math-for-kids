@@ -32,7 +32,12 @@ export default class ControllerGamePage {
     this.arrExamples = this.gameData.getExamples();
     const example: HTMLDivElement = this.viewGamePage.example;
     if (this.arrExamples !== null && this.arrExamples.length > 0) {
-      this.infoBlock.showInstruction();
+      if (this.gameData.getScore() === 0) {
+        this.infoBlock.showInstruction();
+      } else {
+        this.infoBlock.showStatistics();
+      }
+
       this.viewGamePage.updateScore();
       const nextExample = <iExample>this.arrExamples.pop();
       this.currentExample = nextExample;

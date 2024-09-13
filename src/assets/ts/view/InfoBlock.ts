@@ -2,9 +2,11 @@ import GameData from '../model/GameData';
 
 export default class InfoBlock {
   infoBlock: HTMLDivElement;
+  gameData: GameData;
 
-  constructor(gameData: GameData) {
-    this.infoBlock = <HTMLDivElement>gameData.getViewGamePage()?.infoBlock;
+  constructor(data: GameData) {
+    this.gameData = data;
+    this.infoBlock = <HTMLDivElement>this.gameData.getViewGamePage()?.infoBlock;
   }
 
   showRightAnswer() {
@@ -17,6 +19,17 @@ export default class InfoBlock {
 
   showInstruction() {
     this.infoBlock.innerText = 'Введи число и нажми «✓».';
+  }
+
+  showStatistics() {
+    const examplesNum = this.gameData.getExamples().length;
+    const examplesWord =
+      examplesNum % 10 === 1
+        ? 'пример'
+        : examplesNum % 10 < 5
+          ? 'примера'
+          : 'примеров';
+    this.infoBlock.innerHTML = `Осталось решить <span class="game__statistics">${examplesNum}</span> ${examplesWord}.`;
   }
 
   showEndGame() {
