@@ -9,30 +9,34 @@ export default class InfoBlock {
     this.infoBlock = <HTMLDivElement>this.gameData.getViewGamePage()?.infoBlock;
   }
 
-  showRightAnswer() {
+  showRightAnswer = () => {
     this.infoBlock.innerText = 'Верно!';
-  }
+  };
 
-  showWrongAnswer() {
+  showWrongAnswer = () => {
     this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
-  }
+  };
 
-  showInstruction() {
+  showInstruction = () => {
     this.infoBlock.innerText = 'Введи число и нажми «✓».';
-  }
+  };
 
-  showStatistics() {
+  showStatistics = () => {
     const examplesNum = this.gameData.getExamples().length;
     const examplesWord =
-      examplesNum % 10 === 1
+      examplesNum % 10 === 1 &&
+      (examplesNum < 10 || examplesNum > 20) &&
+      examplesNum % 100 !== 11
         ? 'пример'
-        : examplesNum % 10 < 5
+        : examplesNum % 10 < 5 &&
+            (examplesNum % 100 < 10 || examplesNum % 100 > 20) &&
+            examplesNum % 100 !== 0
           ? 'примера'
           : 'примеров';
-    this.infoBlock.innerHTML = `Осталось решить <span class="game__statistics">${examplesNum}</span> ${examplesWord}.`;
-  }
+    this.infoBlock.innerHTML = `Осталось решить <br/><span class="game__statistics">${examplesNum}</span> ${examplesWord}.`;
+  };
 
-  showEndGame() {
+  showEndGame = () => {
     this.infoBlock.innerText = 'Все примеры решены.';
-  }
+  };
 }

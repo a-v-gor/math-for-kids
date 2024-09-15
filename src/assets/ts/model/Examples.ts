@@ -100,8 +100,6 @@ export default class Examples {
   };
 
   return() {
-    console.log(this.examplesArr);
-
     return this.examplesArr;
   }
 }
