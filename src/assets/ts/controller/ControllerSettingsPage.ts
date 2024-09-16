@@ -1,5 +1,6 @@
 import Examples from '../model/Examples';
 import GameData from '../model/GameData';
+import iExample from '../model/iExample';
 import ViewSettingsPage from '../view/ViewSettingsPage';
 
 export default class ControllerSettingsPage {
@@ -20,6 +21,8 @@ export default class ControllerSettingsPage {
   settingsCloseButton: HTMLButtonElement;
   settingsBlock: HTMLDivElement;
   viewSettingsPage: ViewSettingsPage;
+  tempOperation: string;
+  tempExamples: iExample[];
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -44,10 +47,12 @@ export default class ControllerSettingsPage {
     this.helpCloseButton = this.viewSettingsPage.helpCloseButton;
     this.settingsBlock = this.viewSettingsPage.settingsBlock;
     gameData.setControllerSettingsPage(this);
+    this.tempOperation = '';
+    this.tempExamples = [];
   }
 
   addExamplesData = () => {
-    const operationText = this.gameData.getOperation().slice(0, 1);
+    const operationText = this.tempOperation.slice(0, 1);
     let examples = [];
     if (operationText === '!') {
       examples = this.gameData.getMistakes();
@@ -55,7 +60,7 @@ export default class ControllerSettingsPage {
     } else {
       examples = new Examples(operationText).return();
     }
-    this.gameData.setExamples(examples);
+    this.tempExamples = examples;
   };
 
   makeSettingsBlockActive = () => {
@@ -68,22 +73,27 @@ export default class ControllerSettingsPage {
     }
   };
 
+  private applyTempSettings = () => {
+    this.gameData.setOperation(this.tempOperation);
+    this.gameData.setExamples(this.tempExamples);
+  };
+
   setExamples = (event: Event) => {
     const button: HTMLButtonElement = <HTMLButtonElement>event.target;
-    this.gameData.setOperation(button.innerHTML);
+    this.tempOperation = button.innerHTML;
     const descriptionOperation = <HTMLElement>(
       this.viewSettingsPage.descriptionOperation
     );
     descriptionOperation.textContent = button.innerHTML;
     this.makeSettingsBlockActive();
     this.addExamplesData();
-    const numExamples = this.gameData.getExamples().length;
+    const numExamples = this.tempExamples.length;
     this.descriptionNumExamples.textContent =
       numExamples >= 20 ? '20' : String(numExamples);
   };
 
   checkActiveSetNumButtons = () => {
-    const numExamples = this.gameData.getExamples().length;
+    const numExamples = this.tempExamples.length;
     if (Number(this.descriptionNumExamples.textContent) == numExamples) {
       this.addOneExampleButton.disabled = true;
     } else {
@@ -157,9 +167,8 @@ export default class ControllerSettingsPage {
   };
 
   applySettings = () => {
-    this.gameData.setNumExamples(
-      Number(this.descriptionNumExamples.textContent)
-    );
+    this.tempExamples.length = Number(this.descriptionNumExamples.textContent);
+    this.applyTempSettings();
     this.makeSettingsBlockUnactive();
     this.viewSettingsPage.hide();
     this.gameData.setScore(0);
