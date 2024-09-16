@@ -41,6 +41,10 @@ export class App {
       mistakes: [],
       operation: '',
       score: 0,
+      gameTime: 0,
+      numMistakes: 0,
+      numExamples: 0,
+      records: [],
     };
     if (stringData !== null) {
       parsedObject = <iObjForLS>JSON.parse(stringData);
@@ -48,6 +52,7 @@ export class App {
       this.gameData.setMistakes(parsedObject.mistakes);
       this.gameData.setOperation(parsedObject.operation);
       this.gameData.setScore(parsedObject.score);
+      this.gameData.setRecords(parsedObject.records);
     }
   };
 

@@ -46,9 +46,9 @@ export default class ControllerSettingsPage {
     this.settingsCloseButton = this.viewSettingsPage.infoCloseButton;
     this.helpCloseButton = this.viewSettingsPage.helpCloseButton;
     this.settingsBlock = this.viewSettingsPage.settingsBlock;
-    gameData.setControllerSettingsPage(this);
     this.tempOperation = '';
     this.tempExamples = [];
+    gameData.setControllerSettingsPage(this);
   }
 
   addExamplesData = () => {
@@ -168,10 +168,12 @@ export default class ControllerSettingsPage {
 
   applySettings = () => {
     this.tempExamples.length = Number(this.descriptionNumExamples.textContent);
+    this.gameData.setGameTime(0);
+    this.gameData.setNumMistakes(0);
+    this.gameData.setScore(0);
     this.applyTempSettings();
     this.makeSettingsBlockUnactive();
     this.viewSettingsPage.hide();
-    this.gameData.setScore(0);
     this.gameData.getControllerGamePage()?.startNextExample();
     this.gameData.getViewGamePage()?.show();
   };

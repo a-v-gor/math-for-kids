@@ -1,5 +1,6 @@
 import GameData from '../model/GameData';
 import iExample from '../model/iExample';
+import iRecord from '../model/iRecord';
 import InfoBlock from '../view/InfoBlock';
 import ViewGamePage from '../view/ViewGamePage';
 
@@ -13,7 +14,8 @@ export default class ControllerGamePage {
   navHelp: HTMLLIElement;
   helpCloseButton: HTMLButtonElement;
   keysWrapper: HTMLDivElement;
-  arrExamples: iExample[] | null;
+  arrExamples: iExample[];
+  startExampleTime: Date | null;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -24,34 +26,43 @@ export default class ControllerGamePage {
     this.navHome = this.viewGamePage.navHome;
     this.navHelp = <HTMLLIElement>this.viewGamePage.navHelp;
     this.keysWrapper = this.viewGamePage.keysWrapper;
-    this.arrExamples = null;
+    this.arrExamples = [];
     this.helpCloseButton = this.viewGamePage.helpCloseButton;
+    this.startExampleTime = null;
   }
 
   startNextExample = () => {
     this.arrExamples = this.gameData.getExamples();
     const example: HTMLDivElement = this.viewGamePage.example;
-    if (this.arrExamples !== null && this.arrExamples.length > 0) {
+    if (this.arrExamples.length > 0) {
       if (this.gameData.getScore() === 0) {
         this.infoBlock.showInstruction();
       } else {
         this.infoBlock.showStatistics();
       }
-
       this.viewGamePage.updateScore();
+      this.startExampleTime = new Date();
       const nextExample = <iExample>this.arrExamples.pop();
       this.currentExample = nextExample;
       example.innerText = `${nextExample.example} =`;
       this.answerField.innerText = '??';
     } else {
-      this.currentExample = null;
-      this.gameData.setExamples([]);
+      const record: iRecord = {
+        operation: this.gameData.getOperation(),
+        numExamples: this.gameData.getNumExamples(),
+        numMistakes: this.gameData.getNumMistakes(),
+        score: this.gameData.getScore(),
+        time: this.gameData.getGameTime(),
+      };
+      this.gameData.addRecord(record);
       this.infoBlock.showEndGame();
       example.innerText = `Молодец`;
       this.answerField.innerText = '!!!';
+      this.currentExample = null;
+      this.gameData.setExamples([]);
       setTimeout(() => {
         this.stop();
-      }, 5000);
+      }, 4000);
     }
   };
 
@@ -62,6 +73,7 @@ export default class ControllerGamePage {
         : this.gameData.getMistakes();
     if (!arrMistakes.includes(example)) {
       arrMistakes.push(example);
+      this.gameData.setNumMistakes(this.gameData.getNumMistakes() + 1);
       this.gameData.setMistakes(arrMistakes);
     }
   };
@@ -75,14 +87,17 @@ export default class ControllerGamePage {
   private checkAnswer = () => {
     if (this.currentExample !== null && this.answerField.textContent !== '??') {
       if (Number(this.answerField.innerText) === this.currentExample.answer) {
-        if (this.arrExamples !== null) {
-          this.gameData.setExamples(this.arrExamples);
+        if (this.startExampleTime !== null) {
+          const solveTime =
+            new Date().valueOf() - this.startExampleTime.valueOf();
+          const gameTime = this.gameData.getGameTime();
+          this.gameData.setGameTime(gameTime + solveTime);
         }
+        this.gameData.setExamples(this.arrExamples);
         this.infoBlock.showRightAnswer();
         this.increaseScore(this.currentExample.score);
         this.viewGamePage.updateScore();
         setTimeout(() => {
-          this.infoBlock.showInstruction();
           this.startNextExample();
         }, 1100);
       } else {

@@ -5,6 +5,7 @@ import ViewGamePage from '../view/ViewGamePage';
 import ViewSettingsPage from '../view/ViewSettingsPage';
 import ViewStartPage from '../view/ViewStartPage';
 import iExample from './iExample';
+import iRecord from './iRecord';
 import StorageGameData from './StorageGameData';
 
 export default class GameData {
@@ -12,26 +13,34 @@ export default class GameData {
   private controllerSettingsPage: ControllerSettingsPage | null;
   private controllerStartPage: ControllerStartPage | null;
   private examples: iExample[];
+  private gameTime: number;
   private mistakes: iExample[];
+  private numExamples: number;
+  private numMistakes: number;
   private operation: string;
+  private records: iRecord[];
+  private score: number;
+  public storageGameData: StorageGameData;
   private viewGamePage: ViewGamePage | null;
   private viewSettingsPage: ViewSettingsPage | null;
   private viewStartPage: ViewStartPage | null;
-  public storageGameData: StorageGameData;
-  private score: number;
 
   constructor() {
-    (this.controllerGamePage = null),
-      (this.controllerSettingsPage = null),
-      (this.controllerStartPage = null),
-      (this.examples = []),
-      (this.mistakes = []),
-      (this.operation = ''),
-      (this.viewGamePage = null),
-      (this.viewSettingsPage = null),
-      (this.viewStartPage = null);
-    this.storageGameData = new StorageGameData();
+    this.controllerGamePage = null;
+    this.controllerSettingsPage = null;
+    this.controllerStartPage = null;
+    this.examples = [];
+    this.gameTime = 0;
+    this.mistakes = [];
+    this.numExamples = 0;
+    this.numMistakes = 0;
+    this.operation = '';
+    this.records = [];
     this.score = 0;
+    this.storageGameData = new StorageGameData();
+    this.viewGamePage = null;
+    this.viewSettingsPage = null;
+    this.viewStartPage = null;
   }
 
   setViewStartPage = (viewStartPage: ViewStartPage) => {
@@ -86,6 +95,7 @@ export default class GameData {
 
   setExamples = (examples: iExample[]) => {
     this.examples = examples;
+    this.numExamples = examples.length;
   };
 
   getExamples = () => {
@@ -114,5 +124,44 @@ export default class GameData {
 
   getScore = () => {
     return this.score;
+  };
+
+  setGameTime = (num: number) => {
+    this.gameTime = num;
+  };
+
+  getGameTime = () => {
+    return this.gameTime;
+  };
+
+  setNumMistakes = (num: number) => {
+    this.numMistakes = num;
+  };
+
+  getNumMistakes = () => {
+    return this.numMistakes;
+  };
+
+  addRecord = (record: iRecord) => {
+    if (this.records.length > 0) {
+      this.records = [record, ...this.records];
+      if (this.records.length > 10) {
+        this.records.length = 10;
+      }
+    } else {
+      this.setRecords([record]);
+    }
+  };
+
+  getRecords = () => {
+    return this.records;
+  };
+
+  setRecords = (arrRecords: iRecord[]) => {
+    this.records = arrRecords;
+  };
+
+  getNumExamples = () => {
+    return this.numExamples;
   };
 }
