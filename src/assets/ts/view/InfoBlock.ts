@@ -23,14 +23,11 @@ export default class InfoBlock {
 
   showStatistics = () => {
     const examplesNum = this.gameData.getExamples().length;
+    const i = examplesNum % 100;
     const examplesWord =
-      examplesNum % 10 === 1 &&
-      (examplesNum < 10 || examplesNum > 20) &&
-      examplesNum % 100 !== 11
+      i % 10 === 1 && (i < 10 || i > 20) && i !== 11
         ? 'пример'
-        : examplesNum % 10 < 5 &&
-            (examplesNum % 100 < 10 || examplesNum % 100 > 20) &&
-            examplesNum % 100 !== 0
+        : i % 10 < 5 && i % 10 > 0 && (i < 10 || i > 20)
           ? 'примера'
           : 'примеров';
     this.infoBlock.innerHTML = `Осталось решить <br/><span class="game__statistics">${examplesNum}</span> ${examplesWord}.`;
