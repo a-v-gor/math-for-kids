@@ -171,6 +171,9 @@ export default class ControllerSettingsPage {
     this.gameData.setGameTime(0);
     this.gameData.setNumMistakes(0);
     this.gameData.setScore(0);
+    this.gameData.setNumExamples(
+      Number(this.descriptionNumExamples.textContent)
+    );
     this.applyTempSettings();
     this.makeSettingsBlockUnactive();
     this.viewSettingsPage.hide();
@@ -190,14 +193,14 @@ export default class ControllerSettingsPage {
       this.makeSettingsBlockUnactive
     );
     this.helpCloseButton.addEventListener('click', () =>
-      this.viewSettingsPage.viewHelp.hide()
+      this.viewSettingsPage.viewHelp?.hide()
     );
     this.navHome.addEventListener('click', () => {
       this.viewSettingsPage.hide();
       this.gameData.getViewStartPage()?.show();
     });
     this.navHelp.addEventListener('click', () => {
-      this.viewSettingsPage.viewHelp.show();
+      this.viewSettingsPage.viewHelp?.show();
     });
   };
 }

@@ -3,9 +3,9 @@ import returnElement from './returnElement';
 export default class ViewNavigation {
   nav: HTMLElement;
   navHome: HTMLElement;
-  navHelp: HTMLElement;
+  navHelp?: HTMLElement;
 
-  constructor() {
+  constructor(helpButton: boolean) {
     this.nav = returnElement({
       tag: 'nav',
       classes: ['menu'],
@@ -18,12 +18,15 @@ export default class ViewNavigation {
       tag: 'li',
       classes: ['menu__item', 'menu__home'],
     });
-    this.navHelp = <HTMLLIElement>returnElement({
-      tag: 'li',
-      classes: ['menu__item', 'menu__instruction'],
-    });
 
-    navUl.append(this.navHome, this.navHelp);
+    navUl.append(this.navHome);
+    if (helpButton === true) {
+      this.navHelp = <HTMLLIElement>returnElement({
+        tag: 'li',
+        classes: ['menu__item', 'menu__instruction'],
+      });
+      navUl.append(this.navHelp);
+    }
     this.nav.append(navUl);
   }
 

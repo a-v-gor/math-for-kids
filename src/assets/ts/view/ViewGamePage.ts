@@ -5,16 +5,13 @@ import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewGamePage extends ViewPage {
-  navHome: HTMLLIElement;
-  navHelp: HTMLLIElement | undefined;
-  helpCloseButton: HTMLButtonElement;
-  keysWrapper: HTMLDivElement;
   answerField: HTMLDivElement;
   example: HTMLDivElement;
+  helpCloseButton: HTMLButtonElement;
   infoBlock: HTMLDivElement;
-  title: HTMLElement;
-  viewHelp: ViewHelp;
+  keysWrapper: HTMLDivElement;
   scoreValue: HTMLParagraphElement;
+  title: HTMLElement;
 
   constructor(gameData: GameData) {
     super('gamePage', gameData);
@@ -22,7 +19,7 @@ export default class ViewGamePage extends ViewPage {
       tag: 'div',
       classes: ['wrapper', 'header__wrapper', 'game__header-wrapper'],
     });
-    const navigation = new ViewNavigation();
+    const navigation = new ViewNavigation(true);
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
     this.navHelp = <HTMLLIElement>navigation.returnHelpButton();
     const scoreWrapper = returnElement({

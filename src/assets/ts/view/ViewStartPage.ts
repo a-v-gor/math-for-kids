@@ -17,6 +17,11 @@ export default class ViewStartPage extends ViewPage {
       classes: ['button'],
       textContent: 'Продолжить игру',
     });
+    this.buttonRecords = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button'],
+      textContent: 'Рекорды',
+    });
     const buttonWrapper = returnElement({
       tag: 'div',
       classes: ['wrapper', 'button-wrapper'],
@@ -45,7 +50,11 @@ export default class ViewStartPage extends ViewPage {
 
     titleWrapper.append(title);
     this.header.append(titleWrapper);
-    buttonWrapper.append(this.buttonNewGame, this.buttonLoadGame);
+    buttonWrapper.append(
+      this.buttonNewGame,
+      this.buttonLoadGame,
+      this.buttonRecords
+    );
     this.main.append(buttonWrapper);
   }
 }

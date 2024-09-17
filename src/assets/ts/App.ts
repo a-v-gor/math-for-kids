@@ -35,7 +35,6 @@ export class App {
   private actualizeData = () => {
     const stringData: string | null =
       this.gameData.storageGameData.loadFromLS();
-
     let parsedObject: iObjForLS = {
       examples: [],
       mistakes: [],

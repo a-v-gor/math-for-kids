@@ -4,4 +4,5 @@ export default interface iRecord {
   numMistakes: number;
   time: number;
   score: number;
+  date: Date;
 }

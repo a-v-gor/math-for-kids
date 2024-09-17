@@ -23,7 +23,7 @@ export default class ControllerGamePage {
     this.answerField = this.viewGamePage.answerField;
     this.infoBlock = new InfoBlock(gameData);
     this.currentExample = null;
-    this.navHome = this.viewGamePage.navHome;
+    this.navHome = <HTMLLIElement>this.viewGamePage.navHome;
     this.navHelp = <HTMLLIElement>this.viewGamePage.navHelp;
     this.keysWrapper = this.viewGamePage.keysWrapper;
     this.arrExamples = [];
@@ -53,6 +53,7 @@ export default class ControllerGamePage {
         numMistakes: this.gameData.getNumMistakes(),
         score: this.gameData.getScore(),
         time: this.gameData.getGameTime(),
+        date: new Date(),
       };
       this.gameData.addRecord(record);
       this.infoBlock.showEndGame();
@@ -177,10 +178,10 @@ export default class ControllerGamePage {
       this.stop();
     });
     this.navHelp.addEventListener('click', () => {
-      this.viewGamePage.viewHelp.show();
+      this.viewGamePage.viewHelp?.show();
     });
     this.helpCloseButton.addEventListener('click', () =>
-      this.viewGamePage.viewHelp.hide()
+      this.viewGamePage.viewHelp?.hide()
     );
   };
 

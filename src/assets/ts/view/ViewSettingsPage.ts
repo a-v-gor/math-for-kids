@@ -5,26 +5,23 @@ import ViewNavigation from './ViewNavigation';
 import ViewPage from './ViewPage';
 
 export default class ViewSettingsPage extends ViewPage {
-  buttonWrapper: HTMLDivElement;
-  navHome: HTMLLIElement | undefined;
-  navHelp: HTMLLIElement | undefined;
-  helpCloseButton: HTMLButtonElement;
-  setNumExpressionsButtons: HTMLElement | undefined;
-  removeMostExamplesButton: HTMLButtonElement;
-  removeManyExamplesButton: HTMLButtonElement;
-  removeOneExampleButton: HTMLButtonElement;
-  addMostExamplesButton: HTMLButtonElement;
   addManyExamplesButton: HTMLButtonElement;
+  addMostExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
-  settingsApplyButton: HTMLButtonElement;
-  infoCloseButton: HTMLButtonElement;
   buttonSetMultiple: HTMLButtonElement;
   buttonSetSubstr: HTMLButtonElement;
   buttonSetSum: HTMLButtonElement;
+  buttonWrapper: HTMLDivElement;
   descriptionNumExamples: HTMLDivElement;
   descriptionOperation: HTMLDivElement;
+  helpCloseButton: HTMLButtonElement;
+  infoCloseButton: HTMLButtonElement;
+  removeManyExamplesButton: HTMLButtonElement;
+  removeMostExamplesButton: HTMLButtonElement;
+  removeOneExampleButton: HTMLButtonElement;
+  setNumExpressionsButtons: HTMLElement | undefined;
+  settingsApplyButton: HTMLButtonElement;
   settingsBlock: HTMLDivElement;
-  viewHelp: ViewHelp;
 
   constructor(gameData: GameData) {
     super('settingsPage', gameData);
@@ -40,7 +37,7 @@ export default class ViewSettingsPage extends ViewPage {
       classes: ['wrapper', 'header__wrapper'],
     });
 
-    const navigation = new ViewNavigation();
+    const navigation = new ViewNavigation(true);
 
     this.navHome = <HTMLLIElement>navigation.returnHomeButton();
     this.navHelp = <HTMLLIElement>navigation.returnHelpButton();

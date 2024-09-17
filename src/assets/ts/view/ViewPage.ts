@@ -1,17 +1,22 @@
 import GameData from '../model/GameData';
 import returnElement from './returnElement';
 import ViewFooter from './ViewFooter';
+import ViewHelp from './ViewHelp';
 
 export default abstract class ViewPage {
-  gameData: GameData;
   body: HTMLBodyElement;
+  buttonLoadGame?: HTMLButtonElement;
+  buttonRecords?: HTMLButtonElement;
+  buttonSetFix?: HTMLButtonElement;
+  footer: HTMLElement;
+  gameData: GameData;
   header: HTMLElement;
   main: HTMLElement;
-  footer: HTMLElement;
+  navHelp?: HTMLLIElement | undefined;
+  navHome?: HTMLLIElement | undefined;
   pageName: string;
-  buttonLoadGame?: HTMLButtonElement;
-  buttonSetFix?: HTMLButtonElement;
   updateTitle?: (value: string) => void;
+  viewHelp?: ViewHelp;
 
   constructor(name: string, data: GameData) {
     this.body = <HTMLBodyElement>document.body;
@@ -36,6 +41,7 @@ export default abstract class ViewPage {
 
     if (this.pageName === 'startPage') {
       const buttonLoadGame = <HTMLButtonElement>this.buttonLoadGame;
+      const buttonRecords = <HTMLButtonElement>this.buttonRecords;
       if (
         this.gameData.getExamples() === null ||
         this.gameData.getExamples().length === 0
@@ -43,6 +49,11 @@ export default abstract class ViewPage {
         buttonLoadGame.disabled = true;
       } else {
         buttonLoadGame.disabled = false;
+      }
+      if (this.gameData.getRecords().length > 0) {
+        buttonRecords.disabled = false;
+      } else {
+        buttonRecords.disabled = true;
       }
     }
 

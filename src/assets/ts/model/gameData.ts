@@ -2,6 +2,7 @@ import ControllerGamePage from '../controller/ControllerGamePage';
 import ControllerSettingsPage from '../controller/ControllerSettingsPage';
 import ControllerStartPage from '../controller/ControllerStartPage';
 import ViewGamePage from '../view/ViewGamePage';
+import ViewRecordsPage from '../view/ViewRecordsPage';
 import ViewSettingsPage from '../view/ViewSettingsPage';
 import ViewStartPage from '../view/ViewStartPage';
 import iExample from './iExample';
@@ -22,6 +23,7 @@ export default class GameData {
   private score: number;
   public storageGameData: StorageGameData;
   private viewGamePage: ViewGamePage | null;
+  private viewRecordsPage: ViewRecordsPage | null;
   private viewSettingsPage: ViewSettingsPage | null;
   private viewStartPage: ViewStartPage | null;
 
@@ -39,9 +41,18 @@ export default class GameData {
     this.score = 0;
     this.storageGameData = new StorageGameData();
     this.viewGamePage = null;
+    this.viewRecordsPage = null;
     this.viewSettingsPage = null;
     this.viewStartPage = null;
   }
+
+  setViewRecordsPage = (viewRecordsPage: ViewRecordsPage) => {
+    this.viewRecordsPage = viewRecordsPage;
+  };
+
+  getViewRecordsPage = () => {
+    return this.viewRecordsPage;
+  };
 
   setViewStartPage = (viewStartPage: ViewStartPage) => {
     this.viewStartPage = viewStartPage;
@@ -95,7 +106,6 @@ export default class GameData {
 
   setExamples = (examples: iExample[]) => {
     this.examples = examples;
-    this.numExamples = examples.length;
   };
 
   getExamples = () => {
@@ -163,5 +173,9 @@ export default class GameData {
 
   getNumExamples = () => {
     return this.numExamples;
+  };
+
+  setNumExamples = (num: number) => {
+    this.numExamples = num;
   };
 }
