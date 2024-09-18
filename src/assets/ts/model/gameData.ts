@@ -1,4 +1,5 @@
 import ControllerGamePage from '../controller/ControllerGamePage';
+import ControllerRecordsPage from '../controller/ControllerRecordsPage';
 import ControllerSettingsPage from '../controller/ControllerSettingsPage';
 import ControllerStartPage from '../controller/ControllerStartPage';
 import ViewGamePage from '../view/ViewGamePage';
@@ -11,6 +12,7 @@ import StorageGameData from './StorageGameData';
 
 export default class GameData {
   private controllerGamePage: ControllerGamePage | null;
+  private controllerRecordsPage: ControllerRecordsPage | null;
   private controllerSettingsPage: ControllerSettingsPage | null;
   private controllerStartPage: ControllerStartPage | null;
   private examples: iExample[];
@@ -29,6 +31,7 @@ export default class GameData {
 
   constructor() {
     this.controllerGamePage = null;
+    this.controllerRecordsPage = null;
     this.controllerSettingsPage = null;
     this.controllerStartPage = null;
     this.examples = [];
@@ -52,6 +55,14 @@ export default class GameData {
 
   getViewRecordsPage = () => {
     return this.viewRecordsPage;
+  };
+
+  setControllerRecordsPage = (controllerRecordsPage: ControllerRecordsPage) => {
+    this.controllerRecordsPage = controllerRecordsPage;
+  };
+
+  getControllerRecordsPage = () => {
+    return this.controllerRecordsPage;
   };
 
   setViewStartPage = (viewStartPage: ViewStartPage) => {

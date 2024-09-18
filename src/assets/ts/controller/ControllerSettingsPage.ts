@@ -48,7 +48,6 @@ export default class ControllerSettingsPage {
     this.settingsBlock = this.viewSettingsPage.settingsBlock;
     this.tempOperation = '';
     this.tempExamples = [];
-    gameData.setControllerSettingsPage(this);
   }
 
   addExamplesData = () => {

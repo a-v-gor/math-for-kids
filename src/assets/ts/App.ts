@@ -1,9 +1,11 @@
 import ControllerGamePage from './controller/ControllerGamePage';
+import ControllerRecordsPage from './controller/ControllerRecordsPage';
 import ControllerSettingsPage from './controller/ControllerSettingsPage';
 import ControllerStartPage from './controller/ControllerStartPage';
 import GameData from './model/GameData';
 import iObjForLS from './model/iObjForLS';
 import ViewGamePage from './view/ViewGamePage';
+import ViewRecordsPage from './view/ViewRecordsPage';
 import ViewSettingsPage from './view/ViewSettingsPage';
 import ViewStartPage from './view/ViewStartPage';
 
@@ -21,15 +23,19 @@ export class App {
     this.gameData.setViewSettingsPage(viewSettingsPage);
     const viewGamePage = new ViewGamePage(this.gameData);
     this.gameData.setViewGamePage(viewGamePage);
+    const viewRecordsPage = new ViewRecordsPage(this.gameData);
+    this.gameData.setViewRecordsPage(viewRecordsPage);
   }
 
   private addControllers() {
     const controllerStartPage = new ControllerStartPage(this.gameData);
     const controllerSettingsPage = new ControllerSettingsPage(this.gameData);
     const controllerGamePage = new ControllerGamePage(this.gameData);
+    const controllerRecordsPage = new ControllerRecordsPage(this.gameData);
     this.gameData.setControllerStartPage(controllerStartPage);
     this.gameData.setControllerSettingsPage(controllerSettingsPage);
     this.gameData.setControllerGamePage(controllerGamePage);
+    this.gameData.setControllerRecordsPage(controllerRecordsPage);
   }
 
   private actualizeData = () => {
@@ -62,6 +68,7 @@ export class App {
     this.gameData.getControllerStartPage()?.startListenButtons();
     this.gameData.getControllerSettingsPage()?.startListenButtons();
     this.gameData.getControllerGamePage()?.startListenEvents();
+    this.gameData.getControllerRecordsPage()?.startListenMenu();
     this.gameData.getViewStartPage()?.show();
   }
 }
