@@ -17,7 +17,6 @@ export default class ControllerStartPage {
   }
   showRecords = () => {
     this.viewStartPage.hide();
-    this.gameData.getViewRecordsPage()?.updateRecords();
     this.gameData.getViewRecordsPage()?.show();
   };
   startNewGame = () => {

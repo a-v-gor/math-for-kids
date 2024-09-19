@@ -73,6 +73,10 @@ export default abstract class ViewPage {
       }
       this.gameData.getViewGamePage()?.updateScore();
     }
+
+    if (this.pageName === 'recordsPage') {
+      this.gameData.getViewRecordsPage()?.updateRecords();
+    }
   };
   hide() {
     this.body.innerHTML = '';

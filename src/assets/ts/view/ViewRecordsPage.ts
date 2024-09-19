@@ -37,45 +37,81 @@ export default class ViewRecordsPage extends ViewPage {
     const records = this.gameData.getRecords();
     const table = returnElement({
       tag: 'div',
-      classes: ['table', 'records__table'],
+      classes: ['table', 'records'],
     });
 
-    records.forEach((element) => {
-      const row = returnElement({
+    const returnTextElement = (text: string) =>
+      returnElement({
         tag: 'div',
-        classes: ['table__row'],
+        classes: ['records__text'],
+        textContent: text,
       });
+
+    records.forEach((element) => {
+      const recordElement = returnElement({
+        tag: 'div',
+        classes: ['records__record'],
+      });
+      const returnEsteemText = () => {
+        const solveExampleTime = Math.ceil(
+          element.time / element.numExamples / 1000
+        );
+        if (
+          solveExampleTime <= 3 &&
+          (element.numMistakes === 0 ||
+            element.numMistakes / element.numExamples <= 0.1)
+        ) {
+          return 'Отлично!';
+        } else if (
+          solveExampleTime <= 4 &&
+          (element.numMistakes === 0 ||
+            element.numMistakes / element.numExamples <= 0.5)
+        ) {
+          return 'Хорошо.';
+        } else {
+          return 'Неплохо.';
+        }
+      };
       const timeStyle = new Intl.DateTimeFormat('ru', {
         timeStyle: 'short',
         dateStyle: 'long',
       });
-
-      const date = returnElement({
-        tag: 'div',
-        textContent: `${timeStyle.format(new Date(element.date))}`,
-      });
-      const operation = returnElement({
-        tag: 'div',
-        textContent: `Действие: «${element.operation}»`,
-      });
-      const numExamples = returnElement({
-        tag: 'div',
-        textContent: `Примеров: ${String(element.numExamples)}`,
-      });
-      const numMistakes = returnElement({
-        tag: 'div',
-        textContent: `Ошибок: ${String(element.numMistakes)}`,
-      });
-      const time = returnElement({
-        tag: 'div',
-        textContent: `Время: ${String(Math.ceil(element.time / 1000))} сек.`,
-      });
-      const score = returnElement({
-        tag: 'div',
-        textContent: `Счёт: ${String(element.score)}`,
-      });
-      row.append(date, operation, numExamples, numMistakes, time, score);
-      table.append(row);
+      const date = returnTextElement(timeStyle.format(new Date(element.date)));
+      date.classList.add('records__date');
+      const operation = returnTextElement(element.operation);
+      operation.classList.add('records__operation');
+      const numExamples = returnTextElement(
+        `Примеров: ${String(element.numExamples)}`
+      );
+      numExamples.classList.add('records__num-examples');
+      const numMistakes = returnTextElement(
+        `Ошибок: ${String(element.numMistakes)}`
+      );
+      numMistakes.classList.add('records__num-mistakes');
+      const time = returnTextElement(
+        `Время: ${String(Math.ceil(element.time / 1000))} сек.`
+      );
+      time.classList.add('records__time');
+      const score = returnTextElement(`Счёт: ${String(element.score)}`);
+      score.classList.add('records__score');
+      const esteem = returnTextElement(`Оценка: ${returnEsteemText()}`);
+      if (esteem.textContent === 'Оценка: Отлично!') {
+        esteem.classList.add('records__perfect');
+      } else if (esteem.textContent === 'Оценка: Хорошо.') {
+        esteem.classList.add('records__good');
+      } else {
+        esteem.classList.add('records__not-bad');
+      }
+      recordElement.append(
+        date,
+        operation,
+        numExamples,
+        numMistakes,
+        time,
+        score,
+        esteem
+      );
+      table.append(recordElement);
     });
     this.recordsWrapper.innerHTML = '';
     this.recordsWrapper.append(table);

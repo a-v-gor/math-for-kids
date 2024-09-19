@@ -63,7 +63,7 @@ export default class ControllerGamePage {
       this.gameData.setExamples([]);
       setTimeout(() => {
         this.stop();
-      }, 4000);
+      }, 3500);
     }
   };
 
@@ -166,7 +166,7 @@ export default class ControllerGamePage {
 
   private stop = () => {
     this.viewGamePage.hide();
-    this.gameData.getViewStartPage()?.show();
+    this.gameData.getViewRecordsPage()?.show();
   };
 
   private startListenMenu = () => {

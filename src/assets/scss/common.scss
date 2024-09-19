@@ -74,5 +74,6 @@
   flex-grow: 0.95;
   flex-direction: column;
   row-gap: 2vh;
-  padding-bottom: 3rem;
+  padding: 0.5rem 0 3rem;
+  overflow-y: auto;
 }

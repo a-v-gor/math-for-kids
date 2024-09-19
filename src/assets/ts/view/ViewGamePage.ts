@@ -99,7 +99,7 @@ export default class ViewGamePage extends ViewPage {
 
     this.viewHelp = new ViewHelp([
       'Максимально возможное число для ввода — «100». После ввода числа следует подтвердить свой ответ (нажатием на кнопку «✓» или «Enter» на клавиатуре).',
-      'При ошибке можно стереть введенное значение (нажатием на кнопку «×» или «Delete», «Backspace» на клавиатуре).',
+      'При ошибке можно стереть введенное значение (нажатием на кнопку «×» или «Delete», «Backspace», «Esc» на клавиатуре).',
     ]);
     this.helpCloseButton = this.viewHelp.returnCloseButton();
 
