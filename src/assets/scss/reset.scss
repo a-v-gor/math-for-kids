@@ -15,6 +15,10 @@ html {
   @media (height <= $height-min) {
     font-size: 50%;
   }
+
+  @media (height > $height-max) {
+    font-size: 1.4vh;
+  }
 }
 
 body {
