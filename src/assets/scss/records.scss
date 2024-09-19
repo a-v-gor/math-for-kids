@@ -3,6 +3,10 @@
   flex-direction: column;
   row-gap: 1.6rem;
 
+  &__main {
+    overflow-y: auto;
+  }
+
   &__record {
     display: grid;
     row-gap: 0.7rem;

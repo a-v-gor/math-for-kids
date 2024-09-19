@@ -100,9 +100,9 @@ export default class ViewGamePage extends ViewPage {
     this.viewHelp = new ViewHelp([
       'Максимально возможное число для ввода — «100». После ввода числа следует подтвердить свой ответ (нажатием на кнопку «✓» или «Enter» на клавиатуре).',
       'При ошибке можно стереть введенное значение (нажатием на кнопку «×» или «Delete», «Backspace», «Esc» на клавиатуре).',
+      'Игра считайется пройденной после решения всех примеров (результат заносится в книгу рекордов, посмотреть которую можно нажав «Рекорды» на главной страницы игры). Если прервать игру не решив все примеры (закрыть вкладку браузера или нажать на домик в меню), результат не будет сохранен, но игра не удалится. Игру можно завершить в будущем, выбрав «Продолжить игру» на главной странице.',
     ]);
     this.helpCloseButton = this.viewHelp.returnCloseButton();
-
     const viewHelpBlock = this.viewHelp.returnBlock();
     scoreWrapper.append(scoreTitle, this.scoreValue);
     headerWrapper.append(this.title, navigation.returnElement(), scoreWrapper);

@@ -28,6 +28,7 @@ export default class ViewRecordsPage extends ViewPage {
 
     this.arrRecords = gameData.getRecords();
 
+    this.main.classList.add('records__main');
     headerWrapper.append(title, navigation.returnElement());
     this.header.append(headerWrapper);
     this.main.append(this.recordsWrapper);

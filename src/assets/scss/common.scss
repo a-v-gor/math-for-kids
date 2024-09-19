@@ -29,6 +29,10 @@
   filter: drop-shadow(0 0.4rem 0.4rem $color-button-shadow);
   user-select: none;
 
+  @media (height <= $height-min) {
+    font-size: 4vh;
+  }
+
   &:hover {
     cursor: pointer;
   }
@@ -54,6 +58,10 @@
   font-family: "Ribeye", serif;
   text-align: center;
   color: $color-title-second;
+
+  @media (height <= $height-min) {
+    font-size: 3em;
+  }
 }
 
 .wrapper {
@@ -75,5 +83,4 @@
   flex-direction: column;
   row-gap: 2vh;
   padding: 0.5rem 0 3rem;
-  overflow-y: auto;
 }

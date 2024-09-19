@@ -62,7 +62,8 @@ export default class ControllerGamePage {
       this.currentExample = null;
       this.gameData.setExamples([]);
       setTimeout(() => {
-        this.stop();
+        this.viewGamePage.hide();
+        this.gameData.getViewRecordsPage()?.show();
       }, 3500);
     }
   };
@@ -164,18 +165,14 @@ export default class ControllerGamePage {
     });
   };
 
-  private stop = () => {
-    this.viewGamePage.hide();
-    this.gameData.getViewRecordsPage()?.show();
-  };
-
   private startListenMenu = () => {
     this.navHome.addEventListener('click', () => {
       this.gameData.storageGameData.saveToLS(
         this.gameData,
         <iExample>this.currentExample
       );
-      this.stop();
+      this.viewGamePage.hide();
+      this.gameData.getViewStartPage()?.show();
     });
     this.navHelp.addEventListener('click', () => {
       this.viewGamePage.viewHelp?.show();

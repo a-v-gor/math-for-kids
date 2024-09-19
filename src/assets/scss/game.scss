@@ -19,6 +19,11 @@
     background-color: $color-info-bckgrnd;
     border: 0.2rem solid $color-button-border-disabled;
     border-radius: 1rem;
+
+    @media (height <= $height-min) {
+      height: 5.7rem;
+      font-size: 1.8em;
+    }
   }
 
   &__example-wrapper {

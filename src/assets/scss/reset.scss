@@ -11,6 +11,10 @@
 
 html {
   font-size: 62.5%;
+
+  @media (height <= $height-min) {
+    font-size: 50%;
+  }
 }
 
 body {

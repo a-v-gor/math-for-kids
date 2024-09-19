@@ -18,7 +18,7 @@ export default class ViewFooter {
     const copyrightTitle = returnElement({
       tag: 'div',
       classes: ['footer__block-title'],
-      textContent: 'Разработка: ',
+      textContent: '© ',
     });
     const copyrightLink = returnElement({
       tag: 'a',
@@ -41,7 +41,7 @@ export default class ViewFooter {
     const designTitle = returnElement({
       tag: 'div',
       classes: ['footer__block-title'],
-      textContent: 'Дизайн: ',
+      textContent: 'Идея дизайна: ',
     });
     const designLink = returnElement({
       tag: 'a',

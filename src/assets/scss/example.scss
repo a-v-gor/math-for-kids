@@ -6,6 +6,10 @@
     font-size: 4em;
     color: $color-title-fifth;
     text-shadow: -0.01em 0 $color-border-example, 0 0.01em $color-border-example, 0.01em 0 $color-border-example, 0 -0.01em $color-border-example;
+
+    @media (height <= $height-min) {
+      font-size: 3em;
+    }
   }
 
   &__input {
@@ -16,6 +20,10 @@
     font-size: 4.8em;
     text-align: center;
     color: $color-title-third;
+
+    @media (height <= $height-min) {
+      font-size: 3.4em;
+    }
   }
 
   &__wrapper {
