@@ -112,7 +112,7 @@ export default class ControllerGamePage {
     }
   };
 
-  private controlPressedKey(keyValue: string) {
+  private controlPressedKey = (keyValue: string) => {
     switch (keyValue) {
       case '×':
         this.answerField.innerText = '??';
@@ -131,7 +131,7 @@ export default class ControllerGamePage {
           this.answerField.innerText += keyValue;
         }
     }
-  }
+  };
 
   private checkPressedButton = (event: Event) => {
     const button = <HTMLButtonElement>event.target;
@@ -147,7 +147,7 @@ export default class ControllerGamePage {
     );
   };
 
-  private checkKeyboardButtons(event: KeyboardEvent) {
+  private checkKeyboardButtons = (event: KeyboardEvent) => {
     const key = event.key;
     if (!key.match(/\D/g)) {
       this.controlPressedKey(key);
@@ -156,13 +156,13 @@ export default class ControllerGamePage {
     } else if (key === 'Enter') {
       this.controlPressedKey('✓');
     }
-  }
+  };
 
-  private startListenKeyboardButtons() {
+  private startListenKeyboardButtons = () => {
     document.addEventListener('keyup', (event: KeyboardEvent) => {
       this.checkKeyboardButtons(event);
     });
-  }
+  };
 
   private stop = () => {
     this.viewGamePage.hide();
@@ -185,14 +185,14 @@ export default class ControllerGamePage {
     );
   };
 
-  private startListenCloseWindow() {
+  private startListenCloseWindow = () => {
     window.addEventListener('beforeunload', () => {
       this.gameData.storageGameData.saveToLS(
         this.gameData,
         <iExample>this.currentExample
       );
     });
-  }
+  };
 
   startListenEvents() {
     this.startListenNumButtons();
