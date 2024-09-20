@@ -57,7 +57,7 @@ export default class Examples {
 
   private returnSum = () => {
     const arr = [];
-    for (let i = 1; i < 19; i += 1) {
+    for (let i = 1; i < 20; i += 1) {
       for (let j = 1; j + i <= 20; j += 1) {
         const example = `${i} + ${j}`;
         const answer = i + j;
