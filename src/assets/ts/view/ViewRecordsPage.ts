@@ -58,13 +58,13 @@ export default class ViewRecordsPage extends ViewPage {
           element.time / element.numExamples / 1000
         );
         if (
-          solveExampleTime <= 3 &&
+          solveExampleTime <= 4 &&
           (element.numMistakes === 0 ||
             element.numMistakes / element.numExamples <= 0.1)
         ) {
           return 'Отлично!';
         } else if (
-          solveExampleTime <= 4 &&
+          solveExampleTime <= 5.5 &&
           (element.numMistakes === 0 ||
             element.numMistakes / element.numExamples <= 0.5)
         ) {
