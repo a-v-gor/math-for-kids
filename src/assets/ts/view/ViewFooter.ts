@@ -18,7 +18,7 @@ export default class ViewFooter {
     const copyrightTitle = returnElement({
       tag: 'div',
       classes: ['footer__block-title'],
-      textContent: '© ',
+      textContent: '©, дизайн: ',
     });
     const copyrightLink = returnElement({
       tag: 'a',
@@ -27,7 +27,7 @@ export default class ViewFooter {
         { name: 'href', value: 'https://github.com/a-v-gor' },
         { name: 'target', value: '_blank' },
       ],
-      textContent: 'А. Горбенко',
+      textContent: 'А.Горбенко',
     });
     const year = returnElement({
       tag: 'div',
@@ -36,12 +36,12 @@ export default class ViewFooter {
     });
     const design = returnElement({
       tag: 'div',
-      classes: ['footer__block'],
+      classes: ['footer__block', 'footer__design'],
     });
     const designTitle = returnElement({
       tag: 'div',
       classes: ['footer__block-title'],
-      textContent: 'Идея дизайна: ',
+      textContent: 'Дизайн: ',
     });
     const designLink = returnElement({
       tag: 'a',
@@ -54,7 +54,7 @@ export default class ViewFooter {
         },
         { name: 'target', value: '_blank' },
       ],
-      textContent: 'Nidhi Pandya',
+      textContent: 'N.Pandya',
     });
     copyright.append(copyrightTitle, copyrightLink);
     design.append(designTitle, designLink);

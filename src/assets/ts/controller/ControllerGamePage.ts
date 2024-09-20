@@ -75,6 +75,7 @@ export default class ControllerGamePage {
         : this.gameData.getMistakes();
     if (!arrMistakes.includes(example)) {
       arrMistakes.push(example);
+      example.score -= 1;
       this.gameData.setNumMistakes(this.gameData.getNumMistakes() + 1);
       this.gameData.setMistakes(arrMistakes);
     }

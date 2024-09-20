@@ -7,16 +7,20 @@
   width: 100%;
   height: 2rem;
   margin: 1rem 0;
-  font-size: 1.1em;
+  font-size: 1.2em;
   background-color: $color-footer-bckgrnd;
 
   &__wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
     width: 100%;
-    max-width: 30rem;
+    max-width: 50rem;
     height: fit-content;
+    padding: 0 2rem;
+
+    @media (width <= $width-min) {
+      padding: 0;
+    }
   }
 
   &__block {
@@ -31,7 +35,12 @@
   }
 
   &__year {
+    justify-self: center;
     font-weight: 700;
     color: $color-footer-year;
+  }
+
+  &__design {
+    justify-self: end;
   }
 }

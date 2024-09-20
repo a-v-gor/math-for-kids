@@ -19,7 +19,7 @@ export default class ViewRecordsPage extends ViewPage {
     const title = returnElement({
       tag: 'h1',
       classes: ['title'],
-      textContent: 'Таблица рекордов',
+      textContent: 'Рекорды',
     });
     this.recordsWrapper = <HTMLDivElement>returnElement({
       tag: 'div',
