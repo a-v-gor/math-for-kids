@@ -75,10 +75,12 @@ export default class ControllerGamePage {
       this.gameData.getMistakes() === undefined
         ? []
         : this.gameData.getMistakes();
-    if (!arrMistakes.includes(example)) {
+    const examplesTexts: string[] = [];
+    arrMistakes.forEach((item) => {
+      examplesTexts.push(item.example)
+    })
+    if (!examplesTexts.includes(example.example)) {
       arrMistakes.push(example);
-      example.score -= 1;
-      this.gameData.setNumMistakes(this.gameData.getNumMistakes() + 1);
       this.gameData.setMistakes(arrMistakes);
     }
   };
@@ -108,6 +110,9 @@ export default class ControllerGamePage {
           this.blockButtons = false;
         }, 1100);
       } else {
+        if (this.currentExample.score > 0) {
+          this.currentExample.score -= 1;
+        }
         this.addExampleToMistakes(this.currentExample);
         this.infoBlock.showWrongAnswer();
         this.blockButtons = true;
