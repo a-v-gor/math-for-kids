@@ -8,6 +8,7 @@ export default class ViewSettingsPage extends ViewPage {
   addManyExamplesButton: HTMLButtonElement;
   addMostExamplesButton: HTMLButtonElement;
   addOneExampleButton: HTMLButtonElement;
+  buttonSetDivide: HTMLButtonElement;
   buttonSetMultiple: HTMLButtonElement;
   buttonSetSubstr: HTMLButtonElement;
   buttonSetSum: HTMLButtonElement;
@@ -63,6 +64,12 @@ export default class ViewSettingsPage extends ViewPage {
       tag: 'button',
       classes: ['button'],
       textContent: '× Умножение',
+    });
+
+    this.buttonSetDivide = <HTMLButtonElement>returnElement({
+      tag: 'button',
+      classes: ['button'],
+      textContent: ': Деление',
     });
 
     this.buttonSetFix = <HTMLButtonElement>returnElement({
@@ -214,7 +221,8 @@ export default class ViewSettingsPage extends ViewPage {
       this.buttonSetSum,
       this.buttonSetSubstr,
       this.buttonSetMultiple,
-      this.buttonSetFix
+      this.buttonSetDivide,
+      this.buttonSetFix,
     );
     this.main.append(viewHelpBlock, this.buttonWrapper, this.settingsBlock);
   }
