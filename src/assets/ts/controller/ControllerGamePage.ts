@@ -16,6 +16,7 @@ export default class ControllerGamePage {
   keysWrapper: HTMLDivElement;
   arrExamples: iExample[];
   startExampleTime: Date | null;
+  blockButtons: boolean;
 
   constructor(gameData: GameData) {
     this.gameData = gameData;
@@ -29,6 +30,7 @@ export default class ControllerGamePage {
     this.arrExamples = [];
     this.helpCloseButton = this.viewGamePage.helpCloseButton;
     this.startExampleTime = null;
+    this.blockButtons = false;
   }
 
   startNextExample = () => {
@@ -100,13 +102,17 @@ export default class ControllerGamePage {
         this.infoBlock.showRightAnswer();
         this.increaseScore(this.currentExample.score);
         this.viewGamePage.updateScore();
+        this.blockButtons = true;
         setTimeout(() => {
           this.startNextExample();
+          this.blockButtons = false;
         }, 1100);
       } else {
         this.addExampleToMistakes(this.currentExample);
         this.infoBlock.showWrongAnswer();
+        this.blockButtons = true;
         setTimeout(() => {
+          this.blockButtons = false;
           this.infoBlock.showInstruction();
           this.answerField.innerText = '??';
         }, 1100);
@@ -115,23 +121,25 @@ export default class ControllerGamePage {
   };
 
   private controlPressedKey = (keyValue: string) => {
-    switch (keyValue) {
-      case '×':
-        this.answerField.innerText = '??';
-        break;
-      case '✓':
-        this.checkAnswer();
-        break;
-      default:
-        if (
-          (this.answerField.innerText.length > 1 &&
-            this.answerField.innerText !== '10') ||
-          this.answerField.innerText === '??'
-        ) {
-          this.answerField.innerText = keyValue;
-        } else {
-          this.answerField.innerText += keyValue;
-        }
+    if(this.blockButtons === false) {
+      switch (keyValue) {
+        case '×':
+          this.answerField.innerText = '??';
+          break;
+        case '✓':
+          this.checkAnswer();
+          break;
+        default:
+          if (
+            (this.answerField.innerText.length > 1 &&
+              this.answerField.innerText !== '10') ||
+            this.answerField.innerText === '??'
+          ) {
+            this.answerField.innerText = keyValue;
+          } else {
+            this.answerField.innerText += keyValue;
+          }
+      }
     }
   };
 
