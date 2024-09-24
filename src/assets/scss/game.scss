@@ -35,3 +35,13 @@
     color: $color-title-second;
   }
 }
+
+.game-info {
+  &__correct {
+    background-color: $color-title-second;
+  }
+
+  &__wrong {
+    background-color: $color-button-settings-close;
+  }
+}

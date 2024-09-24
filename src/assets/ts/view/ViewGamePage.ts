@@ -46,7 +46,7 @@ export default class ViewGamePage extends ViewPage {
     });
     this.infoBlock = <HTMLDivElement>returnElement({
       tag: 'div',
-      classes: ['game__info'],
+      classes: ['game__info', "game-info"],
     });
     const exampleWrapper = returnElement({
       tag: 'div',

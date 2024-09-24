@@ -11,17 +11,30 @@ export default class InfoBlock {
 
   showRightAnswer = () => {
     this.infoBlock.innerText = 'Верно!';
+    this.infoBlock.classList.add('game-info__correct');
   };
 
   showWrongAnswer = () => {
     this.infoBlock.innerText = 'Неправильно. попробуй еще раз.';
+    this.infoBlock.classList.add('game-info__wrong');
   };
 
+  unstyleInfoBlock = () => {
+    if(this.infoBlock.classList.contains('game-info__correct')) {
+      this.infoBlock.classList.remove('game-info__correct')
+    }
+    if(this.infoBlock.classList.contains('game-info__wrong')) {
+      this.infoBlock.classList.remove('game-info__wrong')
+    }
+  }
+
   showInstruction = () => {
+    this.unstyleInfoBlock();
     this.infoBlock.innerText = 'Введи число и нажми «✓».';
   };
 
   showStatistics = () => {
+    this.unstyleInfoBlock();
     const examplesNum = this.gameData.getExamples().length;
     const i = examplesNum % 100;
     const examplesWord =
