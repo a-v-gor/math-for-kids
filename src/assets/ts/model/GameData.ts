@@ -164,7 +164,7 @@ export default class GameData {
   };
 
   addRecord = (record: iRecord) => {
-    if (this.records.length > 0) {
+    if (this.records?.length > 0) {
       this.records = [record, ...this.records];
       if (this.records.length > 10) {
         this.records.length = 10;
