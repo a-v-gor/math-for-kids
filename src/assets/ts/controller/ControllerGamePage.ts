@@ -3,8 +3,12 @@ import iExample from '../model/iExample';
 import iRecord from '../model/iRecord';
 import InfoBlock from '../view/InfoBlock';
 import ViewGamePage from '../view/ViewGamePage';
+import audioOk from '../../audio/ok.mp3';
+import audioErr from '../../audio/error.mp3';
 
 export default class ControllerGamePage {
+  soundOk: HTMLAudioElement;
+  soundError: HTMLAudioElement;
   gameData: GameData;
   viewGamePage: ViewGamePage;
   answerField: HTMLDivElement;
@@ -31,6 +35,8 @@ export default class ControllerGamePage {
     this.helpCloseButton = this.viewGamePage.helpCloseButton;
     this.startExampleTime = null;
     this.blockButtons = false;
+    this.soundOk = new Audio(audioOk);
+    this.soundError = new Audio(audioErr);
   }
 
   startNextExample = () => {
@@ -77,8 +83,8 @@ export default class ControllerGamePage {
         : this.gameData.getMistakes();
     const examplesTexts: string[] = [];
     arrMistakes.forEach((item) => {
-      examplesTexts.push(item.example)
-    })
+      examplesTexts.push(item.example);
+    });
     if (!examplesTexts.includes(example.example)) {
       arrMistakes.push(example);
       this.gameData.setMistakes(arrMistakes);
@@ -102,6 +108,7 @@ export default class ControllerGamePage {
         }
         this.gameData.setExamples(this.arrExamples);
         this.infoBlock.showRightAnswer();
+        void this.soundOk.play();
         this.increaseScore(this.currentExample.score);
         this.viewGamePage.updateScore();
         this.blockButtons = true;
@@ -115,6 +122,7 @@ export default class ControllerGamePage {
         }
         this.addExampleToMistakes(this.currentExample);
         this.infoBlock.showWrongAnswer();
+        void this.soundError.play();
         this.blockButtons = true;
         setTimeout(() => {
           this.blockButtons = false;
@@ -126,7 +134,7 @@ export default class ControllerGamePage {
   };
 
   private controlPressedKey = (keyValue: string) => {
-    if(this.blockButtons === false) {
+    if (this.blockButtons === false) {
       switch (keyValue) {
         case '×':
           this.answerField.innerText = '??';

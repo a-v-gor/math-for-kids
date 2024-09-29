@@ -87,9 +87,14 @@ export default class ControllerSettingsPage {
     this.makeSettingsBlockActive();
     this.addExamplesData();
     const numExamples = this.tempExamples.length;
-    const lastNumExamples = this.gameData.getRecords()[0] !== undefined ? this.gameData.getRecords()[0].numExamples : 10;
+    const lastNumExamples =
+      this.gameData.getRecords() !== undefined
+        ? this.gameData.getRecords()[0].numExamples
+        : 10;
     this.descriptionNumExamples.textContent =
-      numExamples >= lastNumExamples ? String(lastNumExamples) : String(numExamples);
+      numExamples >= lastNumExamples
+        ? String(lastNumExamples)
+        : String(numExamples);
   };
 
   checkActiveSetNumButtons = () => {

@@ -50,7 +50,7 @@ export default abstract class ViewPage {
       } else {
         buttonLoadGame.disabled = false;
       }
-      if (this.gameData.getRecords().length > 0) {
+      if (this.gameData.getRecords()?.length > 0) {
         buttonRecords.disabled = false;
       } else {
         buttonRecords.disabled = true;
